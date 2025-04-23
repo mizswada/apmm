@@ -15,7 +15,7 @@
             <h3 class="text-2xl font-bold">150</h3>
           </div>
           <div class="p-3 bg-blue-100 rounded-full">
-            <i class="i-carbon-ship text-2xl text-blue-600"></i>
+            <Icon class="text-primary" name="fluent:vehicle-ship-20-filled"></Icon>
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
             <h3 class="text-2xl font-bold">120</h3>
           </div>
           <div class="p-3 bg-green-100 rounded-full">
-            <i class="i-carbon-checkmark text-2xl text-green-600"></i>
+            <Icon class="text-primary" name="fluent:vehicle-ship-20-filled"></Icon>
           </div>
         </div>
       </div>
@@ -39,7 +39,7 @@
             <h3 class="text-2xl font-bold">25</h3>
           </div>
           <div class="p-3 bg-yellow-100 rounded-full">
-            <i class="i-carbon-tools text-2xl text-yellow-600"></i>
+            <Icon class="text-primary" name="fluent:vehicle-ship-20-filled"></Icon>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
             <h3 class="text-2xl font-bold">5</h3>
           </div>
           <div class="p-3 bg-red-100 rounded-full">
-            <i class="i-carbon-warning text-2xl text-red-600"></i>
+            <Icon class="text-primary" name="fluent:vehicle-ship-20-filled"></Icon>
           </div>
         </div>
       </div>
@@ -62,11 +62,9 @@
       <div class="p-6">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-xl font-semibold">Registered Ships</h2>
-          <button 
-            @click="$router.push('/kapal/add')"
-            class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-          >
-            <i class="i-carbon-add"></i>
+          <button  @click="$router.push('/kapal/add')" class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+            <Icon class="text-white" name="material-symbols:add"></Icon>
+
             Add New Ship
           </button>
         </div>
@@ -94,17 +92,20 @@
                 <td class="py-3 px-4">2024-03-15</td>
                 <td class="py-3 px-4">
                   <div class="flex gap-2">
-                    <button class="text-blue-600 hover:text-blue-800">
-                      <i class="i-carbon-view"></i>
+                    <button 
+                      @click="$router.push(`/kapal/1`)"
+                      class="text-blue-600 hover:text-blue-800"
+                    >
+                      <Icon class="text-primary" name="weui:eyes-on-outlined"></Icon>
                     </button>
                     <button 
-                      @click="$router.push(`/kapal/edit/${ship.id}`)"
+                      @click="$router.push(`/kapal/edit/1`)"
                       class="text-yellow-600 hover:text-yellow-800"
                     >
-                      <i class="i-carbon-edit"></i>
+                      <Icon class="text-primary" name="material-symbols:edit-outline-sharp"></Icon>                     
                     </button>
-                    <button class="text-red-600 hover:text-red-800">
-                      <i class="i-carbon-trash-can"></i>
+                    <button class="text-red-600 hover:text-red-800">                      
+                      <Icon class="text-primary" name="material-symbols:delete-outline-sharp"></Icon>
                     </button>
                   </div>
                 </td>
