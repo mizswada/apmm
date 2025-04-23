@@ -25,7 +25,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Ship Name</label>
-              <input
+               <FormKit
                 v-model="ship.shipName"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -34,7 +34,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">IMO Number</label>
-              <input
+               <FormKit
                 v-model="ship.imoNumber"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -43,7 +43,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Call Sign</label>
-              <input
+               <FormKit
                 v-model="ship.callSign"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -52,7 +52,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">MMSI Number</label>
-              <input
+               <FormKit
                 v-model="ship.mmsiNumber"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -82,7 +82,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Gross Tonnage</label>
-              <input
+               <FormKit
                 v-model="ship.grossTonnage"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -91,7 +91,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Length Overall (m)</label>
-              <input
+               <FormKit
                 v-model.number="ship.lengthOverall"
                 type="number"
                 step="0.01"
@@ -101,7 +101,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Breadth (m)</label>
-              <input
+               <FormKit
                 v-model.number="ship.breadth"
                 type="number"
                 step="0.01"
@@ -111,7 +111,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Draft (m)</label>
-              <input
+               <FormKit
                 v-model.number="ship.draft"
                 type="number"
                 step="0.01"
@@ -121,7 +121,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Year Built</label>
-              <input
+               <FormKit
                 v-model="ship.yearBuilt"
                 type="number"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -137,7 +137,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Flag State</label>
-              <input
+               <FormKit
                 v-model="ship.flagState"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -146,7 +146,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Port of Registry</label>
-              <input
+               <FormKit
                 v-model="ship.portOfRegistry"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -155,7 +155,7 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Classification Society</label>
-              <input
+               <FormKit
                 v-model="ship.classificationSociety"
                 type="text"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
