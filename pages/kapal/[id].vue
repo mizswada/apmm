@@ -285,7 +285,16 @@
             </rs-tab-item>
             <rs-tab-item title="Ship Modification">
                 <div class="p-6">
-                    <h2 class="text-lg font-semibold mb-4">Modification History</h2>
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">Modification History</h2>
+                        <button
+                            @click="showAddModificationModal = true"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                        >
+                            <Icon name="material-symbols:add" />
+                            Add Modification
+                        </button>
+                    </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full">
                             <thead>
@@ -297,6 +306,7 @@
                                     <th class="text-left py-3 px-4">Location</th>
                                     <th class="text-left py-3 px-4">Contractor</th>
                                     <th class="text-left py-3 px-4">Status</th>
+                                    <th class="text-left py-3 px-4">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -319,6 +329,22 @@
                                         >
                                             {{ modification.status }}
                                         </span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex gap-2">
+                                            <button
+                                                @click="editModification(modification)"
+                                                class="p-2 text-blue-600 hover:text-blue-800"
+                                            >
+                                                <Icon name="material-symbols:edit-outline" />
+                                            </button>
+                                            <button
+                                                @click="deleteModification(modification)"
+                                                class="p-2 text-red-600 hover:text-red-800"
+                                            >
+                                                <Icon name="material-symbols:delete-outline" />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -630,6 +656,171 @@
                 </button>
                 <button
                     @click="updateCrew"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                    Update Status
+                </button>
+            </div>
+        </template>
+    </rs-modal>
+
+    <!-- Add Modification Modal -->
+    <rs-modal v-model="showAddModificationModal" size="lg" title="Add New Modification">
+        <div class="p-4">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Modification Type</label>
+                    <FormKit
+                        v-model="newModification.type"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Enter modification type"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <FormKit
+                        v-model="newModification.description"
+                        type="textarea"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Enter modification description"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Date Completed</label>
+                    <FormKit
+                        v-model="newModification.dateCompleted"
+                        type="date"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Location</label>
+                    <FormKit
+                        v-model="newModification.location"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Enter location"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Contractor</label>
+                    <FormKit
+                        v-model="newModification.contractor"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Enter contractor name"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <FormKit
+                        v-model="newModification.status"
+                        type="select"
+                        :options="[
+                            { label: 'Completed', value: 'Completed' },
+                            { label: 'In Progress', value: 'In Progress' },
+                            { label: 'Pending', value: 'Pending' },
+                            { label: 'Approved', value: 'Approved' }
+                        ]"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                </div>
+            </div>
+        </div>
+        <template #footer>
+            <div class="flex justify-end gap-2">
+                <button
+                    @click="showAddModificationModal = false"
+                    class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="addNewModification"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                    Add Modification
+                </button>
+            </div>
+        </template>
+    </rs-modal>
+
+    <!-- Edit Modification Modal -->
+    <rs-modal v-model="showEditModificationModal" size="lg" title="Edit Modification">
+        <div class="p-4">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Modification Type</label>
+                    <FormKit
+                        v-model="editingModification.type"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <FormKit
+                        v-model="editingModification.description"
+                        type="textarea"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Date Completed</label>
+                    <FormKit
+                        v-model="editingModification.dateCompleted"
+                        type="date"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Location</label>
+                    <FormKit
+                        v-model="editingModification.location"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Contractor</label>
+                    <FormKit
+                        v-model="editingModification.contractor"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <FormKit
+                        v-model="editingModification.status"
+                        type="select"
+                        :options="[
+                            { label: 'Completed', value: 'Completed' },
+                            { label: 'In Progress', value: 'In Progress' },
+                            { label: 'Pending', value: 'Pending' },
+                            { label: 'Approved', value: 'Approved' }
+                        ]"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                </div>
+            </div>
+        </div>
+        <template #footer>
+            <div class="flex justify-end gap-2">
+                <button
+                    @click="showEditModificationModal = false"
+                    class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="updateModification"
                     class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                 >
                     Update Status
@@ -1188,6 +1379,76 @@ const deleteCrew = (member) => {
         const index = crew.value.findIndex(m => m.id === member.id)
         if (index !== -1) {
             crew.value.splice(index, 1)
+        }
+    }
+}
+
+// Add these new refs and functions
+const showAddModificationModal = ref(false)
+const newModification = ref({
+    type: '',
+    description: '',
+    dateCompleted: new Date().toISOString().split('T')[0],
+    location: '',
+    contractor: '',
+    status: 'Pending'
+})
+
+const showEditModificationModal = ref(false)
+const editingModification = ref({
+    id: null,
+    type: '',
+    description: '',
+    dateCompleted: '',
+    location: '',
+    contractor: '',
+    status: 'Pending'
+})
+
+const addNewModification = () => {
+    const newId = shipModifications.value.length + 1
+    shipModifications.value.push({
+        id: newId,
+        type: newModification.value.type,
+        description: newModification.value.description,
+        dateCompleted: newModification.value.dateCompleted,
+        location: newModification.value.location,
+        contractor: newModification.value.contractor,
+        status: newModification.value.status
+    })
+    
+    // Reset form
+    newModification.value = {
+        type: '',
+        description: '',
+        dateCompleted: new Date().toISOString().split('T')[0],
+        location: '',
+        contractor: '',
+        status: 'Pending'
+    }
+    
+    // Close modal
+    showAddModificationModal.value = false
+}
+
+const editModification = (modification) => {
+    editingModification.value = { ...modification }
+    showEditModificationModal.value = true
+}
+
+const updateModification = () => {
+    const index = shipModifications.value.findIndex(mod => mod.id === editingModification.value.id)
+    if (index !== -1) {
+        shipModifications.value[index] = { ...editingModification.value }
+    }
+    showEditModificationModal.value = false
+}
+
+const deleteModification = (modification) => {
+    if (confirm('Are you sure you want to delete this modification?')) {
+        const index = shipModifications.value.findIndex(mod => mod.id === modification.id)
+        if (index !== -1) {
+            shipModifications.value.splice(index, 1)
         }
     }
 }
