@@ -285,6 +285,7 @@ definePageMeta({
 import { ref } from 'vue'
 
 const ship = ref({
+    id:1,
   // Basic Information
   shipName: 'MV Ocean Star',
   imoNumber: 'IMO1234567',

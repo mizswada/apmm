@@ -92,8 +92,9 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Length Overall (m)</label>
               <input
-                v-model="ship.lengthOverall"
+                v-model.number="ship.lengthOverall"
                 type="number"
+                step="0.01"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -101,8 +102,9 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Breadth (m)</label>
               <input
-                v-model="ship.breadth"
+                v-model.number="ship.breadth"
                 type="number"
+                step="0.01"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -110,8 +112,9 @@
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Draft (m)</label>
               <input
-                v-model="ship.draft"
+                v-model.number="ship.draft"
                 type="number"
+                step="0.01"
                 class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -222,62 +225,68 @@ import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 
-alert(1);
-// Initialize ship data with empty values
+// Initialize ship data with hardcoded values
 const ship = ref({
   id: route.params.id,
   // Basic Information
-  shipName: '',
-  imoNumber: '',
-  callSign: '',
-  mmsiNumber: '',
+  shipName: 'MV Ocean Star',
+  imoNumber: 'IMO1234567',
+  callSign: '9V1234',
+  mmsiNumber: '123456789',
   
   // Technical Specifications
-  shipType: '',
-  grossTonnage: '',
-  lengthOverall: '',
-  breadth: '',
-  draft: '',
-  yearBuilt: '',
+  shipType: 'Container',
+  grossTonnage: '85,000',
+  lengthOverall: 366.00,
+  breadth: 48.20,
+  draft: 15.50,
+  yearBuilt: 2018,
   
   // Registration Details
-  flagState: '',
-  portOfRegistry: '',
-  classificationSociety: '',
-  status: '',
+  flagState: 'Singapore',
+  portOfRegistry: 'Singapore',
+  classificationSociety: 'DNV',
+  status: 'active',
   
   // Additional Information
-  remarks: ''
+  remarks: 'Regular maintenance schedule followed. Last dry dock completed in 2022.'
 })
 
+// Format numeric values to 2 decimal places
+const formatNumber = (value) => {
+  return Number(value).toFixed(2)
+}
+
 // Fetch ship data when component mounts
-onMounted(async () => {
-  try {
-    const response = await fetch(`/api/ships/${route.params.id}`)
-    if (!response.ok) {
-      throw new Error('Failed to fetch ship data')
-    }
-    const data = await response.json()
-    ship.value = data
-  } catch (error) {
-    console.error('Error fetching ship data:', error)
-    alert('Failed to load ship data. Please try again.')
-  }
+onMounted(() => {
+  // Format numeric values
+  ship.value.lengthOverall = formatNumber(ship.value.lengthOverall)
+  ship.value.breadth = formatNumber(ship.value.breadth)
+  ship.value.draft = formatNumber(ship.value.draft)
+  console.log('Ship data loaded:', ship.value)
 })
 
 const handleSubmit = async () => {
   try {
-    const response = await fetch(`/api/ships/${route.params.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(ship.value)
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to update ship')
+    // Format numeric values before submission
+    const formattedShip = {
+      ...ship.value,
+      lengthOverall: formatNumber(ship.value.lengthOverall),
+      breadth: formatNumber(ship.value.breadth),
+      draft: formatNumber(ship.value.draft)
     }
+
+    // const response = await fetch(`/api/ships/${route.params.id}`, {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(formattedShip)
+    // })
+
+    // if (!response.ok) {
+    //   throw new Error('Failed to update ship')
+    // }
 
     // Show success message
     alert('Ship updated successfully!')

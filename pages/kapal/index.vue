@@ -82,24 +82,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="py-3 px-4">MV Ocean Star</td>
-                <td class="py-3 px-4">IMO1234567</td>
+              <tr v-for="ship in ships" :key="ship.id" class="border-b hover:bg-gray-50">
+                <td class="py-3 px-4">{{ ship.name }}</td>
+                <td class="py-3 px-4">{{ ship.imoNumber }}</td>
                 <td class="py-3 px-4">
-                  <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">Active</span>
+                  <span :class="['px-2 py-1 rounded-full text-sm', getStatusClass(ship.status)]">
+                    {{ ship.status }}
+                  </span>
                 </td>
-                <td class="py-3 px-4">Container</td>
-                <td class="py-3 px-4">2024-03-15</td>
+                <td class="py-3 px-4">{{ ship.type }}</td>
+                <td class="py-3 px-4">{{ ship.lastUpdated }}</td>
                 <td class="py-3 px-4">
                   <div class="flex gap-2">
                     <button 
-                      @click="$router.push(`/kapal/1`)"
+                      @click="$router.push(`/kapal/${ship.id}`)"
                       class="text-blue-600 hover:text-blue-800"
                     >
                       <Icon class="text-primary" name="weui:eyes-on-outlined"></Icon>
                     </button>
                     <button 
-                      @click="$router.push(`/kapal/edit/1`)"
+                      @click="$router.push(`/kapal/edit/${ship.id}`)"
                       class="text-yellow-600 hover:text-yellow-800"
                     >
                       <Icon class="text-primary" name="material-symbols:edit-outline-sharp"></Icon>                     
@@ -110,7 +112,6 @@
                   </div>
                 </td>
               </tr>
-              <!-- More rows would be dynamically generated -->
             </tbody>
           </table>
         </div>
@@ -120,7 +121,54 @@
 </template>
 
 <script setup>
-// TODO: Add data fetching and state management
+const ships = [
+  {
+    id: 1,
+    name: 'MV Ocean Star',
+    imoNumber: 'IMO1234567',
+    status: 'Active',
+    type: 'Container',
+    lastUpdated: '2024-03-15'
+  },
+  {
+    id: 2,
+    name: 'MV Pacific Voyager',
+    imoNumber: 'IMO7654321',
+    status: 'Maintenance',
+    type: 'Bulk Carrier',
+    lastUpdated: '2024-03-14'
+  },
+  {
+    id: 3,
+    name: 'MV Atlantic Explorer',
+    imoNumber: 'IMO9876543',
+    status: 'Active',
+    type: 'Tanker',
+    lastUpdated: '2024-03-13'
+  },
+  {
+    id: 4,
+    name: 'MV Indian Ocean',
+    imoNumber: 'IMO4567890',
+    status: 'Inactive',
+    type: 'Container',
+    lastUpdated: '2024-03-12'
+  }
+]
+
+// Function to get status color class
+const getStatusClass = (status) => {
+  switch (status) {
+    case 'Active':
+      return 'bg-green-100 text-green-800'
+    case 'Maintenance':
+      return 'bg-yellow-100 text-yellow-800'
+    case 'Inactive':
+      return 'bg-red-100 text-red-800'
+    default:
+      return 'bg-gray-100 text-gray-800'
+  }
+}
 </script>
 
 <style lang="scss" scoped>
