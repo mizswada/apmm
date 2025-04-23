@@ -174,7 +174,16 @@
             </rs-tab-item>
             <rs-tab-item title="Crew Information"> 
                 <div class="p-6">
-                    <h2 class="text-lg font-semibold mb-4">Crew Information</h2>
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">Crew Information</h2>
+                        <button
+                            @click="showAddCrewModal = true"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                        >
+                            <Icon name="material-symbols:add" />
+                            Add Crew
+                        </button>
+                    </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full">
                             <thead>
@@ -186,6 +195,7 @@
                                     <th class="text-left py-3 px-4">License Number</th>
                                     <th class="text-left py-3 px-4">Status</th>
                                     <th class="text-left py-3 px-4">Join Date</th>
+                                    <th class="text-left py-3 px-4">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -208,6 +218,22 @@
                                         </span>
                                     </td>
                                     <td class="py-3 px-4">{{ member.joinDate }}</td>
+                                    <td class="py-3 px-4">
+                                        <div class="flex gap-2">
+                                            <button
+                                                @click="editCrew(member)"
+                                                class="p-2 text-blue-600 hover:text-blue-800"
+                                            >
+                                                <Icon name="material-symbols:edit-outline" />
+                                            </button>
+                                            <button
+                                                @click="deleteCrew(member)"
+                                                class="p-2 text-red-600 hover:text-red-800"
+                                            >
+                                                <Icon name="material-symbols:delete-outline" />
+                                            </button>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -443,6 +469,170 @@
                     class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                 >
                     Save Changes
+                </button>
+            </div>
+        </template>
+    </rs-modal>
+
+    <!-- Add Crew Modal -->
+    <rs-modal v-model="showAddCrewModal" size="lg" title="Add New Crew Member">
+        <div class="p-4">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Name</label>
+                    <FormKit
+                        v-model="newCrew.name"
+                        type="select"
+                        :options="availableCrewMembers.map(member => ({ label: member.name, value: member.name }))"
+                        @input="handleNameSelection"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Position</label>
+                    <FormKit
+                        v-model="newCrew.position"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nationality</label>
+                    <FormKit
+                        v-model="newCrew.nationality"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">License Number</label>
+                    <FormKit
+                        v-model="newCrew.licenseNumber"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <FormKit
+                        v-model="newCrew.status"
+                        type="select"
+                        :options="[
+                            { label: 'On Board', value: 'On Board' },
+                            { label: 'On Leave', value: 'On Leave' },
+                            { label: 'Off Duty', value: 'Off Duty' }
+                        ]"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Join Date</label>
+                    <FormKit
+                        v-model="newCrew.joinDate"
+                        type="date"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                </div>
+            </div>
+        </div>
+        <template #footer>
+            <div class="flex justify-end gap-2">
+                <button
+                    @click="showAddCrewModal = false"
+                    class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="addNewCrew"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                    Add Crew Member
+                </button>
+            </div>
+        </template>
+    </rs-modal>
+
+    <!-- Edit Crew Modal -->
+    <rs-modal v-model="showEditCrewModal" size="lg" title="Edit Crew Member">
+        <div class="p-4">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Name</label>
+                    <FormKit
+                        v-model="editingCrew.name"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Position</label>
+                    <FormKit
+                        v-model="editingCrew.position"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nationality</label>
+                    <FormKit
+                        v-model="editingCrew.nationality"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">License Number</label>
+                    <FormKit
+                        v-model="editingCrew.licenseNumber"
+                        type="text"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <FormKit
+                        v-model="editingCrew.status"
+                        type="select"
+                        :options="[
+                            { label: 'On Board', value: 'On Board' },
+                            { label: 'On Leave', value: 'On Leave' },
+                            { label: 'Off Duty', value: 'Off Duty' }
+                        ]"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Join Date</label>
+                    <FormKit
+                        v-model="editingCrew.joinDate"
+                        type="date"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        disabled
+                    />
+                </div>
+            </div>
+        </div>
+        <template #footer>
+            <div class="flex justify-end gap-2">
+                <button
+                    @click="showEditCrewModal = false"
+                    class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="updateCrew"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                    Update Status
                 </button>
             </div>
         </template>
@@ -809,6 +999,111 @@ const editingComponent = ref({
     status: 'Operational'
 })
 
+const showAddCrewModal = ref(false)
+const newCrew = ref({
+    name: '',
+    position: '',
+    nationality: '',
+    licenseNumber: '',
+    status: 'On Board',
+    joinDate: new Date().toISOString().split('T')[0]
+})
+
+// Add available crew members data
+const availableCrewMembers = ref([
+    {
+        name: 'John Smith',
+        position: 'Captain',
+        nationality: 'British',
+        licenseNumber: 'CAP123456',
+        status: 'On Board',
+        joinDate: new Date().toISOString().split('T')[0]
+    },
+    {
+        name: 'Michael Brown',
+        position: 'Chief Engineer',
+        nationality: 'American',
+        licenseNumber: 'ENG789012',
+        status: 'On Board',
+        joinDate: new Date().toISOString().split('T')[0]
+    },
+    {
+        name: 'David Wilson',
+        position: 'First Officer',
+        nationality: 'Australian',
+        licenseNumber: 'FO345678',
+        status: 'On Leave',
+        joinDate: new Date().toISOString().split('T')[0]
+    },
+    {
+        name: 'Robert Chen',
+        position: 'Second Engineer',
+        nationality: 'Chinese',
+        licenseNumber: 'ENG901234',
+        status: 'On Board',
+        joinDate: new Date().toISOString().split('T')[0]
+    },
+    {
+        name: 'James Lee',
+        position: 'Chief Cook',
+        nationality: 'Singaporean',
+        licenseNumber: 'CC567890',
+        status: 'On Board',
+        joinDate: new Date().toISOString().split('T')[0]
+    },
+    {
+        name: 'Thomas Anderson',
+        position: 'Bosun',
+        nationality: 'Canadian',
+        licenseNumber: 'BOS123789',
+        status: 'Off Duty',
+        joinDate: new Date().toISOString().split('T')[0]
+    },
+    {
+        name: 'Maria Garcia',
+        position: 'Deck Officer',
+        nationality: 'Spanish',
+        licenseNumber: 'DO456123',
+        status: 'On Board',
+        joinDate: new Date().toISOString().split('T')[0]
+    },
+    {
+        name: 'Hans Müller',
+        position: 'Electrician',
+        nationality: 'German',
+        licenseNumber: 'EL789456',
+        status: 'On Board',
+        joinDate: new Date().toISOString().split('T')[0]
+    }
+])
+
+// Add function to handle name selection
+const handleNameSelection = (selectedName) => {
+    const selectedMember = availableCrewMembers.value.find(member => member.name === selectedName)
+    if (selectedMember) {
+        newCrew.value = {
+            ...newCrew.value,
+            name: selectedMember.name,
+            position: selectedMember.position,
+            nationality: selectedMember.nationality,
+            licenseNumber: selectedMember.licenseNumber,
+            status: selectedMember.status,
+            joinDate: new Date().toISOString().split('T')[0]
+        }
+    }
+}
+
+const showEditCrewModal = ref(false)
+const editingCrew = ref({
+    id: null,
+    name: '',
+    position: '',
+    nationality: '',
+    licenseNumber: '',
+    status: 'On Board',
+    joinDate: ''
+})
+
 // Add these new functions
 const addNewComponent = () => {
     const newId = componentParts.value.length + 1
@@ -847,6 +1142,54 @@ const updateComponent = () => {
         componentParts.value[index] = { ...editingComponent.value }
     }
     showEditComponentModal.value = false
+}
+
+const addNewCrew = () => {
+    const newId = crew.value.length + 1
+    crew.value.push({
+        id: newId,
+        name: newCrew.value.name,
+        position: newCrew.value.position,
+        nationality: newCrew.value.nationality,
+        licenseNumber: newCrew.value.licenseNumber,
+        status: newCrew.value.status,
+        joinDate: new Date().toISOString().split('T')[0]
+    })
+    
+    // Reset form
+    newCrew.value = {
+        name: '',
+        position: '',
+        nationality: '',
+        licenseNumber: '',
+        status: 'On Board',
+        joinDate: new Date().toISOString().split('T')[0]
+    }
+    
+    // Close modal
+    showAddCrewModal.value = false
+}
+
+const editCrew = (member) => {
+    editingCrew.value = { ...member }
+    showEditCrewModal.value = true
+}
+
+const updateCrew = () => {
+    const index = crew.value.findIndex(member => member.id === editingCrew.value.id)
+    if (index !== -1) {
+        crew.value[index] = { ...editingCrew.value }
+    }
+    showEditCrewModal.value = false
+}
+
+const deleteCrew = (member) => {
+    if (confirm('Are you sure you want to delete this crew member?')) {
+        const index = crew.value.findIndex(m => m.id === member.id)
+        if (index !== -1) {
+            crew.value.splice(index, 1)
+        }
+    }
 }
 </script>
 
