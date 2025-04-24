@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>komponen</h1>
+        <h1>report oa</h1>
     </div>
 </template>
 

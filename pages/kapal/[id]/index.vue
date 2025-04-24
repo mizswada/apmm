@@ -163,6 +163,12 @@
                                             @click="editComponent(part)"
                                             class="p-2 text-blue-600 hover:text-blue-800"
                                         >
+                                            <Icon name="weui:eyes-on-outlined" />
+                                        </button>
+                                        <button
+                                            @click="editComponent(part)"
+                                            class="p-2 text-blue-600 hover:text-blue-800"
+                                        >
                                             <Icon name="material-symbols:edit-outline" />
                                         </button>
                                     </td>

@@ -20,34 +20,96 @@ export default [
         child: [],
       },
       {
-        title: "Ship",
-        path: "/kapal",
-        icon: "lineicons:ship-1",
-      },
-      {        
-        title: "Boat",
-        path: "/bot",
-        icon: "tabler:speedboat",
+        "title": "Asset Management",
+        "icon": "ix:report-general",
+        "child": [
+          {
+            title: "Job Card",
+            path: "/kapal",
+            icon: "lineicons:ship-1",
+          },
+          {
+            title: "Ship",
+            path: "/kapal",
+            icon: "lineicons:ship-1",
+          },
+          {        
+            title: "Boat",
+            path: "/bot",
+            icon: "tabler:speedboat",
+          },
+          {
+            title: "On Spares List (OSL)",
+            path: "/komponen-ship",
+            icon: "material-symbols:settings-input-component-outline"
+          },
+          {
+            title: "Krew",
+            path: "/krew",
+            icon: "tabler:users-group"
+          },
+          {
+            title: "Planning Maintenances System (PMS)",
+            path: "/baik-pulih",
+            icon: "fluent:wrench-screwdriver-32-regular"
+          },
+          {
+            title: "Modification",
+            path: "/ubah-suai",
+            icon: "oui:app-upgrade-assistant"
+          },
+        ]
       },
       {
-        title: "Component",
-        path: "/komponen",
-        icon: "material-symbols:settings-input-component-outline"
+        "title": "Vendor management",
+        "icon": "ix:report-general",
+        "child": [
+          {
+            title: "Vendor",
+            path: "/kapal",
+            icon: "lineicons:ship-1",
+          },
+          {        
+            title: "E-invoice",
+            path: "/bot",
+            icon: "tabler:speedboat",
+          },
+        ]
       },
       {
-        title: "Crew",
-        path: "/krew",
-        icon: "tabler:users-group"
+        "title": "Training management",
+        "icon": "ix:report-general",
+        "child": [
+          {
+            title: "Training",
+            path: "/kapal",
+            icon: "lineicons:ship-1",
+          },
+          {        
+            title: "Request Training",
+            path: "/bot",
+            icon: "tabler:speedboat",
+          },
+        ]
       },
+      
       {
-        title: "Maintanance",
-        path: "/baik-pulih",
-        icon: "fluent:wrench-screwdriver-32-regular"
-      },
-      {
-        title: "Modification",
-        path: "/ubah-suai",
-        icon: "oui:app-upgrade-assistant"
+        "title": "Report",
+        "icon": "ix:report-general",
+        "child": [
+          {
+            "title": "OA",
+            "path": "/report/oa"
+          },
+          {
+            "title": "Crew",
+            "path": "/report/krew"
+          },
+          {
+            "title": "ROVA",
+            "path": "/report/rova"
+          }
+        ]
       },
     ],
   },
@@ -62,7 +124,7 @@ export default [
         child: [],
       },
       {
-        title: "Kapal",
+        title: "Job card",
         path: "/kapal",
       },
     ],
@@ -78,7 +140,7 @@ export default [
         child: [],
       },
       {
-        title: "Kapal",
+        title: "Job card",
         path: "/kapal",
       },
     ],
