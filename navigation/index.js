@@ -10,8 +10,8 @@ export default [
   //   ],
   // },
   {
-    header: "Pandangan HQ",
-    description: "Pandangan HQ",
+    header: "",
+    description: "",
     child: [
       {
         title: "Papan Pemuka",
