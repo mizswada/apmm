@@ -14,7 +14,7 @@ export default [
     description: "",
     child: [
       {
-        title: "Papan Pemuka",
+        title: "Laman Utama",
         path: "/dashboard-hq",
         icon: "ic:outline-dashboard",
         child: [],

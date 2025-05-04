@@ -32,7 +32,7 @@ definePageMeta({
             to="/auth/forgot-password-v2"
             >Forgot Password?</NuxtLink
           >
-          <NuxtLink to="/" class="col-span-2">
+          <NuxtLink to="/dashboard" class="col-span-2">
             <FormKit type="button" input-class="w-full"> Sign In </FormKit>
           </NuxtLink>
           <rs-button

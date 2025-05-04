@@ -1,21 +1,5 @@
 <template> 
-  <div class="bg-white rounded-lg shadow p-6  mx-auto">
-      <RsCard>
-          <template #header>
-          Kesiapsiagaan Aset Keseluruhan
-          </template>
-          <ClientOnly>
-          <VueApexCharts
-              :key="changeKey"
-              width="100%"
-              height="400"
-              type="bar"
-              :options="chartOptions"
-              :series="series"
-          ></VueApexCharts>
-          </ClientOnly>
-      </RsCard>
-  </div>
+  
   <div class="bg-white rounded-lg shadow p-6 mt-6 mx-auto">
       <RsCard>
           <template #header>
@@ -67,6 +51,24 @@
           </ClientOnly>
       </RsCard>
   </div>
+
+  <div class="bg-white rounded-lg shadow p-6 mt-6 mx-auto">
+      <RsCard>
+          <template #header>
+          Kesiapsiagaan Aset Keseluruhan
+          </template>
+          <ClientOnly>
+          <VueApexCharts
+              :key="changeKey"
+              width="100%"
+              height="400"
+              type="bar"
+              :options="chartOptions"
+              :series="series"
+          ></VueApexCharts>
+          </ClientOnly>
+      </RsCard>
+  </div>
 </template>
 
 <script setup>
@@ -95,7 +97,7 @@ const series = ref([
 const chartOptions = computed(() => ({
 chart: {
   id: "apexChart",
-  stacked: true,
+  stacked: false,
   toolbar: { show: true },
 },
 legend: {
@@ -111,44 +113,44 @@ xaxis: {
 },
 yaxis: [
   {
-  title: { text: "Bilangan Aset" },
-  min: 0,
-  max: 300,
+    title: { text: "Bilangan Aset" },
+    min: 0,
+    max: 200,
   },
   {
-  opposite: true,
-  title: { text: "%" },
-  min: 0,
-  max: 100,
+    opposite: true,
+    title: { text: "%" },
+    min: 0,
+    max: 100,
   },
 ],
 plotOptions: {
   bar: {
-  horizontal: false,
-  columnWidth: "50%",
+    horizontal: false,
+    columnWidth: "50%",
   },
 },
 dataLabels: {
   enabled: true,
   enabledOnSeries: [0, 1],
   formatter: function (val, opts) {
-  if (opts.seriesIndex === 2) {
+    if (opts.seriesIndex === 2) {
       return val + " %";
-  }
-  return val;
+    }
+    return val;
   },
 },
 stroke: {
   width: [0, 0, 3],
   curve: "smooth",
 },
-colors: ["#7B1E57", "#2196F3", "#FFA726"],
+colors: ["#1976D2", "#FFEB3B", "#D32F2F"],
 responsive: [
   {
-  breakpoint: 768,
-  options: {
+    breakpoint: 768,
+    options: {
       legend: { position: "bottom" },
-  },
+    },
   },
 ],
 }));
