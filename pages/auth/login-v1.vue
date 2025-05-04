@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 function handleSignIn() {
   // Here you would normally handle authentication
-  router.push('/dashboard-hq')
+  router.push('/auth/login-v2')
 }
 </script>
 
