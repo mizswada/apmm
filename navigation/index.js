@@ -10,140 +10,164 @@ export default [
   //   ],
   // },
   {
-    header: "HQ view",
-    description: "HQ view",
+    header: "Pandangan HQ",
+    description: "Pandangan HQ",
     child: [
       {
-        title: "Dashboard",
+        title: "Papan Pemuka",
         path: "/dashboard-hq",
         icon: "ic:outline-dashboard",
         child: [],
       },
       {
-        "title": "Asset Management",
+        "title": "Pengurusan Aset",
         "icon": "ix:report-general",
         "child": [
           {
-            title: "Job Card",
-            path: "/kapal",
+            title: "Kad Kerja",
+            path: "/kad-kerja",
             icon: "lineicons:ship-1",
           },
-          {
-            title: "Ship",
-            path: "/kapal",
-            icon: "lineicons:ship-1",
-          },
-          {        
-            title: "Boat",
-            path: "/bot",
-            icon: "tabler:speedboat",
-          },
-          {
-            title: "On Spares List (OSL)",
-            path: "/komponen-ship",
-            icon: "material-symbols:settings-input-component-outline"
-          },
-          {
-            title: "Krew",
-            path: "/krew",
-            icon: "tabler:users-group"
-          },
-          {
-            title: "Planning Maintenances System (PMS)",
-            path: "/baik-pulih",
-            icon: "fluent:wrench-screwdriver-32-regular"
-          },
-          {
-            title: "Modification",
-            path: "/ubah-suai",
-            icon: "oui:app-upgrade-assistant"
-          },
+          // {
+          //   title: "Kapal",
+          //   path: "/kapal",
+          //   icon: "lineicons:ship-1",
+          // },
+          // {        
+          //   title: "Bot",
+          //   path: "/bot",
+          //   icon: "tabler:speedboat",
+          // },
+          // {
+          //   title: "Senarai Alat Ganti (OSL)",
+          //   path: "/komponen-ship",
+          //   icon: "material-symbols:settings-input-component-outline"
+          // },
+          // {
+          //   title: "Krew",
+          //   path: "/krew",
+          //   icon: "tabler:users-group"
+          // },
+          // {
+          //   title: "Sistem Perancangan Penyelenggaraan (PMS)",
+          //   path: "/baik-pulih",
+          //   icon: "fluent:wrench-screwdriver-32-regular"
+          // },
+          // {
+          //   title: "Pengubahsuaian",
+          //   path: "/ubah-suai",
+          //   icon: "oui:app-upgrade-assistant"
+          // },
         ]
       },
-      {
-        "title": "Vendor management",
-        "icon": "ix:report-general",
-        "child": [
-          {
-            title: "Vendor",
-            path: "/kapal",
-            icon: "lineicons:ship-1",
-          },
-          {        
-            title: "E-invoice",
-            path: "/bot",
-            icon: "tabler:speedboat",
-          },
-        ]
-      },
-      {
-        "title": "Training management",
-        "icon": "ix:report-general",
-        "child": [
-          {
-            title: "Training",
-            path: "/kapal",
-            icon: "lineicons:ship-1",
-          },
-          {        
-            title: "Request Training",
-            path: "/bot",
-            icon: "tabler:speedboat",
-          },
-        ]
-      },
+      // {
+      //   "title": "Pengurusan Pembekal",
+      //   "icon": "ix:report-general",
+      //   "child": [
+      //     {
+      //       title: "Pembekal",
+      //       path: "/kapal",
+      //       icon: "lineicons:ship-1",
+      //     },
+      //     {        
+      //       title: "E-invois",
+      //       path: "/bot",
+      //       icon: "tabler:speedboat",
+      //     },
+      //   ]
+      // },
+      // {
+      //   "title": "Pengurusan Latihan",
+      //   "icon": "ix:report-general",
+      //   "child": [
+      //     {
+      //       title: "Latihan",
+      //       path: "/kapal",
+      //       icon: "lineicons:ship-1",
+      //     },
+      //     {        
+      //       title: "Permintaan Latihan",
+      //       path: "/bot",
+      //       icon: "tabler:speedboat",
+      //     },
+      //   ]
+      // },
       
       {
-        "title": "Report",
+        "title": "Laporan",
         "icon": "ix:report-general",
         "child": [
+          // {
+          //   "title": "OA",
+          //   "path": "/report/oa"
+          // },
+          // {
+          //   "title": "Krew",
+          //   "path": "/report/krew"
+          // },
+          // {
+          //   "title": "ROVA",
+          //   "path": "/report/rova"
+          // }
           {
-            "title": "OA",
-            "path": "/report/oa"
+            "title": "Kesiapsiagaan Aset Keseluruhan",
+            "path": "/report/kesiapansiagaan-aset-keseluruhan"
           },
           {
-            "title": "Crew",
-            "path": "/report/krew"
+            "title": "Kesiapsiagaan Aset Mengikut Maritim",
+            "path": "/report/kesiapansiagaan-aset-maritim"
           },
           {
-            "title": "ROVA",
-            "path": "/report/rova"
-          }
+            "title": "Kesiapsiagaan Aset Mengikut Maritim Negeri",
+            "path": "/report/kesiapansiagaan-aset-maritim-negeri"
+          },
+          {
+            "title": "Kesiapsiagaan Aset Mengikut Jenis Pembaikan",
+            "path": "/report/kesiapansiagaan-aset-jenis-pembaikan"
+          },
+          {
+            "title": "Kesiapsiagaan Aset Mengikut Jenis",
+            "path": "/report/kesiapansiagaan-aset-jenis"
+          },
+          {
+            "title": "Laporan Kesiapsiagaan Aset ",
+            "path": "/report/kesiapansiagaan-aset"
+          },
         ]
       },
     ],
   },
-  {
-    header: "Negeri view",
-    description: "Negeri view",
-    child: [
-      {
-        title: "Dashboard",
-        path: "/dashboard-negeri",
-        icon: "ic:outline-dashboard",
-        child: [],
-      },
-      {
-        title: "Job card",
-        path: "/kapal",
-      },
-    ],
-  },
-  {
-    header: "Crew view",
-    description: "Crew view",
-    child: [
-      {
-        title: "Dashboard",
-        path: "/dashboard-krew",
-        icon: "ic:outline-dashboard",
-        child: [],
-      },
-      {
-        title: "Job card",
-        path: "/kapal",
-      },
-    ],
-  },
+  // {
+  //   header: "Pandangan Negeri",
+  //   description: "Pandangan Negeri",
+  //   child: [
+  //     {
+  //       title: "Papan Pemuka",
+  //       path: "/dashboard-negeri",
+  //       icon: "ic:outline-dashboard",
+  //       child: [],
+  //     },
+  //     {
+  //       title: "Kad Kerja",
+  //       path: "/kapal",
+  //     },
+  //   ],
+  // },
+  // {
+  //   header: "Pandangan Krew",
+  //   description: "Pandangan Krew",
+  //   child: [
+  //     {
+  //       title: "Papan Pemuka",
+  //       path: "/dashboard-krew",
+  //       icon: "ic:outline-dashboard",
+  //       child: [],
+  //     },
+  //     {
+  //       title: "Kad Kerja",
+  //       path: "/kapal",
+  //     },
+  //   ],
+  // },
  
 ];

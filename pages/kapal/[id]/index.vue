@@ -111,6 +111,7 @@
                     </div>
                 </div>
             </rs-tab-item>
+            
             <rs-tab-item title="Component Parts">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-4">
