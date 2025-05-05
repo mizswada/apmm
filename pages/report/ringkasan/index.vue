@@ -1,23 +1,35 @@
                     
 <template> 
-    <ClientOnly>
-        <VueApexCharts
-        :key="changeKey + '-combined'"
-        width="100%"
-        height="400"
-        type="line"
-        :options="combinedChartOptions"
-        :series="combinedSeries"
-        ></VueApexCharts>
-        <VueApexCharts
-        :key="changeKey + '-nonops'"
-        width="100%"
-        height="400"
-        type="bar"
-        :options="nonOpsChartOptions"
-        :series="nonOpsSeries"
-        ></VueApexCharts>
-    </ClientOnly>
+    <div class="bg-white rounded-lg shadow p-6  mx-auto mb-6">
+        <h1 style="text-align:center;" class="mb-6">
+            LAPORAN KESIAPSIAGAAN KAPAL DAN BOT APMM MENGIKUT NEGERI
+        </h1>        
+        <ClientOnly>
+            <VueApexCharts
+            :key="changeKey + '-combined'"
+            width="100%"
+            height="400"
+            type="line"
+            :options="combinedChartOptions"
+            :series="combinedSeries"
+            ></VueApexCharts>
+        </ClientOnly>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6  mx-auto">   
+        <h1 style="text-align:center;" class="mb-6">
+            LAPORAN KESIAPSIAGAAN KAPAL DAN BOT APMM MENGIKUT STATUS NON OPS
+        </h1> 
+        <ClientOnly>  
+            <VueApexCharts
+            :key="changeKey + '-nonops'"
+            width="100%"
+            height="400"
+            type="bar"
+            :options="nonOpsChartOptions"
+            :series="nonOpsSeries"
+            ></VueApexCharts>
+        </ClientOnly>
+    </div>
 </template>
 
 <script setup>
