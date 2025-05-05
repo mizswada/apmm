@@ -1,74 +1,77 @@
 <template> 
-  
-  <div class="bg-white rounded-lg shadow p-6 mt-6 mx-auto">
-      <RsCard>
-          <template #header>
-          Kesiapsiagaan Kapal dan Bot
-          </template>
-          <ClientOnly>
-          <VueApexCharts
-              :key="changeKey + 1"
-              width="100%"
-              height="400"
-              type="bar"
-              :options="chartOptionsKapalBot"
-              :series="seriesKapalBot"
-          ></VueApexCharts>
-          </ClientOnly>
-      </RsCard>
-  </div>
-  <div class="bg-white rounded-lg shadow p-6 mt-6 mx-auto">
-      <RsCard>
-          <template #header>
-          Kesiapsiagaan Bot Mengikut Maritim Negeri
-          </template>
-          <ClientOnly>
-          <VueApexCharts
-              :key="changeKey + 2"
-              width="100%"
-              height="400"
-              type="bar"
-              :options="chartOptionsBotNegeri"
-              :series="seriesBotNegeri"
-          ></VueApexCharts>
-          </ClientOnly>
-      </RsCard>
-  </div>
-  <div class="bg-white rounded-lg shadow p-6 mt-6 mx-auto">
-      <RsCard>
-          <template #header>
-          Kesiapsiagaan Kapal Mengikut Maritim Negeri
-          </template>
-          <ClientOnly>
-          <VueApexCharts
-              :key="changeKey + 3"
-              width="100%"
-              height="400"
-              type="bar"
-              :options="chartOptionsKapalNegeri"
-              :series="seriesKapalNegeri"
-          ></VueApexCharts>
-          </ClientOnly>
-      </RsCard>
-  </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-  <div class="bg-white rounded-lg shadow p-6 mt-6 mx-auto">
-      <RsCard>
-          <template #header>
-          Kesiapsiagaan Aset Keseluruhan
-          </template>
-          <ClientOnly>
-          <VueApexCharts
-              :key="changeKey"
-              width="100%"
-              height="400"
-              type="bar"
-              :options="chartOptions"
-              :series="series"
-          ></VueApexCharts>
-          </ClientOnly>
-      </RsCard>
-  </div>
+      <div class="bg-white rounded-lg shadow p-6 mt-6">
+          <RsCard>
+              <template #header>
+              Kesiapsiagaan Aset Keseluruhan
+              </template>
+              <ClientOnly>
+              <VueApexCharts
+                  :key="changeKey"
+                  width="100%"
+                  height="400"
+                  type="bar"
+                  :options="chartOptions"
+                  :series="series"
+              ></VueApexCharts>
+              </ClientOnly>
+          </RsCard>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6 mt-6">
+          <RsCard>
+              <template #header>
+              Kesiapsiagaan Kapal dan Bot
+              </template>
+              <ClientOnly>
+              <VueApexCharts
+                  :key="changeKey + 1"
+                  width="100%"
+                  height="400"
+                  type="bar"
+                  :options="chartOptionsKapalBot"
+                  :series="seriesKapalBot"
+              ></VueApexCharts>
+              </ClientOnly>
+          </RsCard>
+      </div>
+      <div class="bg-white rounded-lg shadow p-6 mt-6">
+          <RsCard>
+              <template #header>
+              Kesiapsiagaan Bot Mengikut Maritim Negeri
+              </template>
+              <ClientOnly>
+              <VueApexCharts
+                  :key="changeKey + 2"
+                  width="100%"
+                  height="400"
+                  type="bar"
+                  :options="chartOptionsBotNegeri"
+                  :series="seriesBotNegeri"
+              ></VueApexCharts>
+              </ClientOnly>
+          </RsCard>
+      </div>
+      <div class="bg-white rounded-lg shadow p-6 mt-6">
+          <RsCard>
+              <template #header>
+              Kesiapsiagaan Kapal Mengikut Maritim Negeri
+              </template>
+              <ClientOnly>
+              <VueApexCharts
+                  :key="changeKey + 3"
+                  width="100%"
+                  height="400"
+                  type="bar"
+                  :options="chartOptionsKapalNegeri"
+                  :series="seriesKapalNegeri"
+              ></VueApexCharts>
+              </ClientOnly>
+          </RsCard>
+      </div>
+    </div>
+  
 </template>
 
 <script setup>

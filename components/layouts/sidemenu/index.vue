@@ -36,9 +36,12 @@ onMounted(() => {
         <div class="flex flex-auto gap-3 justify-center items-center h-[48px]">
           <img
             class="h-10 block"
-            src="@/assets/img/logo/Header-01.png"
+            src="@/assets/img/logo/apmm_logo_baru.png"
             alt=""
           />
+          <span class="text-sm font-semibold">
+            e-Jutra
+          </span>
         </div>
       </nuxt-link>
     </div>

@@ -15,51 +15,63 @@ export default [
     child: [
       {
         title: "Laman Utama",
-        path: "/dashboard-hq",
+        path: "/dashboard",
         icon: "ic:outline-dashboard",
         child: [],
       },
       {
-        "title": "Pengurusan Aset",
-        "icon": "ix:report-general",
-        "child": [
-          {
-            title: "Kad Kerja",
-            path: "/kad-kerja",
-            icon: "lineicons:ship-1",
-          },
-          // {
-          //   title: "Kapal",
-          //   path: "/kapal",
-          //   icon: "lineicons:ship-1",
-          // },
-          // {        
-          //   title: "Bot",
-          //   path: "/bot",
-          //   icon: "tabler:speedboat",
-          // },
-          // {
-          //   title: "Senarai Alat Ganti (OSL)",
-          //   path: "/komponen-ship",
-          //   icon: "material-symbols:settings-input-component-outline"
-          // },
-          // {
-          //   title: "Krew",
-          //   path: "/krew",
-          //   icon: "tabler:users-group"
-          // },
-          // {
-          //   title: "Sistem Perancangan Penyelenggaraan (PMS)",
-          //   path: "/baik-pulih",
-          //   icon: "fluent:wrench-screwdriver-32-regular"
-          // },
-          // {
-          //   title: "Pengubahsuaian",
-          //   path: "/ubah-suai",
-          //   icon: "oui:app-upgrade-assistant"
-          // },
-        ]
+        title: "Kad Kerja",
+        path: "/kad-kerja",
+        icon: "lineicons:ship-1",
+        child:[]
       },
+      // {
+      //   title: "Kapal",
+      //   path: "/kapal",
+      //   icon: "lineicons:ship-1",
+      //   disabled: true
+      // },
+      // {
+      //   "title": "Pengurusan Aset",
+      //   "icon": "ix:report-general",
+      //   "child": [
+      //     // {
+      //     //   title: "Kad Kerja",
+      //     //   path: "/kad-kerja",
+      //     //   icon: "lineicons:ship-1",
+      //     // },
+      //     // {
+      //     //   title: "Kapal",
+      //     //   path: "/kapal",
+      //     //   icon: "lineicons:ship-1",
+      //     // },
+      //     // {        
+      //     //   title: "Bot",
+      //     //   path: "/bot",
+      //     //   icon: "tabler:speedboat",
+      //     // },
+      //     // {
+      //     //   title: "Senarai Alat Ganti (OSL)",
+      //     //   path: "/komponen-ship",
+      //     //   icon: "material-symbols:settings-input-component-outline"
+      //     // },
+      //     // {
+      //     //   title: "Krew",
+      //     //   path: "/krew",
+      //     //   icon: "tabler:users-group"
+      //     // },
+      //     // {
+      //     //   title: "Sistem Perancangan Penyelenggaraan (PMS)",
+      //     //   path: "/baik-pulih",
+      //     //   icon: "fluent:wrench-screwdriver-32-regular"
+      //     // },
+      //     // {
+      //     //   title: "Pengubahsuaian",
+      //     //   path: "/ubah-suai",
+      //     //   icon: "oui:app-upgrade-assistant"
+      //     // },
+      //   ]
+      // },
       // {
       //   "title": "Pengurusan Pembekal",
       //   "icon": "ix:report-general",

@@ -71,11 +71,14 @@ onMounted(() => {
           <button class="icon-btn h-10 w-10 rounded-full" @click="toggleMenu">
             <Icon name="ic:round-menu" class="" /></button
         ></span>
+        <span class="flex items-center justify-center text-xl font-semibold">
+          Bahagian Kejuruteraan APMM
+        </span>
       </div>
       <div class="flex" v-else>
         <nuxt-link to="/">
           <div class="flex flex-auto gap-3 justify-center items-center">
-            <img class="h-24 block" src="@/assets/img/logo/Header-01.png" alt="" />
+            <img class="h-24 block" src="@/assets/img/logo/apmm_logo_baru.png" alt="" />
           </div>
         </nuxt-link>
       </div>

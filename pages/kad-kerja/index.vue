@@ -2,7 +2,7 @@
     <div class="p-6">
       <!-- Page Header -->
       <div class="mb-6">
-        <h1 class="text-2xl font-bold">Papan Pemuka Kad Kerja</h1>
+        <h1 class="text-2xl font-bold">Laman Utama Kad Kerja</h1>
         <p class="text-gray-600">Pantau dan urus kad kerja anda</p>
       </div>
   
