@@ -133,6 +133,10 @@ export default [
             "title": "Laporan Kesiapsiagaan Aset ",
             "path": "/report/kesiapansiagaan-aset"
           },
+          {
+            "title": "Ringkasan",
+            "path": "/report/ringkasan"
+          },
         ]
       },
     ],
