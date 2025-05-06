@@ -23,7 +23,23 @@ export default [
         title: "Kad Kerja",
         path: "/kad-kerja",
         icon: "lineicons:ship-1",
-        child:[]
+        child:[
+          {
+              title: "Tambah Kad Kerja",
+              path: "",
+              icon: "lineicons:ship-1",
+            },
+            {
+              title: "Semak Kad Kerja",
+              path: "",
+              icon: "lineicons:ship-1",
+            },
+            {
+              title: "Lulus Kad Kerja",
+              path: "",
+              icon: "lineicons:ship-1",
+            },
+        ]
       },
       // {
       //   title: "Kapal",
