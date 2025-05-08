@@ -2,8 +2,8 @@
     <div class="p-6">
     <!-- Page Header -->
     <div class="mb-6">
-        <h1 class="text-2xl font-bold">Ship Registration</h1>
-        <p class="text-gray-600">Register a new maritime asset</p>
+        <h1 class="text-2xl font-bold">Pendaftaran Kapal</h1>
+        <p class="text-gray-600">Daftar aset maritim baru</p>
     </div>
 
     <!-- Add Ship Form -->
@@ -11,52 +11,52 @@
         <form @submit.prevent="handleSubmit" class="space-y-6">
         <!-- Basic Information Section -->
         <div class="border-b pb-6">
-            <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
+            <h2 class="text-lg font-semibold mb-4">Maklumat Asas</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Ship Name -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Ship Name</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Kapal</label>
                 <input
                 type="text"
                 v-model="form.shipName"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter ship name"
+                placeholder="Masukkan nama kapal"
                 required
                 />
             </div>
 
             <!-- IMO Number -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">IMO Number</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nombor IMO</label>
                 <input
                 type="text"
                 v-model="form.imoNumber"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter IMO number"
+                placeholder="Masukkan nombor IMO"
                 required
                 />
             </div>
 
             <!-- Call Sign -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Call Sign</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tanda Panggilan</label>
                 <input
                 type="text"
                 v-model="form.callSign"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter call sign"
+                placeholder="Masukkan tanda panggilan"
                 required
                 />
             </div>
 
             <!-- MMSI Number -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">MMSI Number</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nombor MMSI</label>
                 <input
                 type="text"
                 v-model="form.mmsiNumber"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter MMSI number"
+                placeholder="Masukkan nombor MMSI"
                 required
                 />
             </div>
@@ -65,83 +65,83 @@
 
         <!-- Technical Specifications Section -->
         <div class="border-b pb-6">
-            <h2 class="text-lg font-semibold mb-4">Technical Specifications</h2>
+            <h2 class="text-lg font-semibold mb-4">Spesifikasi Teknikal</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Ship Type -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Ship Type</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kapal</label>
                 <select
                 v-model="form.shipType"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 required
                 >
-                <option value="">Select ship type</option>
-                <option value="container">Container</option>
-                <option value="bulk">Bulk Carrier</option>
-                <option value="tanker">Tanker</option>
-                <option value="general">General Cargo</option>
-                <option value="passenger">Passenger</option>
-                <option value="fishing">Fishing Vessel</option>
-                <option value="offshore">Offshore Support</option>
+                <option value="">Pilih jenis kapal</option>
+                <option value="container">Kontena</option>
+                <option value="bulk">Pembawa Pukal</option>
+                <option value="tanker">Kapal Tangki</option>
+                <option value="general">Kargo Am</option>
+                <option value="passenger">Penumpang</option>
+                <option value="fishing">Kapal Nelayan</option>
+                <option value="offshore">Sokongan Luar Pesisir</option>
                 </select>
             </div>
 
             <!-- Gross Tonnage -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Gross Tonnage</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Berat Kasar</label>
                 <input
                 type="number"
                 v-model="form.grossTonnage"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter gross tonnage"
+                placeholder="Masukkan berat kasar"
                 required
                 />
             </div>
 
             <!-- Length Overall -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Length Overall (m)</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Panjang Keseluruhan (m)</label>
                 <input
                 type="number"
                 v-model="form.lengthOverall"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter length overall"
+                placeholder="Masukkan panjang keseluruhan"
                 required
                 />
             </div>
 
             <!-- Breadth -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Breadth (m)</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Lebar (m)</label>
                 <input
                 type="number"
                 v-model="form.breadth"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter breadth"
+                placeholder="Masukkan lebar"
                 required
                 />
             </div>
 
             <!-- Draft -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Draft (m)</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Draf (m)</label>
                 <input
                 type="number"
                 v-model="form.draft"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter draft"
+                placeholder="Masukkan draf"
                 required
                 />
             </div>
 
             <!-- Year Built -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Year Built</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tahun Dibina</label>
                 <input
                 type="number"
                 v-model="form.yearBuilt"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter year built"
+                placeholder="Masukkan tahun dibina"
                 required
                 />
             </div>
@@ -150,47 +150,47 @@
 
         <!-- Registration Details Section -->
         <div class="border-b pb-6">
-            <h2 class="text-lg font-semibold mb-4">Registration Details</h2>
+            <h2 class="text-lg font-semibold mb-4">Butiran Pendaftaran</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Flag State -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Flag State</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Negara Bendera</label>
                 <input
                 type="text"
                 v-model="form.flagState"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter flag state"
+                placeholder="Masukkan negara bendera"
                 required
                 />
             </div>
 
             <!-- Port of Registry -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Port of Registry</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Pelabuhan Pendaftaran</label>
                 <input
                 type="text"
                 v-model="form.portOfRegistry"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter port of registry"
+                placeholder="Masukkan pelabuhan pendaftaran"
                 required
                 />
             </div>
 
             <!-- Classification Society -->
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Classification Society</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Persatuan Klasifikasi</label>
                 <select
                 v-model="form.classificationSociety"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 required
                 >
-                <option value="">Select classification society</option>
+                <option value="">Pilih persatuan klasifikasi</option>
                 <option value="abs">ABS</option>
                 <option value="dnv">DNV</option>
                 <option value="lr">Lloyd's Register</option>
                 <option value="bureau-veritas">Bureau Veritas</option>
                 <option value="class-nk">Class NK</option>
-                <option value="other">Other</option>
+                <option value="other">Lain-lain</option>
                 </select>
             </div>
 
@@ -202,11 +202,11 @@
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 required
                 >
-                <option value="">Select status</option>
-                <option value="active">Active</option>
-                <option value="maintenance">Maintenance</option>
-                <option value="inactive">Inactive</option>
-                <option value="laid-up">Laid Up</option>
+                <option value="">Pilih status</option>
+                <option value="active">Aktif</option>
+                <option value="maintenance">Penyelenggaraan</option>
+                <option value="inactive">Tidak Aktif</option>
+                <option value="laid-up">Disimpan</option>
                 </select>
             </div>
             </div>
@@ -214,15 +214,15 @@
 
         <!-- Additional Information -->
         <div>
-            <h2 class="text-lg font-semibold mb-4">Additional Information</h2>
+            <h2 class="text-lg font-semibold mb-4">Maklumat Tambahan</h2>
             <div class="grid grid-cols-1 gap-6">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Remarks</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
                 <textarea
                 v-model="form.remarks"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 rows="4"
-                placeholder="Enter any additional remarks"
+                placeholder="Masukkan sebarang catatan tambahan"
                 ></textarea>
             </div>
             </div>
@@ -235,13 +235,13 @@
             @click="$router.push('/kapal')"
             class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
             >
-            Cancel
+            Batal
             </button>
             <button
             type="submit"
             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
-            Register Ship
+            Daftar Kapal
             </button>
         </div>
         </form>
@@ -251,7 +251,7 @@
 
 <script setup>
 definePageMeta({
-  title: "Add Kapal",
+  title: "Tambah Kapal",
   // middleware: ["auth"], // This is for Login Auth for page
   // requiresAuth: true,  // This is use for Login Auth for page
 });

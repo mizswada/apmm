@@ -2,8 +2,8 @@
   <div class="p-6">
     <!-- Page Header -->
     <div class="mb-6">
-      <h1 class="text-2xl font-bold">Ship Management Dashboard</h1>
-      <p class="text-gray-600">Monitor and manage your fleet</p>
+      <h1 class="text-2xl font-bold">Papan Pemuka Pengurusan Kapal</h1>
+      <p class="text-gray-600">Pantau dan urus armada anda</p>
     </div>
 
     <!-- Analytics Cards -->
@@ -11,7 +11,7 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">Total Ships</p>
+            <p class="text-sm text-gray-500">Jumlah Kapal</p>
             <h3 class="text-2xl font-bold">150</h3>
           </div>
           <div class="p-3 bg-blue-100 rounded-full">
@@ -23,7 +23,7 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">Active Ships</p>
+            <p class="text-sm text-gray-500">Kapal Aktif</p>
             <h3 class="text-2xl font-bold">120</h3>
           </div>
           <div class="p-3 bg-green-100 rounded-full">
@@ -35,7 +35,7 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">Maintenance</p>
+            <p class="text-sm text-gray-500">Penyelenggaraan</p>
             <h3 class="text-2xl font-bold">25</h3>
           </div>
           <div class="p-3 bg-yellow-100 rounded-full">
@@ -47,7 +47,7 @@
       <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">Inactive</p>
+            <p class="text-sm text-gray-500">Tidak Aktif</p>
             <h3 class="text-2xl font-bold">5</h3>
           </div>
           <div class="p-3 bg-red-100 rounded-full">
@@ -61,11 +61,10 @@
     <div class="bg-white rounded-lg shadow">
       <div class="p-6">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-semibold">Registered Ships</h2>
+          <h2 class="text-xl font-semibold">Kapal Berdaftar</h2>
           <button  @click="$router.push('/kapal/add')" class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
             <Icon class="text-white" name="material-symbols:add"></Icon>
-
-            Add New Ship
+            Tambah Kapal Baru
           </button>
         </div>
         
@@ -87,9 +86,9 @@
             <template v-slot:status="data">
               <rs-badge
                 :variant="
-                  data.text === 'Active'
+                  data.text === 'Aktif'
                     ? 'success'
-                    : data.text === 'Inactive'
+                    : data.text === 'Tidak Aktif'
                     ? 'warning'
                     : 'danger'
                 "
@@ -99,7 +98,7 @@
             </template>
             <template v-slot:action="data">
               <button 
-                @click="$router.push(`/kapal/${data.value.id}`)"
+                @click="$router.push(`/kapalDetails`)"
                 class="text-blue-600 hover:text-blue-800"
               >
                 <Icon class="text-primary" name="weui:eyes-on-outlined"></Icon>
@@ -118,37 +117,37 @@ const ships = [
     id: 1,
     name: 'MV Ocean Star',
     imoNumber: 'IMO1234567',
-    status: 'Active',
-    type: 'Container',
+    status: 'Aktif',
+    type: 'Kontena',
     lastUpdated: '2024-03-15',
-    action: 'View'
+    action: 'Lihat'
   },
   {
     id: 2,
     name: 'MV Pacific Voyager',
     imoNumber: 'IMO7654321',
-    status: 'Maintenance',
-    type: 'Bulk Carrier',
+    status: 'Penyelenggaraan',
+    type: 'Pembawa Pukal',
     lastUpdated: '2024-03-14',
-    action: 'View'
+    action: 'Lihat'
   },
   {
     id: 3,
     name: 'MV Atlantic Explorer',
     imoNumber: 'IMO9876543',
-    status: 'Active',
-    type: 'Tanker',
+    status: 'Aktif',
+    type: 'Kapal Tangki',
     lastUpdated: '2024-03-13',
-    action: 'View'
+    action: 'Lihat'
   },
   {
     id: 4,
     name: 'MV Indian Ocean',
     imoNumber: 'IMO4567890',
-    status: 'Inactive',
-    type: 'Container',
+    status: 'Tidak Aktif',
+    type: 'Kontena',
     lastUpdated: '2024-03-12',
-    action: 'View'
+    action: 'Lihat'
   }
 ]
 </script>

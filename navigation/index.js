@@ -19,34 +19,46 @@ export default [
         icon: "ic:outline-dashboard",
         child: [],
       },
+      // {
+      //   title: "Kad Kerja",
+      //   path: "/kad-kerja",
+      //   icon: "lineicons:ship-1",
+      //   child:[
+      //     {
+      //         title: "Tambah Kad Kerja",
+      //         path: "",
+      //         icon: "lineicons:ship-1",
+      //       },
+      //       {
+      //         title: "Semak Kad Kerja",
+      //         path: "",
+      //         icon: "lineicons:ship-1",
+      //       },
+      //       {
+      //         title: "Lulus Kad Kerja",
+      //         path: "",
+      //         icon: "lineicons:ship-1",
+      //       },
+      //   ]
+      // },
       {
-        title: "Kad Kerja",
-        path: "/kad-kerja",
+        title: "Vessel",
+        path: "/kapal",
         icon: "lineicons:ship-1",
-        child:[
+        child: [
           {
-              title: "Tambah Kad Kerja",
-              path: "",
-              icon: "lineicons:ship-1",
-            },
-            {
-              title: "Semak Kad Kerja",
-              path: "",
-              icon: "lineicons:ship-1",
-            },
-            {
-              title: "Lulus Kad Kerja",
-              path: "",
-              icon: "lineicons:ship-1",
-            },
+            title: "Tambah Vessel Baru",
+            path: "/kapal/add",
+            icon: "lineicons:ship-1",
+          },
+          {
+            title: "Senarai Vessel",
+            path: "/kapal",
+            icon: "lineicons:ship-1",
+          },
         ]
       },
-      // {
-      //   title: "Kapal",
-      //   path: "/kapal",
-      //   icon: "lineicons:ship-1",
-      //   disabled: true
-      // },
+     
       // {
       //   "title": "Pengurusan Aset",
       //   "icon": "ix:report-general",
