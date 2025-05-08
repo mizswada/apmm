@@ -1109,6 +1109,127 @@
     // Implement print functionality
     console.log("Printing crew item:", item);
   };
+
+  // Job Card data
+  const jobCardData = ref([
+    {
+      BIL: 1,
+      'JENIS ASET': 'Sistem Radar',
+      'Pengguna Terakhir': 'KD Kedah',
+      'TARIKH ROSAK': '2024-03-15',
+      'PEMOHON': 'Kapt. Razak',
+      'AMOUN': 'RM 15,000',
+      'TINDAKAN': '1'
+    },
+    {
+      BIL: 2,
+      'JENIS ASET': 'Enjin Utama',
+      'Pengguna Terakhir': 'KD Kedah',
+      'TARIKH ROSAK': '2024-04-02',
+      'PEMOHON': 'Kapt. Razak',
+      'AMOUN': 'RM 45,000',
+      'TINDAKAN': '2'
+    },
+    {
+      BIL: 3,
+      'JENIS ASET': 'Sistem Komunikasi',
+      'Pengguna Terakhir': 'KD Kedah',
+      'TARIKH ROSAK': '2024-04-10',
+      'PEMOHON': 'Lt. Mohd Rizal',
+      'AMOUN': 'RM 12,500',
+      'TINDAKAN': '3'
+    },
+    {
+      BIL: 4,
+      'JENIS ASET': 'Sistem Sonar',
+      'Pengguna Terakhir': 'KD Kedah',
+      'TARIKH ROSAK': '2024-04-15',
+      'PEMOHON': 'Kapt. Razak',
+      'AMOUN': 'RM 22,300',
+      'TINDAKAN': '4'
+    },
+    {
+      BIL: 5,
+      'JENIS ASET': 'Sistem Pendorongan',
+      'Pengguna Terakhir': 'KD Kedah',
+      'TARIKH ROSAK': '2024-04-18',
+      'PEMOHON': 'Lt. Mohd Rizal',
+      'AMOUN': 'RM 38,750',
+      'TINDAKAN': '5'
+    }
+  ]);
+
+  // Add Job Card Modal state
+  const isAddJobCardModalOpen = ref(false);
+  const newJobCardForm = ref({
+    'JENIS ASET': '',
+    'Pengguna Terakhir': 'KD Kedah',
+    'TARIKH ROSAK': new Date().toISOString().split('T')[0],
+    'PEMOHON': '',
+    'AMOUN': '',
+    'reportType': 'DEFECT',
+    'location': 'PANGKALAN TLDM LUMUT',
+    'mainSystem': '',
+    'runningHours': '',
+    'manufacturer': '',
+    'serialNo': '',
+    'remarks': ''
+  });
+
+  // Open add job card modal
+  const openAddJobCardModal = () => {
+    newJobCardForm.value = {
+      'JENIS ASET': '',
+      'Pengguna Terakhir': 'KD Kedah',
+      'TARIKH ROSAK': new Date().toISOString().split('T')[0],
+      'PEMOHON': '',
+      'AMOUN': '',
+      'reportType': 'DEFECT',
+      'location': 'PANGKALAN TLDM LUMUT',
+      'mainSystem': '',
+      'runningHours': '',
+      'manufacturer': '',
+      'serialNo': '',
+      'remarks': ''
+    };
+    isAddJobCardModalOpen.value = true;
+  };
+
+  // Close add job card modal
+  const closeAddJobCardModal = () => {
+    isAddJobCardModalOpen.value = false;
+  };
+
+  // Submit new job card
+  const submitNewJobCard = () => {
+    // Create a new job card entry
+    const newJobCard = {
+      id: Date.now(),
+      BIL: jobCardData.value.length + 1,
+      ...newJobCardForm.value
+    };
+    
+    // Add to the job cards array
+    jobCardData.value.push(newJobCard);
+    
+    // Close the modal
+    closeAddJobCardModal();
+  };
+
+  // Add Job Card view modal state
+  const isViewJobCardModalOpen = ref(false);
+  const selectedJobCard = ref(null);
+
+  // Open view job card modal
+  const openViewJobCardModal = (jobCard) => {
+    selectedJobCard.value = jobCard;
+    isViewJobCardModalOpen.value = true;
+  };
+
+  // Close view job card modal
+  const closeViewJobCardModal = () => {
+    isViewJobCardModalOpen.value = false;
+  };
 </script>
 
 <template>
@@ -2743,10 +2864,459 @@
         </div>
         
         <div v-else-if="activeTab === 'jobcard'">
-          <p>Job Card Data Content Here</p>
+          <div class="space-y-6">
+            <!-- Statistics Cards Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
+                <div class="text-center">
+                  <h3 class="font-bold">TOTAL JOB CARD</h3>
+                  <p class="text-3xl font-bold text-blue-600 mt-2">24</p>
+                </div>
+              </div>
+              
+              <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
+                <div class="text-center">
+                  <h3 class="font-bold">TOTAL BUDGET</h3>
+                  <p class="text-3xl font-bold text-green-600 mt-2">RM 125,000</p>
+                </div>
+              </div>
+              
+              <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
+                <div class="text-center">
+                  <h3 class="font-bold">CLOSED JOB CARD</h3>
+                  <p class="text-3xl font-bold text-gray-600 mt-2">15</p>
+                </div>
+              </div>
+              
+              <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
+                <div class="text-center">
+                  <h3 class="font-bold">TOTAL PENDING JOB CARD</h3>
+                  <p class="text-3xl font-bold text-orange-600 mt-2">9</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Approval Status Cards Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
+                <div class="text-center">
+                  <h3 class="font-bold">PENDING APPROVAL FROM MN/ZM</h3>
+                  <p class="text-3xl font-bold text-yellow-600 mt-2">3</p>
+                </div>
+              </div>
+              
+              <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
+                <div class="text-center">
+                  <h3 class="font-bold">PENDING APPROVAL FROM KJPKP</h3>
+                  <p class="text-3xl font-bold text-yellow-600 mt-2">4</p>
+                </div>
+              </div>
+              
+              <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
+                <div class="text-center">
+                  <h3 class="font-bold">PENDING PAYMENT</h3>
+                  <p class="text-3xl font-bold text-red-600 mt-2">2</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Job Card List Section -->
+            <rs-card>
+              <template #header>
+                <div class="flex justify-between items-center p-2">
+                  <h2 class="text-lg font-semibold">Senarai Kad Kerja</h2>
+                  <rs-button variant="primary" @click="openAddJobCardModal">Tambah Kad Kerja</rs-button>
+                </div>
+              </template>
+              
+              <div class="p-4">
+                <!-- Job Card Table -->
+                <rs-table
+                  :data="jobCardData"
+                  :columns="[
+                    { key: 'BIL', label: 'BIL' },
+                    { key: 'JENIS ASET', label: 'JENIS ASET' },
+                    { key: 'Pengguna Terakhir', label: 'Pengguna Terakhir' },
+                    { key: 'TARIKH ROSAK', label: 'TARIKH ROSAK' },
+                    { key: 'PEMOHON', label: 'PEMOHON' },
+                    { key: 'AMOUN', label: 'AMOUN' },
+                    { key: 'TINDAKAN', label: 'TINDAKAN' }
+                  ]"
+                  :options="{
+                    variant: 'default',
+                    striped: true,
+                    borderless: true,
+                  }"
+                  :options-advanced="{
+                    sortable: true,
+                    responsive: true,
+                    filterable: true,
+                    defaultSort: { column: 'BIL', direction: 'asc' }
+                  }"
+                  advanced
+                >
+                  <template v-slot:TINDAKAN="row">
+                    <div class="flex gap-2">
+                      <rs-button variant="primary" size="sm" @click="openViewJobCardModal(row.value)">Lihat</rs-button>
+                      <!-- <rs-button variant="warning" size="sm">Edit</rs-button>
+                      <rs-button variant="danger" size="sm">Padam</rs-button> -->
+                    </div>
+                  </template>
+                </rs-table>      
+              </div>
+            </rs-card>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Add Job Card Modal -->
+    <rs-modal v-model="isAddJobCardModalOpen" size="lg">
+      <template #header>
+        <h3 class="text-lg font-semibold">Tambah Kad Kerja Baru</h3>
+      </template>
+      
+      <template #body>
+        <div class="p-4">
+          <FormKit type="form" :value="newJobCardForm" @submit="submitNewJobCard">
+            <!-- Report Type Section -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Laporan</label>
+              <div class="flex items-center space-x-4">
+                <FormKit
+                  type="radio"
+                  name="reportType"
+                  value="DEFECT"
+                  label="DEFECT"
+                />
+                <FormKit
+                  type="radio"
+                  name="reportType"
+                  value="OSL"
+                  label="OSL"
+                />
+              </div>
+            </div>
+            
+            <!-- Basic Information Section -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-4">
+              <h4 class="font-medium text-gray-700 mb-3">Maklumat Asas</h4>
+              
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <FormKit
+                  type="text"
+                  name="JENIS ASET"
+                  label="Jenis Aset"
+                  placeholder="Contoh: Sistem Radar"
+                  validation="required"
+                />
+                
+                <FormKit
+                  type="text"
+                  name="mainSystem"
+                  label="Sistem Utama / Peralatan"
+                  placeholder="Contoh: RADAR SISTEM"
+                  validation="required"
+                />
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <FormKit
+                  type="date"
+                  name="TARIKH ROSAK"
+                  label="Tarikh Rosak"
+                  validation="required"
+                />
+                
+                <FormKit
+                  type="text"
+                  name="PEMOHON"
+                  label="Pemohon"
+                  placeholder="Contoh: Kapt. Razak"
+                  validation="required"
+                />
+              </div>
+            </div>
+            
+            <!-- Technical Information Section -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-4">
+              <h4 class="font-medium text-gray-700 mb-3">Maklumat Teknikal</h4>
+              
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <FormKit
+                  type="text"
+                  name="location"
+                  label="Lokasi"
+                  placeholder="Contoh: PANGKALAN TLDM LUMUT"
+                  validation="required"
+                />
+                
+                <FormKit
+                  type="number"
+                  name="runningHours"
+                  label="Jam Operasi"
+                  placeholder="Contoh: 1250"
+                />
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <FormKit
+                  type="text"
+                  name="manufacturer"
+                  label="Pengeluar / Model"
+                  placeholder="Contoh: Thales"
+                />
+                
+                <FormKit
+                  type="text"
+                  name="serialNo"
+                  label="No. Siri"
+                  placeholder="Contoh: TH-R5670-892"
+                />
+              </div>
+            </div>
+            
+            <!-- Cost & Details Section -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-4">
+              <h4 class="font-medium text-gray-700 mb-3">Kos & Keterangan</h4>
+              
+              <FormKit
+                type="text"
+                name="AMOUN"
+                label="Anggaran Kos"
+                placeholder="Contoh: RM 15,000"
+                validation="required"
+              />
+              
+              <FormKit
+                type="textarea"
+                name="remarks"
+                label="Keterangan Kerosakan"
+                placeholder="Sila masukkan keterangan terperinci mengenai kerosakan"
+                validation="required"
+                :rows="4"
+              />
+            </div>
+            
+            <!-- Attachment Section -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-medium text-gray-700 mb-3">Lampiran</h4>
+              
+              <FormKit
+                type="file"
+                name="attachment"
+                label="Lampirkan Dokumen"
+                accept=".pdf,.doc,.docx,.jpg,.png"
+                help="Sila lampirkan dokumen sokongan (PDF, Word, atau imej)"
+              />
+            </div>
+          </FormKit>
+        </div>
+      </template>
+      
+      <template #footer>
+        <div class="flex justify-end gap-2">
+          <!-- <rs-button variant="secondary" @click="closeAddJobCardModal">Batal</rs-button>
+          <rs-button variant="primary" @click="submitNewJobCard">Simpan</rs-button> -->
+        </div>
+      </template>
+    </rs-modal>
+
+    <!-- View Job Card Modal -->
+    <rs-modal v-model="isViewJobCardModalOpen" size="lg">
+      <template #header>
+        <h3 class="text-lg font-semibold">Maklumat Kad Kerja</h3>
+      </template>
+      
+      <template #body>
+        <div v-if="selectedJobCard" class="p-4">
+          <!-- Document Header -->
+          <div class="text-center mb-4">
+            <h2 class="text-xl font-bold">BORANG LAPORAN KEROSAKAN</h2>
+            <p class="text-sm">JC-2024-{{ selectedJobCard.BIL.toString().padStart(3, '0') }}</p>
+          </div>
+          
+          <!-- Report Type Section -->
+          <div class="border border-gray-800 mb-4">
+            <table class="w-full">
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium w-1/5">JENIS LAPORAN:</td>
+                <td class="p-2">
+                  <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                      <span>DEFECT</span>
+                      <div class="w-5 h-5 border border-gray-800 flex items-center justify-center">
+                        <span class="text-lg" v-if="selectedJobCard.reportType === 'DEFECT'">✓</span>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <span>OSL</span>
+                      <div class="w-5 h-5 border border-gray-800 flex items-center justify-center">
+                        <span class="text-lg" v-if="selectedJobCard.reportType === 'OSL'">✓</span>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Vessel Information Section -->
+          <div class="border border-gray-800 mb-4">
+            <table class="w-full">
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium w-1/3">Kapal Maritim</td>
+                <td class="p-2">: {{ selectedJobCard['Pengguna Terakhir'] }}</td>
+                <td class="p-2 border-l border-gray-800 font-medium w-1/5">Jam Operasi</td>
+                <td class="p-2">{{ selectedJobCard.runningHours || 'N/A' }}</td>
+              </tr>
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium">Pangkalan Maritim</td>
+                <td class="p-2">: {{ selectedJobCard.location || 'PANGKALAN TLDM LUMUT' }}</td>
+                <td class="p-2 border-l border-gray-800 font-medium">Pengeluar / Model</td>
+                <td class="p-2">{{ selectedJobCard.manufacturer || 'N/A' }}</td>
+              </tr>
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium">Lokasi</td>
+                <td class="p-2">: {{ selectedJobCard.location || 'PANGKALAN TLDM LUMUT' }}</td>
+                <td class="p-2 border-l border-gray-800 font-medium">No. Siri</td>
+                <td class="p-2">{{ selectedJobCard.serialNo || 'N/A' }}</td>
+              </tr>
+              <tr>
+                <td class="p-2 border-r border-gray-800 font-medium">Sistem Utama / Peralatan</td>
+                <td colspan="3" class="p-2">: {{ selectedJobCard['JENIS ASET'] }}</td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Description Section -->
+          <div class="border border-gray-800 mb-4">
+            <table class="w-full">
+              <tr>
+                <td class="p-2 border-r border-gray-800 font-medium w-1/3">Penerangan</td>
+                <td class="p-2">: {{ selectedJobCard.remarks || 'Tiada penerangan terperinci.' }}</td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Details Section -->
+          <div class="border border-gray-800 mb-4">
+            <table class="w-full">
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium w-1/3">Tarikh Rosak</td>
+                <td class="p-2">: {{ selectedJobCard['TARIKH ROSAK'] }}</td>
+              </tr>
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium">Pemohon</td>
+                <td class="p-2">: {{ selectedJobCard['PEMOHON'] }}</td>
+              </tr>
+              <tr>
+                <td class="p-2 border-r border-gray-800 font-medium">Anggaran Kos</td>
+                <td class="p-2">: <span class="font-medium text-blue-600">{{ selectedJobCard['AMOUN'] }}</span></td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Report By / Verified By Section -->
+          <div class="border border-gray-800 mb-4">
+            <table class="w-full">
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium w-1/3">Dilaporkan Oleh</td>
+                <td class="p-2">Disahkan Oleh:</td>
+              </tr>
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800 font-medium text-xs">(PEGAWAI TEKNIKAL)</td>
+                <td class="p-2 font-medium text-xs">(PEGAWAI KAPAL)</td>
+              </tr>
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800">Tandatangan: <span class="italic">[Signed]</span></td>
+                <td class="p-2">Tandatangan: <span class="italic">[Signed]</span></td>
+              </tr>
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800">Nama: {{ selectedJobCard['PEMOHON'] }}</td>
+                <td class="p-2">Nama: _________________</td>
+              </tr>
+              <tr class="border-b border-gray-800">
+                <td class="p-2 border-r border-gray-800">Jawatan: PEGAWAI TEKNIKAL</td>
+                <td class="p-2">Jawatan: PEGAWAI KAPAL</td>
+              </tr>
+              <tr>
+                <td class="p-2 border-r border-gray-800">Tarikh: {{ selectedJobCard['TARIKH ROSAK'] }}</td>
+                <td class="p-2">Tarikh: {{ selectedJobCard['TARIKH ROSAK'] }}</td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Status Section -->
+          <div class="border border-gray-800 mb-4">
+            <table class="w-full">
+              <tr class="border-b border-gray-800 bg-gray-100">
+                <td colspan="2" class="p-2 font-bold">STATUS SEMASA</td>
+              </tr>
+              <tr>
+                <td class="p-2 border-r border-gray-800 font-medium w-1/4">Status</td>
+                <td class="p-2">: 
+                  <rs-badge
+                    :variant="'info'"
+                  >
+                    Dalam Proses
+                  </rs-badge>
+                </td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Attachment Section -->
+          <div class="border border-gray-800 mb-4">
+            <table class="w-full">
+              <tr class="border-b border-gray-800 bg-gray-100">
+                <td colspan="2" class="p-2 font-bold">LAMPIRAN</td>
+              </tr>
+              <tr>
+                <td class="p-2">
+                  <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                    <div class="bg-blue-100 p-2 rounded-lg">
+                      <i class="fas fa-file-pdf text-2xl text-blue-600"></i>
+                    </div>
+                    <div class="flex-grow">
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="font-medium">Laporan Kerosakan.pdf</p>
+                          <p class="text-sm text-gray-500">2.5 MB</p>
+                        </div>
+                        <div>
+                          <rs-button variant="primary" size="sm" class="px-3">
+                            <i class="fas fa-download mr-1"></i> Muat Turun
+                          </rs-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Page Number -->
+          <div class="text-center mt-4">
+            <div class="inline-block bg-gray-700 text-white px-8 py-1 rounded-full">
+              <span class="mr-2">Halaman</span>
+              <span class="mr-2">1</span>
+              <span class="mr-2">/</span>
+              <span>1</span>
+            </div>
+          </div>
+        </div>
+      </template>
+      
+      <template #footer>
+        <div class="flex justify-end gap-2">
+          <rs-button variant="secondary" @click="closeViewJobCardModal">Tutup</rs-button>
+          <rs-button variant="primary">
+            <i class="fas fa-print mr-1"></i> Cetak Laporan
+          </rs-button>
+        </div>
+      </template>
+    </rs-modal>
   </div>
 </template>
