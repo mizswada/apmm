@@ -115,40 +115,40 @@
 const ships = [
   {
     id: 1,
-    name: 'MV Ocean Star',
+    name: 'KD Kedah',
     imoNumber: 'IMO1234567',
     status: 'Aktif',
-    type: 'Kontena',
+    type: 'Vessel',
     lastUpdated: '2024-03-15',
     action: 'Lihat'
   },
-  {
-    id: 2,
-    name: 'MV Pacific Voyager',
-    imoNumber: 'IMO7654321',
-    status: 'Penyelenggaraan',
-    type: 'Pembawa Pukal',
-    lastUpdated: '2024-03-14',
-    action: 'Lihat'
-  },
-  {
-    id: 3,
-    name: 'MV Atlantic Explorer',
-    imoNumber: 'IMO9876543',
-    status: 'Aktif',
-    type: 'Kapal Tangki',
-    lastUpdated: '2024-03-13',
-    action: 'Lihat'
-  },
-  {
-    id: 4,
-    name: 'MV Indian Ocean',
-    imoNumber: 'IMO4567890',
-    status: 'Tidak Aktif',
-    type: 'Kontena',
-    lastUpdated: '2024-03-12',
-    action: 'Lihat'
-  }
+  // {
+  //   id: 2,
+  //   name: 'MV Pacific Voyager',
+  //   imoNumber: 'IMO7654321',
+  //   status: 'Penyelenggaraan',
+  //   type: 'Pembawa Pukal',
+  //   lastUpdated: '2024-03-14',
+  //   action: 'Lihat'
+  // },
+  // {
+  //   id: 3,
+  //   name: 'MV Atlantic Explorer',
+  //   imoNumber: 'IMO9876543',
+  //   status: 'Aktif',
+  //   type: 'Kapal Tangki',
+  //   lastUpdated: '2024-03-13',
+  //   action: 'Lihat'
+  // },
+  // {
+  //   id: 4,
+  //   name: 'MV Indian Ocean',
+  //   imoNumber: 'IMO4567890',
+  //   status: 'Tidak Aktif',
+  //   type: 'Kontena',
+  //   lastUpdated: '2024-03-12',
+  //   action: 'Lihat'
+  // }
 ]
 </script>
 
