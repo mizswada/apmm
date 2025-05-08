@@ -19,7 +19,7 @@
     { name: "Aset", key: "osl" }, 
     { name: "Stock", key: "stock" },  
     { name: "PMS", key: "pms" },
-    { name: "Job Card", key: "jobcard" },
+    { name: "Kad Kerja", key: "jobcard" },
     { name: "Krew", key: "krew" },
     
   ];
@@ -2869,28 +2869,28 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
                 <div class="text-center">
-                  <h3 class="font-bold">TOTAL JOB CARD</h3>
+                  <h3 class="font-bold">JUMLAH KAD KERJA</h3>
                   <p class="text-3xl font-bold text-blue-600 mt-2">24</p>
                 </div>
               </div>
               
               <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
                 <div class="text-center">
-                  <h3 class="font-bold">TOTAL BUDGET</h3>
+                  <h3 class="font-bold">JUMLAH BAJET</h3>
                   <p class="text-3xl font-bold text-green-600 mt-2">RM 125,000</p>
                 </div>
               </div>
               
               <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
                 <div class="text-center">
-                  <h3 class="font-bold">CLOSED JOB CARD</h3>
+                  <h3 class="font-bold">KAD KERJA SELESAI</h3>
                   <p class="text-3xl font-bold text-gray-600 mt-2">15</p>
                 </div>
               </div>
               
               <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
                 <div class="text-center">
-                  <h3 class="font-bold">TOTAL PENDING JOB CARD</h3>
+                  <h3 class="font-bold">JUMLAH KAD KERJA TERTUNGGAK</h3>
                   <p class="text-3xl font-bold text-orange-600 mt-2">9</p>
                 </div>
               </div>
@@ -2900,21 +2900,21 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
                 <div class="text-center">
-                  <h3 class="font-bold">PENDING APPROVAL FROM MN/ZM</h3>
+                  <h3 class="font-bold">MENUNGGU KELULUSAN DARI MN/ZM</h3>
                   <p class="text-3xl font-bold text-yellow-600 mt-2">3</p>
                 </div>
               </div>
               
               <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
                 <div class="text-center">
-                  <h3 class="font-bold">PENDING APPROVAL FROM KJPKP</h3>
+                  <h3 class="font-bold">MENUNGGU KELULUSAN DARI KJPKP</h3>
                   <p class="text-3xl font-bold text-yellow-600 mt-2">4</p>
                 </div>
               </div>
               
               <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
                 <div class="text-center">
-                  <h3 class="font-bold">PENDING PAYMENT</h3>
+                  <h3 class="font-bold">MENUNGGU PEMBAYARAN</h3>
                   <p class="text-3xl font-bold text-red-600 mt-2">2</p>
                 </div>
               </div>
@@ -2936,10 +2936,10 @@
                   :columns="[
                     { key: 'BIL', label: 'BIL' },
                     { key: 'JENIS ASET', label: 'JENIS ASET' },
-                    { key: 'Pengguna Terakhir', label: 'Pengguna Terakhir' },
+                    { key: 'Pengguna Terakhir', label: 'PENGGUNA TERAKHIR' },
                     { key: 'TARIKH ROSAK', label: 'TARIKH ROSAK' },
                     { key: 'PEMOHON', label: 'PEMOHON' },
-                    { key: 'AMOUN', label: 'AMOUN' },
+                    { key: 'AMOUN', label: 'JUMLAH (RM)' },
                     { key: 'TINDAKAN', label: 'TINDAKAN' }
                   ]"
                   :options="{
@@ -2987,7 +2987,7 @@
                   type="radio"
                   name="reportType"
                   value="DEFECT"
-                  label="DEFECT"
+                  label="KEROSAKAN"
                 />
                 <FormKit
                   type="radio"
@@ -3144,7 +3144,7 @@
                 <td class="p-2">
                   <div class="flex items-center space-x-4">
                     <div class="flex items-center space-x-2">
-                      <span>DEFECT</span>
+                      <span>KEROSAKAN</span>
                       <div class="w-5 h-5 border border-gray-800 flex items-center justify-center">
                         <span class="text-lg" v-if="selectedJobCard.reportType === 'DEFECT'">✓</span>
                       </div>
