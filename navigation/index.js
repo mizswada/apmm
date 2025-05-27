@@ -81,7 +81,7 @@ export default [
         icon: "material-symbols-light:article-person-outline",       
       },
       {
-        title: "PENGURUSAN KONTRAK",
+        title: "Pengurusan Kontrak",
         path: "/new/pengurusan-kontrak",
         icon: "material-symbols-light:lab-profile-outline-sharp",       
       },
@@ -91,8 +91,8 @@ export default [
     header: "PENGURUSAN PENGGUNA DAN SISTEM",
     child: [
       {
-        title: "Tetapan",
-        icon: "material-symbols:settings-outline-rounded",   
+        title: "Pengurusan Pengguna",
+        icon: "pajamas:issue-type-maintenance",
         child: [
           {
             title: "Peranan",
@@ -102,8 +102,36 @@ export default [
             title: "Pengguna",
             path: "/new/tetapan-pengguna",     
           },
-        ]
-      }
+        ]     
+      },
+      {
+        title: "Pengurusan Sistem",
+        icon: "pajamas:issue-type-maintenance",
+        child: [
+          {
+            title: "Audit trail",
+            path: "/new/tetapan-audit-trail",     
+          },
+          {
+            title: "SMTP",
+            path: "/new/tetapan-smtp",     
+          },
+          {
+            title: "Pengakalan Data",
+            path: "/new/tetapan-pengakalan-data",     
+          },
+          {
+            title: "Integrasi Sistem Luar",
+            path: "/new/tetapan-integrasi-sistem-luar",     
+          },
+        ]     
+      },
+      {
+        title: "Pengurusan Data",
+        path: "/new/pengurusan-data",
+        icon: "pajamas:issue-type-maintenance",       
+      }, 
+      
     ],
   },
 

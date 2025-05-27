@@ -11,7 +11,7 @@
         <!-- Role Table -->
         <rs-table
             :data="roles"
-            :field="['name', 'description', 'createdAt', 'status', 'tindakan']"
+            :field="['nama', 'keterangan', 'status', 'tindakan']"
             :options="{
                 variant: 'default',
                 striped: true,
@@ -25,18 +25,16 @@
             }"
             advanced
         >
-            <template v-slot:name="data">
-                {{ data.value.name }}
+            <template v-slot:nama="data">
+                {{ data.value.nama }}
             </template>
-            <template v-slot:description="data">
-                {{ data.value.description }}
+            <template v-slot:keterangan="data">
+                {{ data.value.keterangan }}
             </template>
-            <template v-slot:createdAt="data">
-                {{ formatDate(data.value.createdAt) }}
-            </template>
+            
             <template v-slot:status="data">
                 <rs-badge
-                    :variant="data.value.status === 'Active' ? 'success' : 'warning'"
+                    :variant="data.value.status === 'Aktif' ? 'success' : 'warning'"
                 >
                     {{ data.value.status }}
                 </rs-badge>
@@ -70,7 +68,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Keterangan</label>
                         <FormKit
-                            v-model="newRole.description"
+                            v-model="newRole.keterangan"
                             type="textarea"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             placeholder="Masukkan keterangan peranan"
@@ -124,7 +122,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Keterangan</label>
                         <FormKit
-                            v-model="editingRole.description"
+                            v-model="editingRole.keterangan"
                             type="textarea"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             placeholder="Masukkan keterangan peranan"
@@ -175,26 +173,26 @@ const showEditRoleModal = ref(false)
 const roles = ref([
     {
         id: 1,
-        name: 'Admin',
-        description: 'Full system access with all privileges',
+        nama: 'Pengarah',
+        keterangan: 'Full system access with all privileges',
         createdAt: '2024-03-20',
-        status: 'Active',
+        status: 'Aktif',
         tindakan: null // This field is needed for the table but will be rendered through slot
     },
     {
         id: 2,
-        name: 'Manager',
-        description: 'Access to manage resources and view reports',
+        nama: 'HQ',
+        keterangan: 'Access to manage resources and view reports',
         createdAt: '2024-03-20',
-        status: 'Active',
+        status: 'Aktif',
         tindakan: null
     },
     {
         id: 3,
-        name: 'User',
-        description: 'Basic access to view and interact with the system',
+        nama: 'Maritim Negeri/Zon Negeri',
+        keterangan: 'Basic access to view and interact with the system',
         createdAt: '2024-03-20',
-        status: 'Active',
+        status: 'Aktif',
         tindakan: null
     }
 ])
@@ -202,7 +200,7 @@ const roles = ref([
 // New role template
 const newRole = ref({
     name: '',
-    description: '',
+    keterangan: '',
     status: 'Active'
 })
 
@@ -210,7 +208,7 @@ const newRole = ref({
 const editingRole = ref({
     id: null,
     name: '',
-    description: '',
+    keterangan: '',
     status: 'Active'
 })
 
@@ -222,7 +220,7 @@ const formatDate = (date) => {
 // Add new role
 const addNewRole = () => {
     // Add validation here
-    if (!newRole.value.name || !newRole.value.description) {
+    if (!newRole.value.name || !newRole.value.keterangan) {
         alert('Please fill in all required fields')
         return
     }
@@ -239,7 +237,7 @@ const addNewRole = () => {
     // Reset form and close modal
     newRole.value = {
         name: '',
-        description: '',
+        keterangan: '',
         status: 'Active'
     }
     showAddRoleModal.value = false
@@ -254,7 +252,7 @@ const editRole = (role) => {
 // Update role
 const updateRole = () => {
     // Add validation here
-    if (!editingRole.value.name || !editingRole.value.description) {
+    if (!editingRole.value.name || !editingRole.value.keterangan) {
         alert('Please fill in all required fields')
         return
     }
@@ -269,7 +267,7 @@ const updateRole = () => {
     editingRole.value = {
         id: null,
         name: '',
-        description: '',
+        keterangan: '',
         status: 'Active'
     }
     showEditRoleModal.value = false

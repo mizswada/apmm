@@ -33,9 +33,9 @@
                             <button @click="$router.push(`/lihatTugasan`)" class="text-blue-600 hover:text-blue-800">
                                 <Icon class="text-primary" name="weui:eyes-on-outlined"></Icon>
                             </button>
-                            <button @click="$router.push(`/kemaskiniTugasan`)" class="text-blue-600 hover:text-blue-800">
+                            <!-- <button @click="$router.push(`/kemaskiniTugasan`)" class="text-blue-600 hover:text-blue-800">
                                 <Icon class="text-primary" name="heroicons:pencil-square-16-solid"></Icon>
-                            </button>
+                            </button> -->
                             <!-- <rs-button >
                                 <Icon class="text-primary" name="weui:eyes-on-outlined"></Icon>
                             </rs-button> -->
