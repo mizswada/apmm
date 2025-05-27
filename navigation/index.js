@@ -60,7 +60,7 @@ export default [
     header: "PENGURUSAN MAKLUMAT KRU TEKNIKAL",
     child: [
       {
-        title: "Data KRU",
+        title: "Maklumat Kru",
         path: "/new/data-kru",
         icon: "healthicons:domestic-worker",       
       },
