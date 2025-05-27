@@ -26,7 +26,7 @@
             advanced
         >
             <template v-slot:nama="data">
-                {{ data.value.nama }}
+                {{ data.value.name }}
             </template>
             <template v-slot:keterangan="data">
                 {{ data.value.keterangan }}
@@ -53,7 +53,7 @@
         </rs-table>
 
         <!-- Add Role Modal -->
-        <rs-modal v-model="showAddRoleModal" title="Tambah Peranan Baharu" size="md">
+        <rs-modal v-model="showAddRoleModal" title="Tambah Peranan Baharu" size="lg">
             <div class="p-4">
                 <div class="space-y-4">
                     <div>
@@ -86,6 +86,17 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         />
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Pilih Modul</label>
+                        <FormKit
+                            input-class="h-full"
+                            v-model="newRole.navigation"
+                            type="select"
+                            multiple="true"
+                            :options="navigationOptions"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                    </div>
                 </div>
             </div>
             <template #footer>
@@ -107,7 +118,7 @@
         </rs-modal>
 
         <!-- Edit Role Modal -->
-        <rs-modal v-model="showEditRoleModal" title="Edit Peranan" size="md">
+        <rs-modal v-model="showEditRoleModal" title="Edit Peranan" size="lg">
             <div class="p-4">
                 <div class="space-y-4">
                     <div>
@@ -140,6 +151,17 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         />
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Pilih Modul</label>
+                        <FormKit
+                            type="select"
+                            multiple
+                            v-model="editingRole.navigation"                            
+                            :options="navigationOptions"
+                            input-class="h-full"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        />
+                    </div>
                 </div>
             </div>
             <template #footer>
@@ -169,30 +191,43 @@ import { ref } from 'vue'
 const showAddRoleModal = ref(false)
 const showEditRoleModal = ref(false)
 
+// Navigation options
+const navigationOptions = [
+    { label: 'Dashboard', value: 'dashboard' },
+    { label: 'Profil Pengguna', value: 'profil-pengguna' },
+    { label: 'Tetapan Peranan', value: 'tetapan-peranan' },
+    { label: 'Pengurusan Pengguna', value: 'pengurusan-pengguna' },
+    { label: 'Laporan', value: 'laporan' },
+    { label: 'Audit Trail', value: 'audit-trail' }
+]
+
 // Sample data for roles (replace with actual API calls)
 const roles = ref([
     {
         id: 1,
-        nama: 'Pengarah',
+        name: 'Pengarah',
         keterangan: 'Full system access with all privileges',
         createdAt: '2024-03-20',
         status: 'Aktif',
-        tindakan: null // This field is needed for the table but will be rendered through slot
+        navigation: ['dashboard', 'profil-pengguna', 'tetapan-peranan', 'pengurusan-pengguna', 'laporan', 'audit-trail'],
+        tindakan: null
     },
     {
         id: 2,
-        nama: 'HQ',
+        name: 'HQ',
         keterangan: 'Access to manage resources and view reports',
         createdAt: '2024-03-20',
         status: 'Aktif',
+        navigation: ['dashboard', 'profil-pengguna', 'laporan'],
         tindakan: null
     },
     {
         id: 3,
-        nama: 'Maritim Negeri/Zon Negeri',
+        name: 'Maritim Negeri/Zon Negeri',
         keterangan: 'Basic access to view and interact with the system',
         createdAt: '2024-03-20',
         status: 'Aktif',
+        navigation: ['dashboard', 'profil-pengguna'],
         tindakan: null
     }
 ])
@@ -201,7 +236,8 @@ const roles = ref([
 const newRole = ref({
     name: '',
     keterangan: '',
-    status: 'Active'
+    status: 'Active',
+    navigation: []
 })
 
 // Editing role template
@@ -209,7 +245,8 @@ const editingRole = ref({
     id: null,
     name: '',
     keterangan: '',
-    status: 'Active'
+    status: 'Active',
+    navigation: []
 })
 
 // Format date function
@@ -238,7 +275,8 @@ const addNewRole = () => {
     newRole.value = {
         name: '',
         keterangan: '',
-        status: 'Active'
+        status: 'Active',
+        navigation: []
     }
     showAddRoleModal.value = false
 }
@@ -268,7 +306,8 @@ const updateRole = () => {
         id: null,
         name: '',
         keterangan: '',
-        status: 'Active'
+        status: 'Active',
+        navigation: []
     }
     showEditRoleModal.value = false
 }

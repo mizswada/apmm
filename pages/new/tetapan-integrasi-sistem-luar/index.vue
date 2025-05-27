@@ -1,9 +1,14 @@
 <template>
-    <div class="space-y-6">
+    <div class="SPAce-y-6">
         <!-- Database Configuration Section -->
         <rs-card>
             <template #header>
-                <h1 class="text-xl font-semibold">Konfigurasi dan Status Integrasi Sistem Luar</h1>
+                <div class="flex justify-between items-center">
+                    <h1 class="text-xl font-semibold">Konfigurasi dan Status Integrasi Sistem Luar</h1>
+                    <RsButton variant="primary" @click="openAddModal">
+                        Tambah Integrasi Sistem
+                    </RsButton>
+                </div>
             </template>
             
             <div class="overflow-x-auto">
@@ -56,7 +61,7 @@
         <div class="bg-white rounded-lg p-6 shadow-sm">
             <h2 class="text-lg font-semibold mb-6">Log Respons</h2>
             
-            <div class="space-y-4">
+            <div class="SPAce-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <!-- IP Address -->
                     <FormKit
@@ -148,12 +153,17 @@
         <!-- Edit Modal -->
         <rs-modal
             v-model="showEditModal"
-            title="Konfigurasi Integrasi MCGMDA"
+            :title="isEditing ? 'Konfigurasi Integrasi MCGMDA' : 'Tambah Integrasi Sistem'"
             size="lg"
             @close="closeEditModal"
         >
-            <div class="space-y-4">
+            <div class="SPAce-y-4">
                 <div class="grid grid-cols-2 gap-4">
+                    <!-- Name -->
+                    <div class="form-group" v-if="!isEditing">
+                        <label class="form-label">Nama Sistem</label>
+                        <FormKit type="text" v-model="editForm.name" class="form-control" placeholder="Nama Sistem" />
+                    </div>
                     <!-- Scheme -->
                     <div class="form-group">
                         <label class="form-label">Scheme</label>
@@ -187,7 +197,7 @@
             <template #footer>
                 <div class="flex justify-between">
                     <RsButton variant="secondary" @click="closeEditModal">Set Semula</RsButton>
-                    <RsButton variant="primary" @click="saveEdit">Simpan</RsButton>
+                    <RsButton variant="primary" @click="isEditing ? saveEdit() : saveAdd()">Simpan</RsButton>
                 </div>
             </template>
         </rs-modal>
@@ -208,16 +218,7 @@ const columns = [
 ]
 
 const databases = ref([
-    {
-        name: 'MCGMDA',
-        scheme: 'https',
-        domain: 'uat.eip.greenfinder.asia',
-        username: 'cgiis_user',
-        status: 'Active',
-        lastUpdate: '20/3/2024, 2:51:54 PM',
-        tenantName: 'admin',
-        actions: ''
-    },
+   
     {
         name: 'ePerolehan',
         scheme: 'https',
@@ -229,20 +230,10 @@ const databases = ref([
         actions: ''
     },
     {
-        name: 'MyGDX',
+        name: 'SPA',
         scheme: 'https',
-        domain: 'api.data.gov.my',
-        username: 'gdx_apmm',
-        status: 'Inactive',
-        lastUpdate: '18/3/2024, 6:26:30 PM',
-        tenantName: 'apmm_prod',
-        actions: ''
-    },
-    {
-        name: 'ePBT',
-        scheme: 'https',
-        domain: 'api.epbt.gov.my',
-        username: 'epbt_user',
+        domain: 'api.spa.gov.my',
+        username: 'spa_user',
         status: 'Active',
         lastUpdate: '17/3/2024, 6:24:26 PM',
         tenantName: 'apmm_dev',
@@ -267,8 +258,10 @@ const filters = ref({
     endDate: ''
 })
 
+const isEditing = ref(false)
 const showEditModal = ref(false)
 const editForm = ref({
+    name: '',
     scheme: 'https',
     domain: '',
     username: '',
@@ -276,7 +269,22 @@ const editForm = ref({
     tenantName: ''
 })
 
+const openAddModal = () => {
+    isEditing.value = false
+    editForm.value = {
+        name: '',
+        scheme: 'https',
+        domain: '',
+        username: '',
+        password: '',
+        tenantName: '',
+        status: 'Active'
+    }
+    showEditModal.value = true
+}
+
 const openEditModal = (item) => {
+    isEditing.value = true
     editForm.value = { ...item }
     showEditModal.value = true
 }
@@ -284,12 +292,25 @@ const openEditModal = (item) => {
 const closeEditModal = () => {
     showEditModal.value = false
     editForm.value = {
+        name: '',
         scheme: 'https',
         domain: '',
         username: '',
         password: '',
         tenantName: ''
     }
+    isEditing.value = false
+}
+
+const saveAdd = () => {
+    // Add new integration to the table
+    const newIntegration = {
+        ...editForm.value,
+        lastUpdate: new Date().toLocaleString(),
+        actions: ''
+    }
+    databases.value.push(newIntegration)
+    closeEditModal()
 }
 
 const saveEdit = () => {
@@ -377,14 +398,7 @@ const columns_logs = [
 
 // Sample Data
 const logData = ref([
-  {
-    datetime: '2024-03-20 09:15:23',
-    username: 'cgiis_user',
-    activityType: 'Integrasi MCGMDA',
-    description: 'Berjaya menghantar data ke MCGMDA - ID Transaksi: TRX123456',
-    ipAddress: '10.1.69.87',
-    status: 'Success'
-  },
+ 
   {
     datetime: '2024-03-20 09:30:45',
     username: 'apmm_user',
@@ -394,18 +408,10 @@ const logData = ref([
     status: 'Error'
   },
   {
-    datetime: '2024-03-20 10:00:12',
-    username: 'gdx_apmm',
-    activityType: 'Kemaskini Konfigurasi MyGDX',
-    description: 'Kemaskini endpoint MyGDX dari /v1/api ke /v2/api',
-    ipAddress: '10.1.69.92',
-    status: 'Success'
-  },
-  {
     datetime: '2024-03-20 10:15:30',
-    username: 'epbt_user',
-    activityType: 'Integrasi ePBT',
-    description: 'Menunggu pengesahan data dari ePBT - Ref: PBT789012',
+    username: 'SPA_user',
+    activityType: 'Integrasi SPA',
+    description: 'Menunggu pengesahan data dari SPA - Ref: PBT789012',
     ipAddress: '10.1.69.95',
     status: 'Pending'
   },
@@ -417,14 +423,7 @@ const logData = ref([
     ipAddress: '10.1.69.98',
     status: 'Success'
   },
-  {
-    datetime: '2024-03-20 11:00:33',
-    username: 'cgiis_user',
-    activityType: 'Kemaskini Token MCGMDA',
-    description: 'Pembaharuan token akses MCGMDA berjaya',
-    ipAddress: '10.1.69.87',
-    status: 'Success'
-  },
+  
   {
     datetime: '2024-03-20 11:15:42',
     username: 'apmm_user',
@@ -433,19 +432,12 @@ const logData = ref([
     ipAddress: '10.1.69.90',
     status: 'Error'
   },
-  {
-    datetime: '2024-03-20 11:30:55',
-    username: 'gdx_apmm',
-    activityType: 'Ujian Integrasi MyGDX',
-    description: 'Ujian sambungan MyGDX berjaya - Latency: 230ms',
-    ipAddress: '10.1.69.92',
-    status: 'Success'
-  },
+  
   {
     datetime: '2024-03-20 11:45:22',
-    username: 'epbt_user',
-    activityType: 'Integrasi ePBT',
-    description: 'Berjaya menghantar laporan bulanan ke ePBT',
+    username: 'SPA_user',
+    activityType: 'Integrasi SPA',
+    description: 'Berjaya menghantar laporan bulanan ke SPA',
     ipAddress: '10.1.69.95',
     status: 'Success'
   },
@@ -461,7 +453,7 @@ const logData = ref([
 </script>
 
 <style lang="scss" scoped>
-.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+.SPAce-y-6 > :not([hidden]) ~ :not([hidden]) {
     margin-top: 1.5rem;
 }
 

@@ -3,7 +3,12 @@
         <!-- Database Configuration Section -->
         <rs-card>
             <template #header>
-                <h1 class="text-xl font-semibold">Konfigurasi dan Status Pangkalan Data APMM</h1>
+                <div class="flex justify-between items-center">
+                    <h1 class="text-xl font-semibold">Konfigurasi dan Status Pangkalan Data APMM</h1>
+                    <RsButton variant="primary" @click="openAddModal">
+                        Tambah Pangkalan Data
+                    </RsButton>
+                </div>
             </template>
             
             <div class="overflow-x-auto">
@@ -188,6 +193,43 @@
                 </div>
             </template>
         </rs-modal>
+
+        <!-- Add Modal -->
+        <rs-modal
+            v-model="showAddModal"
+            title="Tambah Pangkalan Data"
+            size="lg"
+            @close="closeAddModal"
+        >
+            <div class="space-y-4">
+                <div class="form-group">
+                    <label class="form-label">Pangkalan Data</label>
+                    <FormKit type="text" v-model="addForm.name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Host</label>
+                    <FormKit type="text" v-model="addForm.host" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">No. Port</label>
+                    <FormKit type="text" v-model="addForm.port" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nama Pengguna</label>
+                    <FormKit type="text" v-model="addForm.username" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kata Laluan</label>
+                    <FormKit type="password" v-model="addForm.password" class="form-control" />
+                </div>
+            </div>
+            <template #footer>
+                <div class="flex justify-end gap-2">
+                    <RsButton variant="secondary" @click="closeAddModal">Tutup</RsButton>
+                    <RsButton variant="primary" @click="saveAdd">Simpan</RsButton>
+                </div>
+            </template>
+        </rs-modal>
     </div>
 </template>
 
@@ -206,7 +248,7 @@ const columns = [
 
 const databases = ref([
     {
-        name: 'dbops2',
+        name: 'apmm',
         host: '10.1.69.87',
         port: '3306',
         username: 'usr_apmm',
@@ -215,7 +257,7 @@ const databases = ref([
         actions: ''
     },
     {
-        name: 'dbsam',
+        name: 'apmm_1',
         host: '10.1.69.87',
         port: '3306',
         username: 'usr_apmm',
@@ -224,7 +266,7 @@ const databases = ref([
         actions: ''
     },
     {
-        name: 'dbsar_new',
+        name: 'apmm_2',
         host: '10.1.69.87',
         port: '3306',
         username: 'usr_apmm',
@@ -233,7 +275,7 @@ const databases = ref([
         actions: ''
     },
     {
-        name: 'mymdi',
+        name: 'apmm_3',
         host: '10.1.69.87',
         port: '3306',
         username: 'usr_apmm',
@@ -436,6 +478,44 @@ const logData = ref([
     status: 'Success'
   }
 ])
+
+const showAddModal = ref(false)
+const addForm = ref({
+    name: '',
+    host: '',
+    port: '',
+    username: '',
+    password: ''
+})
+
+const openAddModal = () => {
+    showAddModal.value = true
+}
+
+const closeAddModal = () => {
+    showAddModal.value = false
+    addForm.value = {
+        name: '',
+        host: '',
+        port: '',
+        username: '',
+        password: ''
+    }
+}
+
+const saveAdd = () => {
+    // Here you would typically make an API call to save the new database
+    databases.value.push({
+        name: addForm.value.name,
+        host: addForm.value.host,
+        port: addForm.value.port,
+        username: addForm.value.username,
+        status: 'Online',
+        lastUpdate: new Date().toLocaleString(),
+        actions: ''
+    })
+    closeAddModal()
+}
 </script>
 
 <style lang="scss" scoped>

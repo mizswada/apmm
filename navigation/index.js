@@ -12,12 +12,12 @@ export default [
   {
     header: "PENGURUSAN MAKLUMAT DAN PEMBAIKAN VESEL",
     child: [
-      {
-        title: "Pendaftaran Vesel",
-        path: "/new/pendaftaran-vesel",
-        icon: "uil:ship",
-        child: [],
-      },
+      // {
+      //   title: "Pendaftaran Vesel",
+      //   path: "/new/pendaftaran-vesel",
+      //   icon: "uil:ship",
+      //   child: [],
+      // },
       {
         title: "Pembaikan Vesel",
         icon: "pajamas:issue-type-maintenance",
@@ -117,7 +117,7 @@ export default [
             path: "/new/tetapan-smtp",     
           },
           {
-            title: "Pengakalan Data",
+            title: "Pangkalan Data",
             path: "/new/tetapan-pengakalan-data",     
           },
           {
