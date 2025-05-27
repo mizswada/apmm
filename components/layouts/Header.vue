@@ -72,7 +72,7 @@ onMounted(() => {
             <Icon name="ic:round-menu" class="" /></button
         ></span>
         <span class="flex items-center justify-center text-xl font-semibold">
-          Bahagian Kejuruteraan APMM
+          SISTEM PENGURUSAN DAN PEMANTAUAN ASET  KEJURUTERAAN MARIN APMM (e-JUTRA)
         </span>
       </div>
       <div class="flex" v-else>

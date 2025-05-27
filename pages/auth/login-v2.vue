@@ -40,8 +40,9 @@ definePageMeta({
             >Lupa Kata Laluan?</NuxtLink
           >
           <NuxtLink to="/dashboard" class="col-span-2">
-            <FormKit type="button" input-class="w-full"> Log Masuk </FormKit>
+            <FormKit type="button" input-class="w-full"> Log Masuk as High Level </FormKit>
           </NuxtLink>
+          
           <!-- <rs-button
             class="w-full col-span-2 !bg-white !text-inherit shadow-md"
           >
