@@ -95,11 +95,11 @@ export default [
         icon: "material-symbols:settings-outline-rounded",   
         child: [
           {
-            title: "Tetapan Peranan",
+            title: "Peranan",
             path: "/new/tetapan-peranan",     
           },
           {
-            title: "Tetapan Pengguna",
+            title: "Pengguna",
             path: "/new/tetapan-pengguna",     
           },
         ]

@@ -1110,11 +1110,32 @@
     console.log("Printing crew item:", item);
   };
 
+  // Ship/Bot data
+  const shipData = ref([
+    { id: 1, name: 'KD KEDAH', type: 'Kapal', pennantNumber: 'F171' },
+    { id: 2, name: 'KD PAHANG', type: 'Kapal', pennantNumber: 'F172' },
+    { id: 3, name: 'KD KELANTAN', type: 'Kapal', pennantNumber: 'F173' },
+    { id: 4, name: 'KD SELANGOR', type: 'Kapal', pennantNumber: 'F174' },
+    { id: 5, name: 'BOT TUNDA 1', type: 'Bot', pennantNumber: 'BT001' },
+    { id: 6, name: 'BOT TUNDA 2', type: 'Bot', pennantNumber: 'BT002' },
+    { id: 7, name: 'BOT MALIM 1', type: 'Bot', pennantNumber: 'BM001' },
+    { id: 8, name: 'BOT MALIM 2', type: 'Bot', pennantNumber: 'BM002' }
+  ]);
+
+  // Computed property for ship options
+  const shipOptions = computed(() => {
+    return shipData.value.map(ship => ({
+      label: `${ship.name} (${ship.pennantNumber})`,
+      value: ship.id
+    }));
+  });
+
   // Job Card data
   const jobCardData = ref([
     {
       BIL: 1,
       'JENIS ASET': 'Sistem Radar',
+      'KAPAL/BOT': 'KD KEDAH',
       'Pengguna Terakhir': 'KD Kedah',
       'TARIKH ROSAK': '2024-03-15',
       'PEMOHON': 'Kapt. Razak',
@@ -1124,6 +1145,7 @@
     {
       BIL: 2,
       'JENIS ASET': 'Enjin Utama',
+      'KAPAL/BOT': 'KD PAHANG',
       'Pengguna Terakhir': 'KD Kedah',
       'TARIKH ROSAK': '2024-04-02',
       'PEMOHON': 'Kapt. Razak',
@@ -1159,10 +1181,19 @@
     }
   ]);
 
+  // Computed property for asset options
+  const assetOptions = computed(() => {
+    return shipEquipmentData.value.map(equipment => ({
+      label: `${equipment.name} (${equipment.equipmentNo})`,
+      value: equipment.equipmentNo
+    }));
+  });
+
   // Add Job Card Modal state
   const isAddJobCardModalOpen = ref(false);
   const newJobCardForm = ref({
     'JENIS ASET': '',
+    'KAPAL/BOT': '',
     'Pengguna Terakhir': 'KD Kedah',
     'TARIKH ROSAK': new Date().toISOString().split('T')[0],
     'PEMOHON': '',
@@ -1173,13 +1204,15 @@
     'runningHours': '',
     'manufacturer': '',
     'serialNo': '',
-    'remarks': ''
+    'remarks': '',
+    'selectedShipId': null
   });
 
   // Open add job card modal
   const openAddJobCardModal = () => {
     newJobCardForm.value = {
       'JENIS ASET': '',
+      'KAPAL/BOT': '',
       'Pengguna Terakhir': 'KD Kedah',
       'TARIKH ROSAK': new Date().toISOString().split('T')[0],
       'PEMOHON': '',
@@ -1190,7 +1223,8 @@
       'runningHours': '',
       'manufacturer': '',
       'serialNo': '',
-      'remarks': ''
+      'remarks': '',
+      'selectedShipId': null
     };
     isAddJobCardModalOpen.value = true;
   };
@@ -1237,57 +1271,94 @@
     <div class="space-y-6">
         <!-- Statistics Cards Row -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-            <div class="text-center">
-                <h3 class="font-bold">JUMLAH KAD KERJA</h3>
-                <p class="text-3xl font-bold text-blue-600 mt-2">24</p>
-            </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-            <div class="text-center">
-                <h3 class="font-bold">JUMLAH BAJET</h3>
-                <p class="text-3xl font-bold text-green-600 mt-2">RM 125,000</p>
-            </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-            <div class="text-center">
-                <h3 class="font-bold">KAD KERJA SELESAI</h3>
-                <p class="text-3xl font-bold text-gray-600 mt-2">15</p>
-            </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-            <div class="text-center">
-                <h3 class="font-bold">JUMLAH KAD KERJA TERTUNGGAK</h3>
-                <p class="text-3xl font-bold text-orange-600 mt-2">9</p>
-            </div>
-            </div>
+          <div class="bg-white rounded-lg shadow p-6">
+              <div class="flex items-center justify-between">
+              <div>
+                  <p class="text-sm text-gray-500">Jumlah Kad Kerja</p>
+                  <h3 class="text-2xl font-bold">5</h3>
+              </div>
+              <div class="p-3 bg-blue-100 rounded-full">
+                  <Icon class="text-primary" name="mdi:invoice-list-outline"></Icon>
+              </div>
+              </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow p-6">
+              <div class="flex items-center justify-between">
+              <div>
+                  <p class="text-sm text-gray-500">Jumlah Bajet</p>
+                  <h3 class="text-2xl font-bold">RM 125,000</h3>
+              </div>
+              <div class="p-3 bg-blue-100 rounded-full">
+                  <Icon class="text-primary" name="f7:money-dollar-circle"></Icon>
+              </div>
+              </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow p-6">
+              <div class="flex items-center justify-between">
+              <div>
+                  <p class="text-sm text-gray-500">Kad Kerja Selesai</p>
+                  <h3 class="text-2xl font-bold">2</h3>
+              </div>
+              <div class="p-3 bg-blue-100 rounded-full">
+                  <Icon class="text-primary" name="material-symbols:library-add-check-outline-rounded"></Icon>
+              </div>
+              </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow p-6">
+              <div class="flex items-center justify-between">
+              <div>
+                  <p class="text-sm text-gray-500">Kad Kerja Tertunggak</p>
+                  <h3 class="text-2xl font-bold text-red-600">2</h3>
+              </div>
+              <div class="p-3 bg-red-100 rounded-full">
+                  <Icon class="text-primary" name="ic:outline-warning-amber"></Icon>
+              </div>
+              </div>
+          </div>            
         </div>
         
         <!-- Approval Status Cards Row -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-            <div class="text-center">
-                <h3 class="font-bold">MENUNGGU KELULUSAN DARI MN/ZM</h3>
-                <p class="text-3xl font-bold text-yellow-600 mt-2">3</p>
-            </div>
-            </div>
+          <div class="bg-white rounded-lg shadow p-6">
+              <div class="flex items-center justify-between">
+              <div>
+                  <p class="text-sm text-gray-500">Menunggu Kelulusan MN/ZM</p>
+                  <h3 class="text-2xl font-bold text-yellow-600">1</h3>
+              </div>
+              <div class="p-3 bg-red-100 rounded-full">
+                  <Icon class="text-primary" name="hugeicons:validation-approval"></Icon>
+              </div>
+              </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow p-6">
+              <div class="flex items-center justify-between">
+              <div>
+                  <p class="text-sm text-gray-500">Menunggu Kelulusan KJPKP</p>
+                  <h3 class="text-2xl font-bold text-yellow-600">2</h3>
+              </div>
+              <div class="p-3 bg-red-100 rounded-full">
+                  <Icon class="text-primary" name="hugeicons:validation-approval"></Icon>
+              </div>
+              </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow p-6">
+              <div class="flex items-center justify-between">
+              <div>
+                  <p class="text-sm text-gray-500">Menunggu Pembayaran</p>
+                  <h3 class="text-2xl font-bold text-yellow-600">3</h3>
+              </div>
+              <div class="p-3 bg-red-100 rounded-full">
+                  <Icon class="text-primary" name="tabler:moneybag-move"></Icon>
+              </div>
+              </div>
+          </div>
+
             
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-            <div class="text-center">
-                <h3 class="font-bold">MENUNGGU KELULUSAN DARI KJPKP</h3>
-                <p class="text-3xl font-bold text-yellow-600 mt-2">4</p>
-            </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition-shadow">
-            <div class="text-center">
-                <h3 class="font-bold">MENUNGGU PEMBAYARAN</h3>
-                <p class="text-3xl font-bold text-red-600 mt-2">2</p>
-            </div>
-            </div>
         </div>
         
         <!-- Job Card List Section -->
@@ -1295,7 +1366,10 @@
             <template #header>
             <div class="flex justify-between items-center p-2">
                 <h2 class="text-lg font-semibold">Senarai Kad Kerja</h2>
-                <rs-button variant="primary" @click="openAddJobCardModal">Tambah Kad Kerja</rs-button>
+                <rs-button variant="primary" @click="openAddJobCardModal">
+                  <Icon name="material-symbols:add" />
+                  Tambah Kad Kerja
+                </rs-button>
             </div>
             </template>
             
@@ -1306,7 +1380,7 @@
                 :columns="[
                 { key: 'BIL', label: 'BIL' },
                 { key: 'JENIS ASET', label: 'JENIS ASET' },
-                { key: 'Pengguna Terakhir', label: 'PENGGUNA TERAKHIR' },
+                { key: 'KAPAL/BOT', label: 'KAPAL/BOT' },
                 { key: 'TARIKH ROSAK', label: 'TARIKH ROSAK' },
                 { key: 'PEMOHON', label: 'PEMOHON' },
                 { key: 'AMOUN', label: 'JUMLAH (RM)' },
@@ -1327,7 +1401,10 @@
             >
                 <template v-slot:TINDAKAN="row">
                 <div class="flex gap-2">
-                    <rs-button variant="primary" size="sm" @click="openViewJobCardModal(row.value)">Lihat</rs-button>
+                    <button variant="primary" size="sm" @click="openViewJobCardModal(row.value)" class="text-blue-600 hover:text-blue-800">
+                      <Icon class="text-primary" name="weui:eyes-on-outlined"></Icon>
+                      <!-- Lihat -->
+                    </button>
                     <!-- <rs-button variant="warning" size="sm">Edit</rs-button>
                     <rs-button variant="danger" size="sm">Padam</rs-button> -->
                 </div>
@@ -1372,30 +1449,58 @@
               
               <div class="grid grid-cols-2 gap-4 mb-4">
                 <FormKit
-                  type="text"
-                  name="JENIS ASET"
-                  label="Jenis Aset"
-                  placeholder="Contoh: Sistem Radar"
+                  type="select"
+                  name="selectedShipId"
+                  label="Pilih Kapal/Bot"
+                  :options="shipOptions"
+                  placeholder="Pilih kapal atau bot"
                   validation="required"
+                  @input="(shipId) => {
+                    const selectedShip = shipData.value.find(s => s.id === shipId);
+                    if (selectedShip) {
+                      newJobCardForm['KAPAL/BOT'] = selectedShip.name;
+                    }
+                  }"
                 />
                 
+                <FormKit
+                  type="select"
+                  name="selectedAsset"
+                  label="Pilih Aset"
+                  :options="assetOptions"
+                  placeholder="Pilih aset dari senarai"
+                  validation="required"
+                  @input="(equipmentNo) => {
+                    const selectedEquipment = shipEquipmentData.value.find(e => e.equipmentNo === equipmentNo);
+                    if (selectedEquipment) {
+                      newJobCardForm['JENIS ASET'] = selectedEquipment.name;
+                      newJobCardForm.mainSystem = selectedEquipment.category;
+                      newJobCardForm.manufacturer = selectedEquipment.manufacturer;
+                      newJobCardForm.serialNo = selectedEquipment.serialNumber;
+                    }
+                  }"
+                />
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
                 <FormKit
                   type="text"
                   name="mainSystem"
                   label="Sistem Utama / Peralatan"
                   placeholder="Contoh: RADAR SISTEM"
                   validation="required"
+                  :disabled="true"
                 />
-              </div>
-              
-              <div class="grid grid-cols-2 gap-4">
+                
                 <FormKit
                   type="date"
                   name="TARIKH ROSAK"
                   label="Tarikh Rosak"
                   validation="required"
                 />
-                
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
                 <FormKit
                   type="text"
                   name="PEMOHON"
@@ -1534,7 +1639,7 @@
             <table class="w-full">
               <tr class="border-b border-gray-800">
                 <td class="p-2 border-r border-gray-800 font-medium w-1/3">Kapal Maritim</td>
-                <td class="p-2">: {{ selectedJobCard['Pengguna Terakhir'] }}</td>
+                <td class="p-2">: {{ selectedJobCard['KAPAL/BOT'] }}</td>
                 <td class="p-2 border-l border-gray-800 font-medium w-1/5">Jam Operasi</td>
                 <td class="p-2">{{ selectedJobCard.runningHours || 'N/A' }}</td>
               </tr>

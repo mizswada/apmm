@@ -5,874 +5,8 @@
     middleware: ["auth"],
   });
 
-  // Mock data (example only)
-  const kapalImage = "@/assets/image/vessels/kelas_langkawi.png"; // Replace with your real image source
-  const statusKapal = "OPS";
-  const nextAdDate = "2025-06-01";
-  const nextPrefitDate = "2026-07-15";
-  const totalCrew = 35;
 
-  const tabs = [
-    { name: "Profile", key: "profile" },
-    { name: "Rupacara Aset", key: "rupacara" },
-    { name: "ROVA", key: "rova" },    
-    { name: "Aset", key: "osl" }, 
-    { name: "Stock", key: "stock" },  
-    { name: "PMS", key: "pms" },
-    { name: "Kad Kerja", key: "jobcard" },
-    { name: "Krew", key: "krew" },
-    
-  ];
-
-  const field = ref(['tarikhKemaskini', 'penerangan','tindakan']);
-  const fieldKrew = ref(['BIL', 'noTentera', 'nama', 'bahagian','tindakan']);
-
-
-  const activeTab = ref("profile");
-
-  // Rupacara data
-  const rupacaraData = ref([
-    {
-      id: 1,
-      tarikhKemaskini: "2024-03-20",
-      penerangan: "Penggantian enjin utama dan sistem kawalan kapal",
-      portView: "@/assets/img/vessels/port_view.png",
-      starboardView: "@/assets/img/vessels/starboard_view.png",
-      forwardView: "@/assets/img/vessels/forward_view.png",
-      afterView: "@/assets/img/vessels/after_view.png",
-      engineRoom: "@/assets/img/vessels/engine_room_1.jpg",
-      closedBridge: "@/assets/img/vessels/closed_bridge_1.jpg"
-    },
-    {
-      id: 2,
-      tarikhKemaskini: "2024-03-15",
-      penerangan: "Penambahbaikan sistem radar dan komunikasi",
-      portView: "@/assets/img/vessels/port_view_2.jpg",
-      starboardView: "@/assets/img/vessels/starboard_view_2.jpg",
-      forwardView: "@/assets/img/vessels/forward_view_2.jpg",
-      afterView: "@/assets/img/vessels/after_view_2.jpg",
-      engineRoom: "@/assets/img/vessels/engine_room_2.jpg",
-      closedBridge: "@/assets/img/vessels/closed_bridge_2.jpg"
-    }
-  ]);
-
-  // Sort data in descending order by tarikhKemaskini
-  const sortedRupacaraData = computed(() => {
-    return [...rupacaraData.value].sort((a, b) => {
-      return new Date(b.tarikhKemaskini) - new Date(a.tarikhKemaskini);
-    });
-  });
-
-  // Modal state
-  const isRupacaraModalOpen = ref(false);
-  const isViewingRupacara = ref(false);
-  const rupacaraForm = ref({
-    id: null,
-    tarikhKemaskini: new Date().toISOString().split('T')[0],
-    penerangan: "",
-    portView: null,
-    starboardView: null,
-    forwardView: null,
-    afterView: null,
-    engineRoom: null,
-    closedBridge: null
-  });
-
-  // Open modal for adding rupacara
-  const openAddRupacaraModal = () => {
-    isViewingRupacara.value = false;
-    rupacaraForm.value = {
-      id: null,
-      tarikhKemaskini: new Date().toISOString().split('T')[0],
-      penerangan: "",
-      portView: null,
-      starboardView: null,
-      forwardView: null,
-      afterView: null,
-      engineRoom: null,
-      closedBridge: null
-    };
-    isRupacaraModalOpen.value = true;
-  };
-
-  // Open modal for viewing rupacara
-  const openViewRupacaraModal = (item) => {
-    isViewingRupacara.value = true;
-    rupacaraForm.value = { ...item };
-    isRupacaraModalOpen.value = true;
-  };
-
-  // Close modal
-  const closeRupacaraModal = () => {
-    isRupacaraModalOpen.value = false;
-  };
-
-  // Submit rupacara form
-  const submitRupacaraForm = () => {
-    // Add new item
-    rupacaraData.value.push({
-      ...rupacaraForm.value,
-      id: Date.now() // Temporary ID
-    });
-    closeRupacaraModal();
-  };
-
-  // Handle FormKit form submission
-  const handleRupacaraSubmit = (values) => {
-    rupacaraForm.value = {
-      ...rupacaraForm.value,
-      ...values
-    };
-    submitRupacaraForm();
-  };
-
-  // ROVA data
-  const rovaData = ref([
-    {
-      id: 1,
-      bulan: "Januari 2024",
-      statusKapal: "Operational",
-      tarikhMula: "2024-01-01",
-      tarikhTamat: "2024-01-31",
-      peratus: 85,
-      catatan: "Kapal beroperasi dengan baik sepanjang bulan"
-    },
-    {
-      id: 2,
-      bulan: "Februari 2024",
-      statusKapal: "Maintenance",
-      tarikhMula: "2024-02-01",
-      tarikhTamat: "2024-02-29",
-      peratus: 45,
-      catatan: "Kapal menjalani penyelenggaraan berjadual"
-    },
-    {
-      id: 3,
-      bulan: "Mac 2024",
-      statusKapal: "Operational",
-      tarikhMula: "2024-03-01",
-      tarikhTamat: "2024-03-31",
-      peratus: 92,
-      catatan: "Kapal beroperasi dengan prestasi tinggi"
-    }
-  ]);
-
-  // Sort ROVA data in descending order by tarikhMula
-  const sortedRovaData = computed(() => {
-    return [...rovaData.value].sort((a, b) => {
-      return new Date(b.tarikhMula) - new Date(a.tarikhMula);
-    });
-  });
-
-  // ROVA Modal state
-  const isRovaModalOpen = ref(false);
-  const isViewingRova = ref(false);
-  const isEditingRova = ref(false);
-  const rovaForm = ref({
-    id: null,
-    bulan: "",
-    statusKapal: "Operational",
-    tarikhMula: "",
-    tarikhTamat: "",
-    peratus: 0,
-    catatan: ""
-  });
-
-  // Open modal for adding ROVA
-  const openAddRovaModal = () => {
-    isViewingRova.value = false;
-    isEditingRova.value = false;
-    const today = new Date();
-    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    
-    rovaForm.value = {
-      id: null,
-      bulan: `${getMonthName(today.getMonth())} ${today.getFullYear()}`,
-      statusKapal: "Operational",
-      tarikhMula: firstDay.toISOString().split('T')[0],
-      tarikhTamat: lastDay.toISOString().split('T')[0],
-      peratus: 0,
-      catatan: ""
-    };
-    isRovaModalOpen.value = true;
-  };
-
-  // Helper function to get month name
-  function getMonthName(monthIndex) {
-    const months = [
-      "Januari", "Februari", "Mac", "April", "Mei", "Jun",
-      "Julai", "Ogos", "September", "Oktober", "November", "Disember"
-    ];
-    return months[monthIndex];
-  }
-
-  // Open modal for viewing ROVA
-  const openViewRovaModal = (item) => {
-    isViewingRova.value = true;
-    isEditingRova.value = false;
-    rovaForm.value = { ...item };
-    isRovaModalOpen.value = true;
-  };
-
-  // Open modal for editing ROVA
-  const openEditRovaModal = (item) => {
-    isViewingRova.value = false;
-    isEditingRova.value = true;
-    rovaForm.value = { ...item };
-    isRovaModalOpen.value = true;
-  };
-
-  // Close ROVA modal
-  const closeRovaModal = () => {
-    isRovaModalOpen.value = false;
-  };
-
-  // Submit ROVA form
-  const submitRovaForm = () => {
-    if (isEditingRova.value) {
-      // Update existing item
-      const index = rovaData.value.findIndex((i) => i.id === rovaForm.value.id);
-      if (index !== -1) {
-        rovaData.value[index] = { ...rovaForm.value };
-      }
-    } else {
-      // Add new item
-      rovaData.value.push({
-        ...rovaForm.value,
-        id: Date.now() // Temporary ID
-      });
-    }
-    closeRovaModal();
-  };
-
-  // Delete ROVA item
-  const deleteRovaItem = (id) => {
-    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
-      const index = rovaData.value.findIndex((i) => i.id === id);
-      if (index !== -1) {
-        rovaData.value.splice(index, 1);
-      }
-    }
-  };
-
-  // Handle ROVA FormKit form submission
-  const handleRovaSubmit = (values) => {
-    rovaForm.value = {
-      ...rovaForm.value,
-      ...values
-    };
-    submitRovaForm();
-  };
-
-  // Vessel profile data
-  const vesselProfile = ref({
-    generalInfo: {
-      name: "KD KEDAH",
-      pennantNumber: "F171",
-      class: "KEDAH Class",
-      type: "Patrol Vessel",
-      commissioned: "2006-06-12",
-      builder: "Boustead Naval Shipyard Sdn. Bhd.",
-      homePort: "Lumut, Perak"
-    },
-    specifications: {
-      displacement: "1,850 tons",
-      length: "91.1 meters",
-      beam: "12.5 meters",
-      draft: "3.4 meters",
-      propulsion: "2 × MTU 16V 4000 M90 diesel engines",
-      speed: "22 knots (maximum)",
-      range: "5,000 nautical miles at 12 knots",
-      complement: "68 personnel (8 officers, 60 enlisted)"
-    },
-    armament: {
-      mainGun: "1 × Bofors 57mm Mk3 naval gun",
-      secondaryGuns: "2 × MSI Defence 30mm cannon",
-      missiles: "MBDA Exocet MM40 Block II anti-ship missiles",
-      torpedoes: "J+S torpedo launcher system",
-      other: "Decoy launchers, Electronic warfare suite"
-    },
-    electronics: {
-      radar: "Thales SMART-S Mk2 3D surveillance radar",
-      sonar: "Thales Kingklip hull-mounted sonar",
-      combatSystem: "Atlas TACTICOS combat management system",
-      communication: "Integrated communications system with SATCOM capability"
-    },
-    maintenance: {
-      lastMaintenance: "2023-09-15",
-      nextScheduled: "2024-09-15",
-      certifications: "Lloyd's Register Classification, MARPOL compliance"
-    }
-  });
-
-  // PMS data
-  const pmsData = ref([
-    {
-      id: 1,
-      type: "AD",
-      year: 2024,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan tahunan kapal"
-    },
-    {
-      id: 2,
-      type: "AD",
-      year: 2025,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan tahunan kapal"
-    },
-    {
-      id: 3,
-      type: "AD",
-      year: 2026,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan tahunan kapal"
-    },
-    {
-      id: 4,
-      type: "AD",
-      year: 2027,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan tahunan kapal"
-    },
-    {
-      id: 5,
-      type: "Refit",
-      year: 2028,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan prefit kapal"
-    },
-    {
-      id: 6,
-      type: "AMP",
-      year: 2029,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan sistem elektronik kapal"
-    },
-    {
-      id: 7,
-      type: "AD",
-      year: 2030,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan tahunan kapal"
-    },
-    {
-      id: 8,
-      type: "Refit",
-      year: 2031,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan refit lengkap kapal"
-    },
-    {
-      id: 9,
-      type: "AD",
-      year: 2032,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan tahunan kapal"
-    },
-    {
-      id: 10,
-      type: "AMP",
-      year: 2033,
-      location: "Lumut, Perak",
-      description: "Penyelenggaraan sistem pendorongan kapal"
-    }
-  ]);
-
-  // Ship Equipment data
-  const shipEquipmentData = ref([
-    {
-      id: 1,
-      equipmentNo: "EQ-2024-001",
-      name: "Sistem Radar",
-      category: "Elektronik",
-      manufacturer: "Thales",
-      model: "SMART-S Mk2",
-      serialNumber: "TH-2345-8976",
-      installationDate: "2006-06-15",
-      status: "Beroperasi"
-    },
-    {
-      id: 2,
-      equipmentNo: "EQ-2024-002",
-      name: "Sonar Sistem",
-      category: "Elektronik",
-      manufacturer: "Thales",
-      model: "Kingklip",
-      serialNumber: "TH-5678-1234",
-      installationDate: "2006-06-20",
-      status: "Beroperasi"
-    },
-    {
-      id: 3,
-      equipmentNo: "EQ-2024-003",
-      name: "Enjin Utama 1",
-      category: "Pendorongan",
-      manufacturer: "MTU",
-      model: "16V 4000 M90",
-      serialNumber: "MTU-1234-5678",
-      installationDate: "2006-05-10",
-      status: "Beroperasi"
-    },
-    {
-      id: 4,
-      equipmentNo: "EQ-2024-004",
-      name: "Enjin Utama 2",
-      category: "Pendorongan",
-      manufacturer: "MTU",
-      model: "16V 4000 M90",
-      serialNumber: "MTU-1234-5679",
-      installationDate: "2006-05-10",
-      status: "Penyelenggaraan"
-    },
-    {
-      id: 5,
-      equipmentNo: "EQ-2024-005",
-      name: "Senjata Utama",
-      category: "Persenjataan",
-      manufacturer: "Bofors",
-      model: "57mm Mk3",
-      serialNumber: "BF-9876-5432",
-      installationDate: "2006-07-05",
-      status: "Beroperasi"
-    },
-    {
-      id: 6,
-      equipmentNo: "EQ-2024-006",
-      name: "Sistem Komunikasi",
-      category: "Komunikasi",
-      manufacturer: "Harris",
-      model: "RF-7800",
-      serialNumber: "HR-4567-8901",
-      installationDate: "2006-06-25",
-      status: "Beroperasi"
-    }
-  ]);
-
-  // Stock/Inventory data
-  const stockData = ref([
-    {
-      id: 1,
-      stockNo: "STK-2024-001",
-      name: "Minyak Enjin",
-      category: "Alat Ganti",
-      quantity: 50,
-      unit: "Liter",
-      location: "Stor A",
-      lastUpdated: "2024-03-15",
-      minimumStock: 20,
-      status: "Mencukupi"
-    },
-    {
-      id: 2,
-      stockNo: "STK-2024-002",
-      name: "Penapis Minyak",
-      category: "Alat Ganti",
-      quantity: 15,
-      unit: "Unit",
-      location: "Stor B",
-      lastUpdated: "2024-03-10",
-      minimumStock: 5,
-      status: "Mencukupi"
-    },
-    {
-      id: 3,
-      stockNo: "STK-2024-003",
-      name: "Lampu Isyarat",
-      category: "Elektrik",
-      quantity: 8,
-      unit: "Unit",
-      location: "Stor C",
-      lastUpdated: "2024-02-28",
-      minimumStock: 10,
-      status: "Kurang"
-    },
-    {
-      id: 4,
-      stockNo: "STK-2024-004",
-      name: "Tali Tambat",
-      category: "Peralatan Deck",
-      quantity: 3,
-      unit: "Gulung",
-      location: "Stor D",
-      lastUpdated: "2024-03-05",
-      minimumStock: 2,
-      status: "Mencukupi"
-    },
-    {
-      id: 5,
-      stockNo: "STK-2024-005",
-      name: "Alat Ganti Radar",
-      category: "Elektronik",
-      quantity: 2,
-      unit: "Set",
-      location: "Stor E",
-      lastUpdated: "2024-03-20",
-      minimumStock: 1,
-      status: "Mencukupi"
-    },
-    {
-      id: 6,
-      stockNo: "STK-2024-006",
-      name: "Bateri",
-      category: "Elektrik",
-      quantity: 5,
-      unit: "Unit",
-      location: "Stor C",
-      lastUpdated: "2024-03-18",
-      minimumStock: 8,
-      status: "Kurang"
-    }
-  ]);
-
-  // Stock Modal state
-  const isStockModalOpen = ref(false);
-  const isViewingStock = ref(false);
-  const isEditingStock = ref(false);
-  const stockForm = ref({
-    id: null,
-    stockNo: "",
-    name: "",
-    category: "",
-    quantity: 0,
-    unit: "",
-    location: "",
-    lastUpdated: "",
-    minimumStock: 0,
-    status: "Mencukupi"
-  });
-
-  // Open modal for adding stock
-  const openAddStockModal = () => {
-    isViewingStock.value = false;
-    isEditingStock.value = false;
-    const today = new Date().toISOString().split('T')[0];
-    const newStockNo = `STK-${new Date().getFullYear()}-${String(stockData.value.length + 1).padStart(3, '0')}`;
-    
-    stockForm.value = {
-      id: null,
-      stockNo: newStockNo,
-      name: "",
-      category: "",
-      quantity: 0,
-      unit: "",
-      location: "",
-      lastUpdated: today,
-      minimumStock: 0,
-      status: "Mencukupi"
-    };
-    isStockModalOpen.value = true;
-  };
-
-  // Open modal for viewing stock
-  const viewStockItem = (item) => {
-    isViewingStock.value = true;
-    isEditingStock.value = false;
-    stockForm.value = { ...item };
-    isStockModalOpen.value = true;
-  };
-
-  // Open modal for editing stock
-  const editStockItem = (item) => {
-    isViewingStock.value = false;
-    isEditingStock.value = true;
-    stockForm.value = { ...item };
-    isStockModalOpen.value = true;
-  };
-
-  // Close stock modal
-  const closeStockModal = () => {
-    isStockModalOpen.value = false;
-  };
-
-  // Submit stock form
-  const submitStockForm = () => {
-    // Update status based on quantity and minimum stock
-    stockForm.value.status = stockForm.value.quantity >= stockForm.value.minimumStock ? "Mencukupi" : "Kurang";
-    
-    if (isEditingStock.value) {
-      // Update existing item
-      const index = stockData.value.findIndex((i) => i.id === stockForm.value.id);
-      if (index !== -1) {
-        stockData.value[index] = { ...stockForm.value };
-      }
-    } else {
-      // Add new item
-      stockData.value.push({
-        ...stockForm.value,
-        id: Date.now() // Temporary ID
-      });
-    }
-    closeStockModal();
-  };
-
-  // Delete stock item
-  const deleteStockItem = (id) => {
-    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
-      const index = stockData.value.findIndex((i) => i.id === id);
-      if (index !== -1) {
-        stockData.value.splice(index, 1);
-      }
-    }
-  };
-
-  // Handle stock FormKit form submission
-  const handleStockSubmit = (values) => {
-    stockForm.value = {
-      ...stockForm.value,
-      ...values
-    };
-    submitStockForm();
-  };
-
-  // Stock categories for filtering
-  const stockCategories = ["Semua", "Alat Ganti", "Elektrik", "Elektronik", "Peralatan Deck", "Lain-lain"];
-  const selectedStockCategory = ref("Semua");
-
-  // Filtered stock data
-  const filteredStockData = computed(() => {
-    if (selectedStockCategory.value === "Semua") {
-      return stockData.value;
-    }
-    return stockData.value.filter(item => item.category === selectedStockCategory.value);
-  });
-
-  // Equipment Modal state
-  const isEquipmentModalOpen = ref(false);
-  const isViewingEquipment = ref(false);
-  const isEditingEquipment = ref(false);
-  const equipmentForm = ref({
-    id: null,
-    equipmentNo: "",
-    name: "",
-    category: "",
-    manufacturer: "",
-    model: "",
-    serialNumber: "",
-    installationDate: "",
-    status: "Beroperasi"
-  });
-
-  // Open modal for adding equipment
-  const openAddEquipmentModal = () => {
-    isViewingEquipment.value = false;
-    isEditingEquipment.value = false;
-    const today = new Date().toISOString().split('T')[0];
-    const newEquipmentNo = `EQ-${new Date().getFullYear()}-${String(shipEquipmentData.value.length + 1).padStart(3, '0')}`;
-    
-    equipmentForm.value = {
-      id: null,
-      equipmentNo: newEquipmentNo,
-      name: "",
-      category: "",
-      manufacturer: "",
-      model: "",
-      serialNumber: "",
-      installationDate: today,
-      status: "Beroperasi"
-    };
-    isEquipmentModalOpen.value = true;
-  };
-
-  // Open modal for viewing equipment
-  const viewEquipmentItem = (item) => {
-    isViewingEquipment.value = true;
-    isEditingEquipment.value = false;
-    equipmentForm.value = { ...item };
-    isEquipmentModalOpen.value = true;
-  };
-
-  // Open modal for editing equipment
-  const editEquipmentItem = (item) => {
-    isViewingEquipment.value = false;
-    isEditingEquipment.value = true;
-    equipmentForm.value = { ...item };
-    isEquipmentModalOpen.value = true;
-  };
-
-  // Close equipment modal
-  const closeEquipmentModal = () => {
-    isEquipmentModalOpen.value = false;
-  };
-
-  // Submit equipment form
-  const submitEquipmentForm = () => {
-    if (isEditingEquipment.value) {
-      // Update existing item
-      const index = shipEquipmentData.value.findIndex((i) => i.id === equipmentForm.value.id);
-      if (index !== -1) {
-        shipEquipmentData.value[index] = { ...equipmentForm.value };
-      }
-    } else {
-      // Add new item
-      shipEquipmentData.value.push({
-        ...equipmentForm.value,
-        id: Date.now() // Temporary ID
-      });
-    }
-    closeEquipmentModal();
-  };
-
-  // Delete equipment item
-  const deleteEquipmentItem = (id) => {
-    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
-      const index = shipEquipmentData.value.findIndex((i) => i.id === id);
-      if (index !== -1) {
-        shipEquipmentData.value.splice(index, 1);
-      }
-    }
-  };
-
-  // Handle equipment FormKit form submission
-  const handleEquipmentSubmit = (values) => {
-    equipmentForm.value = {
-      ...equipmentForm.value,
-      ...values
-    };
-    submitEquipmentForm();
-  };
-
-  // Equipment categories for filtering
-  const equipmentCategories = ["Semua", "Elektronik", "Pendorongan", "Persenjataan", "Komunikasi", "Lain-lain"];
-  const selectedCategory = ref("Semua");
-
-  // Filtered equipment data
-  const filteredEquipmentData = computed(() => {
-    if (selectedCategory.value === "Semua") {
-      return shipEquipmentData.value;
-    }
-    return shipEquipmentData.value.filter(item => item.category === selectedCategory.value);
-  });
-
-  // PMS Modal state
-  const isMaintenanceModalOpen = ref(false);
-  const isViewingMaintenance = ref(false);
-  const isEditingMaintenance = ref(false);
-  const maintenanceForm = ref({
-    id: null,
-    type: "AD",
-    year: new Date().getFullYear(),
-    location: "",
-    description: ""
-  });
-
-  // Open modal for adding maintenance
-  const openAddMaintenanceModal = () => {
-    isViewingMaintenance.value = false;
-    maintenanceForm.value = {
-      id: null,
-      type: "AD",
-      year: new Date().getFullYear(),
-      location: "",
-      description: ""
-    };
-    isMaintenanceModalOpen.value = true;
-  };
-
-  // Open modal for viewing maintenance
-  const viewMaintenanceItem = (item) => {
-    isViewingMaintenance.value = true;
-    isEditingMaintenance.value = false;
-    maintenanceForm.value = { ...item };
-    isMaintenanceModalOpen.value = true;
-  };
-
-  // Open modal for editing maintenance
-  const editMaintenanceItem = (item) => {
-    isViewingMaintenance.value = false;
-    isEditingMaintenance.value = true;
-    maintenanceForm.value = { ...item };
-    isMaintenanceModalOpen.value = true;
-  };
-
-  // Close maintenance modal
-  const closeMaintenanceModal = () => {
-    isMaintenanceModalOpen.value = false;
-  };
-
-  // Submit maintenance form
-  const submitMaintenanceForm = () => {
-    if (isEditingMaintenance.value) {
-      // Update existing item
-      const index = pmsData.value.findIndex((i) => i.id === maintenanceForm.value.id);
-      if (index !== -1) {
-        pmsData.value[index] = { ...maintenanceForm.value };
-      }
-    } else {
-      // Add new item
-      pmsData.value.push({
-        ...maintenanceForm.value,
-        id: Date.now() // Temporary ID
-      });
-    }
-    closeMaintenanceModal();
-  };
-
-  // Handle maintenance FormKit form submission
-  const handleMaintenanceSubmit = (values) => {
-    maintenanceForm.value = {
-      ...maintenanceForm.value,
-      ...values
-    };
-    submitMaintenanceForm();
-  };
-
-  // Current start year (for 10-year view)
-  const startYear = ref(2024);
-
-  // Next decade
-  const nextDecade = () => {
-    startYear.value += 10;
-  };
-
-  // Previous decade
-  const prevDecade = () => {
-    startYear.value -= 10;
-  };
-
-  // Get maintenance items for a specific year
-  const getYearMaintenanceItems = (year) => {
-    return pmsData.value.filter(item => item.year === year);
-  };
-
-  // Get current year
-  const currentYear = new Date().getFullYear();
-
-  // Next year
-  const nextYear = () => {
-    currentYear.value++;
-  };
-
-  // Previous year
-  const prevYear = () => {
-    currentYear.value--;
-  };
-
-  // Get months
-  const months = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
-
-  // Get maintenance items for a specific month
-  const getMonthMaintenanceItems = (monthIndex) => {
-    return pmsData.value.filter(item => {
-      const startDate = new Date(item.startDate);
-      const endDate = new Date(item.endDate);
-      const monthStart = new Date(currentYear.value, monthIndex, 1);
-      const monthEnd = new Date(currentYear.value, monthIndex + 1, 0);
-      
-      return (
-        (startDate <= monthEnd && endDate >= monthStart) || 
-        (startDate >= monthStart && startDate <= monthEnd) ||
-        (endDate >= monthStart && endDate <= monthEnd)
-      );
-    });
-  };
-
-  // Get days in a month
-  const getDaysInMonth = (year, month) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
-
+  const fieldKrew = ref(['BIL', 'noTentera', 'nama', 'jawatan','kapal/bot','tindakan']);
   // Crew data
   const crewData = ref([
     {
@@ -880,6 +14,7 @@
       noTentera: "T12345",
       name: "Kapt. Ahmad bin Ismail",
       position: "Kapten Kapal",
+      ship: "KD SIANGIN",
       joinDate: "2020-06-15",
       endDate: "2024-06-14",
       status: "Aktif",
@@ -904,6 +39,7 @@
       noTentera: "T23456",
       name: "Lt. Kdr. Siti binti Hassan",
       position: "Pegawai Eksekutif",
+      ship: "KD SIANGIN",
       joinDate: "2021-03-10",
       endDate: "2025-03-09",
       status: "Aktif",
@@ -916,7 +52,7 @@
       ],
       serviceRecord: [
         { id: 1, position: "Pegawai Komunikasi", vessel: "KD KASTURI", startDate: "2016-03-15", endDate: "2019-04-30" },
-        { id: 2, position: "Pegawai Eksekutif", vessel: "KD KEDAH", startDate: "2019-05-15", endDate: "2021-03-01" }
+        { id: 2, position: "Pegawai Eksekutif", vessel: "KD SIANGIN", startDate: "2019-05-15", endDate: "2021-03-01" }
       ],
       education: [
         { id: 1, qualification: "Ijazah Sarjana Muda Sains Komputer", institution: "Universiti Malaya", year: "2012" },
@@ -928,6 +64,7 @@
       noTentera: "T34567",
       name: "Lt. Mohd Rizal bin Abdullah",
       position: "Pegawai Navigasi",
+      ship: "KD SIANGIN",
       joinDate: "2022-01-20",
       endDate: "2026-01-19",
       status: "Aktif",
@@ -943,6 +80,7 @@
       noTentera: "T45678",
       name: "PW I Ravi a/l Chandran",
       position: "Ketua Jurutera",
+      ship: "KD SIANGIN",
       joinDate: "2019-11-05",
       endDate: "2023-11-04",
       status: "Cuti",
@@ -960,6 +98,7 @@
       noTentera: "T56789",
       name: "PW II Tan Mei Ling",
       position: "Ketua Komunikasi",
+      ship: "KD SIANGIN",
       joinDate: "2020-08-15",
       endDate: "2024-08-14",
       status: "Aktif",
@@ -976,6 +115,7 @@
       noTentera: "T67890",
       name: "BM Iskandar bin Zulkifli",
       position: "Juruteknik Elektronik",
+      ship: "KD SIANGIN",
       joinDate: "2021-05-20",
       endDate: "2025-05-19",
       status: "Aktif",
@@ -988,6 +128,74 @@
     }
   ]);
 
+  // Ship list for dropdown
+  const shipsList = [
+    "KD SIANGIN",
+    "KD PAHANG",
+    "KD KELANTAN",
+    "KD SELANGOR",
+    "KD TERENGGANU",
+    "KD PERAK"
+  ];
+
+  // Users list for dropdown
+  const usersList = [
+    {
+      id: 1,
+      name: "Kapt. Ahmad bin Ismail",
+      noTentera: "T12345",
+      position: "Kapten Kapal"
+    },
+    {
+      id: 2,
+      name: "Lt. Kdr. Siti binti Hassan",
+      noTentera: "T23456",
+      position: "Pegawai Eksekutif"
+    },
+    {
+      id: 3,
+      name: "Lt. Mohd Rizal bin Abdullah",
+      noTentera: "T34567",
+      position: "Pegawai Navigasi"
+    },
+    {
+      id: 4,
+      name: "PW I Ravi a/l Chandran",
+      noTentera: "T45678",
+      position: "Ketua Jurutera"
+    },
+    {
+      id: 5,
+      name: "PW II Tan Mei Ling",
+      noTentera: "T56789",
+      position: "Ketua Komunikasi"
+    },
+    {
+      id: 6,
+      name: "BM Iskandar bin Zulkifli",
+      noTentera: "T67890",
+      position: "Juruteknik Elektronik"
+    }
+  ];
+
+  // Computed property for user options
+  const userOptions = computed(() => {
+    return usersList.map(user => ({
+      label: `${user.noTentera} - ${user.name} - ${user.position}`,
+      value: user.id
+    }));
+  });
+
+  // Function to handle user selection
+  const handleUserSelection = (userId) => {
+    const selectedUser = usersList.find(user => user.id === userId);
+    if (selectedUser) {
+      crewForm.value.name = selectedUser.name;
+      crewForm.value.noTentera = selectedUser.noTentera;
+      crewForm.value.position = selectedUser.position;
+    }
+  };
+
   // Crew Modal state
   const isCrewModalOpen = ref(false);
   const isViewingCrew = ref(false);
@@ -997,6 +205,7 @@
     noTentera: "",
     name: "",
     position: "",
+    ship: "",
     joinDate: "",
     endDate: "",
     status: "Aktif",
@@ -1021,6 +230,7 @@
       noTentera: "",
       name: "",
       position: "",
+      ship: "",
       joinDate: today,
       endDate: fourYearsLater.toISOString().split('T')[0],
       status: "Aktif",
@@ -1057,29 +267,33 @@
 
   // Submit crew form
   const submitCrewForm = () => {
-    if (isEditingCrew.value) {
-      // Update existing item
-      const index = crewData.value.findIndex((i) => i.id === crewForm.value.id);
-      if (index !== -1) {
-        crewData.value[index] = { ...crewForm.value };
-      }
-    } else {
-      // Add new item
-      crewData.value.push({
-        ...crewForm.value,
-        id: Date.now() // Temporary ID
-      });
-    }
-    closeCrewModal();
-  };
+    const selectedUser = usersList.find(user => user.id === crewForm.value.userId);
+    if (selectedUser) {
+      const newCrewMember = {
+        id: Date.now(),
+        noTentera: selectedUser.noTentera,
+        name: selectedUser.name,
+        position: selectedUser.position,
+        ship: crewForm.value.ship,
+        joinDate: crewForm.value.joinDate,
+        endDate: crewForm.value.endDate,
+        status: crewForm.value.status,
+        contactNo: crewForm.value.contactNo,
+        email: crewForm.value.email,
+        tindakan: "lihat"
+      };
 
-  // Delete crew item
-  const deleteCrewItem = (id) => {
-    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
-      const index = crewData.value.findIndex((i) => i.id === id);
-      if (index !== -1) {
-        crewData.value.splice(index, 1);
+      if (isEditingCrew.value) {
+        // Update existing item
+        const index = crewData.value.findIndex((i) => i.id === crewForm.value.id);
+        if (index !== -1) {
+          crewData.value[index] = { ...newCrewMember, id: crewForm.value.id };
+        }
+      } else {
+        // Add new item
+        crewData.value.push(newCrewMember);
       }
+      closeCrewModal();
     }
   };
 
@@ -1115,7 +329,7 @@
     {
       BIL: 1,
       'JENIS ASET': 'Sistem Radar',
-      'Pengguna Terakhir': 'KD Kedah',
+      'Pengguna Terakhir': 'KD SIANGIN',
       'TARIKH ROSAK': '2024-03-15',
       'PEMOHON': 'Kapt. Razak',
       'AMOUN': 'RM 15,000',
@@ -1124,7 +338,7 @@
     {
       BIL: 2,
       'JENIS ASET': 'Enjin Utama',
-      'Pengguna Terakhir': 'KD Kedah',
+      'Pengguna Terakhir': 'KD SIANGIN',
       'TARIKH ROSAK': '2024-04-02',
       'PEMOHON': 'Kapt. Razak',
       'AMOUN': 'RM 45,000',
@@ -1133,7 +347,7 @@
     {
       BIL: 3,
       'JENIS ASET': 'Sistem Komunikasi',
-      'Pengguna Terakhir': 'KD Kedah',
+      'Pengguna Terakhir': 'KD SIANGIN',
       'TARIKH ROSAK': '2024-04-10',
       'PEMOHON': 'Lt. Mohd Rizal',
       'AMOUN': 'RM 12,500',
@@ -1142,7 +356,7 @@
     {
       BIL: 4,
       'JENIS ASET': 'Sistem Sonar',
-      'Pengguna Terakhir': 'KD Kedah',
+      'Pengguna Terakhir': 'KD SIANGIN',
       'TARIKH ROSAK': '2024-04-15',
       'PEMOHON': 'Kapt. Razak',
       'AMOUN': 'RM 22,300',
@@ -1151,7 +365,7 @@
     {
       BIL: 5,
       'JENIS ASET': 'Sistem Pendorongan',
-      'Pengguna Terakhir': 'KD Kedah',
+      'Pengguna Terakhir': 'KD SIANGIN',
       'TARIKH ROSAK': '2024-04-18',
       'PEMOHON': 'Lt. Mohd Rizal',
       'AMOUN': 'RM 38,750',
@@ -1163,7 +377,7 @@
   const isAddJobCardModalOpen = ref(false);
   const newJobCardForm = ref({
     'JENIS ASET': '',
-    'Pengguna Terakhir': 'KD Kedah',
+    'Pengguna Terakhir': 'KD SIANGIN',
     'TARIKH ROSAK': new Date().toISOString().split('T')[0],
     'PEMOHON': '',
     'AMOUN': '',
@@ -1180,7 +394,7 @@
   const openAddJobCardModal = () => {
     newJobCardForm.value = {
       'JENIS ASET': '',
-      'Pengguna Terakhir': 'KD Kedah',
+      'Pengguna Terakhir': 'KD SIANGIN',
       'TARIKH ROSAK': new Date().toISOString().split('T')[0],
       'PEMOHON': '',
       'AMOUN': '',
@@ -1241,8 +455,7 @@
             Tambah Krew
         </rs-button>
     </div>
-    <rs-card>
-               
+    <rs-card>               
         <div class="p-4">
             <!-- Crew Table -->
             <rs-table
@@ -1251,7 +464,10 @@
                 { key: 'noTentera', label: 'No. Tentera' },
                 { key: 'name', label: 'Nama' },
                 { key: 'position', label: 'Jawatan' },
-                { key: 'department', label: 'Jabatan' },
+                { key: 'ship', label: 'Kapal' },
+                { key: 'status', label: 'Status' },
+                { key: 'joinDate', label: 'Tarikh Mula' },
+                { key: 'endDate', label: 'Tarikh Tamat' },
                 { key: 'tindakan', label: 'Tindakan' }
             ]"
             :options="{
@@ -1321,6 +537,11 @@
             <div class="grid grid-cols-2 gap-6">
             <div>
                 <div class="mb-4">
+                <h5 class="text-sm font-medium text-gray-500">Kapal</h5>
+                <p>{{ crewForm.ship }}</p>
+                </div>
+
+                <div class="mb-4">
                 <h5 class="text-sm font-medium text-gray-500">No. Tentera</h5>
                 <p>{{ crewForm.noTentera }}</p>
                 </div>
@@ -1328,11 +549,6 @@
                 <div class="mb-4">
                 <h5 class="text-sm font-medium text-gray-500">Tarikh Mula</h5>
                 <p>{{ crewForm.joinDate }}</p>
-                </div>
-                
-                <div class="mb-4">
-                <h5 class="text-sm font-medium text-gray-500">No. Telefon</h5>
-                <p>{{ crewForm.contactNo }}</p>
                 </div>
             </div>
             
@@ -1460,13 +676,14 @@
         <!-- Edit/Add Mode -->
         <FormKit v-else type="form" :value="crewForm" @submit="handleCrewSubmit">
         <div class="grid grid-cols-2 gap-4">
-            <!-- No. Tentera -->
+            <!-- Ship -->
             <FormKit
-            type="text"
-            name="noTentera"
-            label="No. Tentera"
-            placeholder="Contoh: T12345"
+            type="select"
+            name="ship"
+            label="Kapal"
+            :options="shipsList"
             validation="required"
+            placeholder="Pilih Kapal"
             />
 
             <!-- Status -->
@@ -1479,35 +696,20 @@
             />
         </div>
 
-        <!-- Nama -->
-        <FormKit
-            type="text"
-            name="name"
-            label="Nama"
-            placeholder="Contoh: Kapt. Ahmad bin Ismail"
-            validation="required"
-        />
-
-        <div class="grid grid-cols-2 gap-4">
-            <!-- Jawatan -->
-            <FormKit
-            type="text"
-            name="position"
-            label="Jawatan"
-            placeholder="Contoh: Kapten Kapal"
-            validation="required"
-            />
-
-            <!-- Jabatan -->
+        <div class="grid grid-cols-1 gap-4">
+            <!-- User Selection -->
             <FormKit
             type="select"
-            name="department"
-            label="Jabatan"
-            :options="['Pemerintah', 'Eksekutif', 'Navigasi', 'Kejuruteraan', 'Komunikasi', 'Elektronik', 'Lain-lain']"
+            name="userId"
+            label="Nama"
+            :options="userOptions"
             validation="required"
+            placeholder="Pilih Nama"
+            @input="handleUserSelection"
             />
         </div>
 
+        
         <div class="grid grid-cols-2 gap-4">
             <!-- Tarikh Mula -->
             <FormKit
