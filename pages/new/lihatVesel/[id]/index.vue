@@ -13,19 +13,22 @@
   const totalCrew = 28;
 
   const tabs = [
-    { name: "Profile", key: "profile" },
-    { name: "Rupacara Aset", key: "rupacara" },
-    { name: "ROVA", key: "rova" },    
-    { name: "Aset", key: "osl" }, 
-    { name: "Stock", key: "stock" },  
-    { name: "PMS", key: "pms" },
-    { name: "Kad Kerja", key: "jobcard" },
-    { name: "Krew", key: "krew" },
-    
+    { nama: "Krew", key: "profile" },
+    { nama: "OA", key: "oa" },
+    { nama: "OSL", key: "osl" },
+    { nama: "Floating", key: "floating_equipment" },
+    { nama: "HSE", key: "hse" },
+    { nama: "Rupacara", key: "rupacara" },
+    { nama: "ROVA", key: "rova" },        
+    { nama: "SEL", key: "stock" },  
+    { nama: "PMS", key: "pms" },
+    { nama: "Kad Kerja", key: "jobcard" },
+    { nama: "Cannibilize", key: "cannaidize" },
+    { nama: "Laporan di Limbungan", key: "shipyard_reports" },
   ];
 
   const field = ref(['tarikhKemaskini', 'penerangan','tindakan']);
-  const fieldKrew = ref(['BIL', 'noTentera', 'nama', 'bahagian','tindakan']);
+  const fieldKrew = ref(['id', 'noTentera', 'nama', 'bahagian','tindakan']);
 
 
   const activeTab = ref("profile");
@@ -112,7 +115,7 @@
     // Add new item
     rupacaraData.value.push({
       ...rupacaraForm.value,
-      id: Date.now() // Temporary ID
+      id: Date.now() // Temporary id
     });
     closeRupacaraModal();
   };
@@ -188,7 +191,7 @@
     
     rovaForm.value = {
       id: null,
-      bulan: `${getMonthName(today.getMonth())} ${today.getFullYear()}`,
+      bulan: `${getMonthnama(today.getMonth())} ${today.getFullYear()}`,
       statusKapal: "Operational",
       tarikhMula: firstDay.toISOString().split('T')[0],
       tarikhTamat: lastDay.toISOString().split('T')[0],
@@ -198,8 +201,8 @@
     isRovaModalOpen.value = true;
   };
 
-  // Helper function to get month name
-  function getMonthName(monthIndex) {
+  // Helper function to get month nama
+  function getMonthnama(monthIndex) {
     const months = [
       "Januari", "Februari", "Mac", "April", "Mei", "Jun",
       "Julai", "Ogos", "September", "Oktober", "November", "Disember"
@@ -240,7 +243,7 @@
       // Add new item
       rovaData.value.push({
         ...rovaForm.value,
-        id: Date.now() // Temporary ID
+        id: Date.now() // Temporary id
       });
     }
     closeRovaModal();
@@ -268,7 +271,7 @@
   // Vessel profile data
   const vesselProfile = ref({
     generalInfo: {
-      name: "KM SIANGIN",
+      nama: "KM SIANGIN",
       pennantNumber: "P384",
       class: "SIANGIN Class",
       type: "Patrol Vessel",
@@ -312,35 +315,35 @@
       id: 1,
       type: "AD",
       year: 2024,
-      location: "Kuching, Sarawak",
+      lokasi: "Kuching, Sarawak",
       description: "Penyelenggaraan tahunan kapal"
     },
     {
       id: 2,
       type: "AD",
       year: 2025,
-      location: "Kuching, Sarawak",
+      lokasi: "Kuching, Sarawak",
       description: "Penyelenggaraan tahunan kapal"
     },
     {
       id: 3,
       type: "Refit",
       year: 2026,
-      location: "Kuching, Sarawak",
+      lokasi: "Kuching, Sarawak",
       description: "Penyelenggaraan refit kapal"
     },
     {
       id: 4,
       type: "AD",
       year: 2027,
-      location: "Kuching, Sarawak",
+      lokasi: "Kuching, Sarawak",
       description: "Penyelenggaraan tahunan kapal"
     },
     {
       id: 5,
       type: "AMP",
       year: 2028,
-      location: "Kuching, Sarawak",
+      lokasi: "Kuching, Sarawak",
       description: "Penyelenggaraan sistem elektronik dan pendorongan"
     }
   ]);
@@ -349,57 +352,57 @@
   const shipEquipmentData = ref([
     {
       id: 1,
-      equipmentNo: "EQ-2024-001",
-      name: "Radar Navigasi",
-      category: "Elektronik",
-      manufacturer: "Furuno",
+      noAset: "EQ-2024-001",
+      nama: "Radar Navigasi",
+      kategori: "Elektronik",
+      pengeluaran: "Furuno",
       model: "FAR-2117",
-      serialNumber: "FR-2345-8976",
-      installationDate: "2008-08-20",
+      noSiri: "FR-2345-8976",
+      tarikhPemasangan: "2008-08-20",
       status: "Beroperasi"
     },
     {
       id: 2,
-      equipmentNo: "EQ-2024-002",
-      name: "Sistem Komunikasi",
-      category: "Komunikasi",
-      manufacturer: "Sailor",
+      noAset: "EQ-2024-002",
+      nama: "Sistem Komunikasi",
+      kategori: "Komunikasi",
+      pengeluaran: "Sailor",
       model: "6222 VHF DSC",
-      serialNumber: "SL-5678-1234",
-      installationDate: "2008-08-20",
+      noSiri: "SL-5678-1234",
+      tarikhPemasangan: "2008-08-20",
       status: "Beroperasi"
     },
     {
       id: 3,
-      equipmentNo: "EQ-2024-003",
-      name: "Enjin Utama 1",
-      category: "Pendorongan",
-      manufacturer: "MTU",
+      noAset: "EQ-2024-003",
+      nama: "Enjin Utama 1",
+      kategori: "Pendorongan",
+      pengeluaran: "MTU",
       model: "12V 2000 M90",
-      serialNumber: "MTU-1234-5678",
-      installationDate: "2008-08-15",
+      noSiri: "MTU-1234-5678",
+      tarikhPemasangan: "2008-08-15",
       status: "Beroperasi"
     },
     {
       id: 4,
-      equipmentNo: "EQ-2024-004",
-      name: "Enjin Utama 2",
-      category: "Pendorongan",
-      manufacturer: "MTU",
+      noAset: "EQ-2024-004",
+      nama: "Enjin Utama 2",
+      kategori: "Pendorongan",
+      pengeluaran: "MTU",
       model: "12V 2000 M90",
-      serialNumber: "MTU-1234-5679",
-      installationDate: "2008-08-15",
+      noSiri: "MTU-1234-5679",
+      tarikhPemasangan: "2008-08-15",
       status: "Penyelenggaraan"
     },
     {
       id: 5,
-      equipmentNo: "EQ-2024-005",
-      name: "Meriam 20mm",
-      category: "Persenjataan",
-      manufacturer: "Oerlikon",
+      noAset: "EQ-2024-005",
+      nama: "Meriam 20mm",
+      kategori: "Persenjataan",
+      pengeluaran: "Oerlikon",
       model: "20mm/85 KAA",
-      serialNumber: "OE-9876-5432",
-      installationDate: "2008-09-05",
+      noSiri: "OE-9876-5432",
+      tarikhPemasangan: "2008-09-05",
       status: "Beroperasi"
     }
   ]);
@@ -408,62 +411,62 @@
   const stockData = ref([
     {
       id: 1,
-      stockNo: "STK-2024-001",
-      name: "Minyak Enjin MTU",
-      category: "Alat Ganti",
-      quantity: 200,
+      noAset: "STK-2024-001",
+      nama: "Minyak Enjin MTU",
+      kategori: "Alat Ganti",
+      kuantiti: 200,
       unit: "Liter",
-      location: "Stor A",
-      lastUpdated: "2024-03-15",
-      minimumStock: 100,
+      lokasi: "Stor A",
+      tarikhTerakhirKemaskini: "2024-03-15",
+      jumlah: 100,
       status: "Mencukupi"
     },
     {
       id: 2,
-      stockNo: "STK-2024-002",
-      name: "Penapis Minyak MTU",
-      category: "Alat Ganti",
-      quantity: 8,
+      noAset: "STK-2024-002",
+      nama: "Penapis Minyak MTU",
+      kategori: "Alat Ganti",
+      kuantiti: 8,
       unit: "Unit",
-      location: "Stor B",
-      lastUpdated: "2024-03-10",
-      minimumStock: 4,
+      lokasi: "Stor B",
+      tarikhTerakhirKemaskini: "2024-03-10",
+      jumlah: 4,
       status: "Mencukupi"
     },
     {
       id: 3,
-      stockNo: "STK-2024-003",
-      name: "Lampu Navigasi",
-      category: "Elektrik",
-      quantity: 5,
+      noAset: "STK-2024-003",
+      nama: "Lampu Navigasi",
+      kategori: "Elektrik",
+      kuantiti: 5,
       unit: "Unit",
-      location: "Stor C",
-      lastUpdated: "2024-02-28",
-      minimumStock: 6,
+      lokasi: "Stor C",
+      tarikhTerakhirKemaskini: "2024-02-28",
+      jumlah: 6,
       status: "Kurang"
     },
     {
       id: 4,
-      stockNo: "STK-2024-004",
-      name: "Tali Tambat",
-      category: "Peralatan Deck",
-      quantity: 2,
+      noAset: "STK-2024-004",
+      nama: "Tali Tambat",
+      kategori: "Peralatan Deck",
+      kuantiti: 2,
       unit: "Gulung",
-      location: "Stor D",
-      lastUpdated: "2024-03-05",
-      minimumStock: 2,
+      lokasi: "Stor D",
+      tarikhTerakhirKemaskini: "2024-03-05",
+      jumlah: 2,
       status: "Mencukupi"
     },
     {
       id: 5,
-      stockNo: "STK-2024-005",
-      name: "Peluru 20mm",
-      category: "Persenjataan",
-      quantity: 1000,
+      noAset: "STK-2024-005",
+      nama: "Peluru 20mm",
+      kategori: "Persenjataan",
+      kuantiti: 1000,
       unit: "Butir",
-      location: "Stor Senjata",
-      lastUpdated: "2024-03-20",
-      minimumStock: 500,
+      lokasi: "Stor Senjata",
+      tarikhTerakhirKemaskini: "2024-03-20",
+      jumlah: 500,
       status: "Mencukupi"
     }
   ]);
@@ -474,14 +477,14 @@
   const isEditingStock = ref(false);
   const stockForm = ref({
     id: null,
-    stockNo: "",
-    name: "",
-    category: "",
-    quantity: 0,
+    noAset: "",
+    nama: "",
+    kategori: "",
+    kuantiti: 0,
     unit: "",
-    location: "",
-    lastUpdated: "",
-    minimumStock: 0,
+    lokasi: "",
+    tarikhTerakhirKemaskini: "",
+    jumlah: 0,
     status: "Mencukupi"
   });
 
@@ -490,18 +493,18 @@
     isViewingStock.value = false;
     isEditingStock.value = false;
     const today = new Date().toISOString().split('T')[0];
-    const newStockNo = `STK-${new Date().getFullYear()}-${String(stockData.value.length + 1).padStart(3, '0')}`;
+    const newnoAset = `STK-${new Date().getFullYear()}-${String(stockData.value.length + 1).padStart(3, '0')}`;
     
     stockForm.value = {
       id: null,
-      stockNo: newStockNo,
-      name: "",
-      category: "",
-      quantity: 0,
+      noAset: newnoAset,
+      nama: "",
+      kategori: "",
+      kuantiti: 0,
       unit: "",
-      location: "",
-      lastUpdated: today,
-      minimumStock: 0,
+      lokasi: "",
+      tarikhTerakhirKemaskini: today,
+      jumlah: 0,
       status: "Mencukupi"
     };
     isStockModalOpen.value = true;
@@ -530,8 +533,8 @@
 
   // Submit stock form
   const submitStockForm = () => {
-    // Update status based on quantity and minimum stock
-    stockForm.value.status = stockForm.value.quantity >= stockForm.value.minimumStock ? "Mencukupi" : "Kurang";
+    // Update status based on kuantiti and minimum stock
+    stockForm.value.status = stockForm.value.kuantiti >= stockForm.value.jumlah ? "Mencukupi" : "Kurang";
     
     if (isEditingStock.value) {
       // Update existing item
@@ -543,7 +546,7 @@
       // Add new item
       stockData.value.push({
         ...stockForm.value,
-        id: Date.now() // Temporary ID
+        id: Date.now() // Temporary id
       });
     }
     closeStockModal();
@@ -570,14 +573,14 @@
 
   // Stock categories for filtering
   const stockCategories = ["Semua", "Alat Ganti", "Elektrik", "Elektronik", "Peralatan Deck", "Lain-lain"];
-  const selectedStockCategory = ref("Semua");
+  const selectedStockkategori = ref("Semua");
 
   // Filtered stock data
   const filteredStockData = computed(() => {
-    if (selectedStockCategory.value === "Semua") {
+    if (selectedStockkategori.value === "Semua") {
       return stockData.value;
     }
-    return stockData.value.filter(item => item.category === selectedStockCategory.value);
+    return stockData.value.filter(item => item.kategori === selectedStockkategori.value);
   });
 
   // Equipment Modal state
@@ -586,13 +589,13 @@
   const isEditingEquipment = ref(false);
   const equipmentForm = ref({
     id: null,
-    equipmentNo: "",
-    name: "",
-    category: "",
-    manufacturer: "",
+    noAset: "",
+    nama: "",
+    kategori: "",
+    pengeluaran: "",
     model: "",
-    serialNumber: "",
-    installationDate: "",
+    noSiri: "",
+    tarikhPemasangan: "",
     status: "Beroperasi"
   });
 
@@ -601,17 +604,17 @@
     isViewingEquipment.value = false;
     isEditingEquipment.value = false;
     const today = new Date().toISOString().split('T')[0];
-    const newEquipmentNo = `EQ-${new Date().getFullYear()}-${String(shipEquipmentData.value.length + 1).padStart(3, '0')}`;
+    const newnoAset = `EQ-${new Date().getFullYear()}-${String(shipEquipmentData.value.length + 1).padStart(3, '0')}`;
     
     equipmentForm.value = {
       id: null,
-      equipmentNo: newEquipmentNo,
-      name: "",
-      category: "",
-      manufacturer: "",
+      noAset: newnoAset,
+      nama: "",
+      kategori: "",
+      pengeluaran: "",
       model: "",
-      serialNumber: "",
-      installationDate: today,
+      noSiri: "",
+      tarikhPemasangan: today,
       status: "Beroperasi"
     };
     isEquipmentModalOpen.value = true;
@@ -650,7 +653,7 @@
       // Add new item
       shipEquipmentData.value.push({
         ...equipmentForm.value,
-        id: Date.now() // Temporary ID
+        id: Date.now() // Temporary id
       });
     }
     closeEquipmentModal();
@@ -677,14 +680,14 @@
 
   // Equipment categories for filtering
   const equipmentCategories = ["Semua", "Elektronik", "Pendorongan", "Persenjataan", "Komunikasi", "Lain-lain"];
-  const selectedCategory = ref("Semua");
+  const selectedkategori = ref("Semua");
 
   // Filtered equipment data
   const filteredEquipmentData = computed(() => {
-    if (selectedCategory.value === "Semua") {
+    if (selectedkategori.value === "Semua") {
       return shipEquipmentData.value;
     }
-    return shipEquipmentData.value.filter(item => item.category === selectedCategory.value);
+    return shipEquipmentData.value.filter(item => item.kategori === selectedkategori.value);
   });
 
   // PMS Modal state
@@ -695,7 +698,7 @@
     id: null,
     type: "AD",
     year: new Date().getFullYear(),
-    location: "",
+    lokasi: "",
     description: ""
   });
 
@@ -706,7 +709,7 @@
       id: null,
       type: "AD",
       year: new Date().getFullYear(),
-      location: "",
+      lokasi: "",
       description: ""
     };
     isMaintenanceModalOpen.value = true;
@@ -745,7 +748,7 @@
       // Add new item
       pmsData.value.push({
         ...maintenanceForm.value,
-        id: Date.now() // Temporary ID
+        id: Date.now() // Temporary id
       });
     }
     closeMaintenanceModal();
@@ -820,7 +823,7 @@
     {
       id: 1,
       noTentera: "M15234",
-      name: "Lt. Muda Azman bin Hashim",
+      nama: "Lt. Muda Azman bin Hashim",
       position: "Kapten Kapal",
       joinDate: "2023-03-15",
       endDate: "2025-03-14",
@@ -829,8 +832,8 @@
       email: "azman.hashim@apmm.gov.my",
       tindakan: "lihat",
       training: [
-        { id: 1, name: "Kursus Kepimpinan Maritim", date: "2023-05-15", duration: "2 minggu", location: "Akademi APMM, Kuantan" },
-        { id: 2, name: "Latihan Pengurusan Krisis", date: "2023-08-10", duration: "1 minggu", location: "Pusat Latihan APMM, Kuching" }
+        { id: 1, nama: "Kursus Kepimpinan Maritim", date: "2023-05-15", duration: "2 minggu", lokasi: "Akademi APMM, Kuantan" },
+        { id: 2, nama: "Latihan Pengurusan Krisis", date: "2023-08-10", duration: "1 minggu", lokasi: "Pusat Latihan APMM, Kuching" }
       ],
       serviceRecord: [
         { id: 1, position: "Pegawai Navigasi", vessel: "KM SATRIA", startDate: "2018-06-10", endDate: "2021-05-20" },
@@ -844,7 +847,7 @@
     {
       id: 2,
       noTentera: "M16345",
-      name: "PW II Sarah binti Omar",
+      nama: "PW II Sarah binti Omar",
       position: "Pegawai Navigasi",
       joinDate: "2023-06-10",
       endDate: "2025-06-09",
@@ -853,8 +856,8 @@
       email: "sarah.omar@apmm.gov.my",
       tindakan: "lihat",
       training: [
-        { id: 1, name: "Kursus Navigasi Lanjutan", date: "2023-09-20", duration: "3 minggu", location: "Akademi APMM, Kuantan" },
-        { id: 2, name: "Latihan SAR", date: "2023-11-05", duration: "2 minggu", location: "Pusat Latihan APMM, Kuching" }
+        { id: 1, nama: "Kursus Navigasi Lanjutan", date: "2023-09-20", duration: "3 minggu", lokasi: "Akademi APMM, Kuantan" },
+        { id: 2, nama: "Latihan SAR", date: "2023-11-05", duration: "2 minggu", lokasi: "Pusat Latihan APMM, Kuching" }
       ],
       serviceRecord: [
         { id: 1, position: "Pegawai Navigasi", vessel: "KM SATRIA", startDate: "2020-03-15", endDate: "2023-06-01" }
@@ -866,7 +869,7 @@
     {
       id: 3,
       noTentera: "M17456",
-      name: "PW II Razak bin Abdullah",
+      nama: "PW II Razak bin Abdullah",
       position: "Ketua Jurutera",
       joinDate: "2023-01-20",
       endDate: "2025-01-19",
@@ -875,13 +878,13 @@
       email: "razak.abdullah@apmm.gov.my",
       tindakan: "lihat",
       training: [
-        { id: 1, name: "Kursus Penyelenggaraan Enjin MTU", date: "2023-05-10", duration: "4 minggu", location: "Pusat Teknikal APMM, Kuching" }
+        { id: 1, nama: "Kursus Penyelenggaraan Enjin MTU", date: "2023-05-10", duration: "4 minggu", lokasi: "Pusat Teknikal APMM, Kuching" }
       ]
     },
     {
       id: 4,
       noTentera: "M18567",
-      name: "LK I Ahmad bin Rosli",
+      nama: "LK I Ahmad bin Rosli",
       position: "Juruteknik Elektronik",
       joinDate: "2022-11-05",
       endDate: "2024-11-04",
@@ -890,7 +893,7 @@
       email: "ahmad.rosli@apmm.gov.my",
       tindakan: "lihat",
       training: [
-        { id: 1, name: "Kursus Sistem Elektronik Kapal", date: "2023-02-15", duration: "3 minggu", location: "Pusat Teknikal APMM, Kuching" }
+        { id: 1, nama: "Kursus Sistem Elektronik Kapal", date: "2023-02-15", duration: "3 minggu", lokasi: "Pusat Teknikal APMM, Kuching" }
       ]
     }
   ]);
@@ -902,7 +905,7 @@
   const crewForm = ref({
     id: null,
     noTentera: "",
-    name: "",
+    nama: "",
     position: "",
     joinDate: "",
     endDate: "",
@@ -926,7 +929,7 @@
     crewForm.value = {
       id: null,
       noTentera: "",
-      name: "",
+      nama: "",
       position: "",
       joinDate: today,
       endDate: fourYearsLater.toISOString().split('T')[0],
@@ -974,7 +977,7 @@
       // Add new item
       crewData.value.push({
         ...crewForm.value,
-        id: Date.now() // Temporary ID
+        id: Date.now() // Temporary id
       });
     }
     closeCrewModal();
@@ -1020,7 +1023,7 @@
   // Job Card data
   const jobCardData = ref([
     {
-      BIL: 1,
+      id: 1,
       'JENIS ASET': 'Radar Navigasi',
       'Pengguna Terakhir': 'KM SIANGIN',
       'TARIKH ROSAK': '2024-03-15',
@@ -1029,7 +1032,7 @@
       'TINDAKAN': '1'
     },
     {
-      BIL: 2,
+      id: 2,
       'JENIS ASET': 'Enjin Utama 2',
       'Pengguna Terakhir': 'KM SIANGIN',
       'TARIKH ROSAK': '2024-04-02',
@@ -1038,7 +1041,7 @@
       'TINDAKAN': '2'
     },
     {
-      BIL: 3,
+      id: 3,
       'JENIS ASET': 'Sistem VHF',
       'Pengguna Terakhir': 'KM SIANGIN',
       'TARIKH ROSAK': '2024-04-10',
@@ -1057,10 +1060,10 @@
     'PEMOHON': '',
     'AMOUN': '',
     'reportType': 'DEFECT',
-    'location': 'PANGKALAN TLDM LUMUT',
+    'lokasi': 'PANGKALAN TLDM LUMUT',
     'mainSystem': '',
     'runningHours': '',
-    'manufacturer': '',
+    'pengeluaran': '',
     'serialNo': '',
     'remarks': ''
   });
@@ -1074,10 +1077,10 @@
       'PEMOHON': '',
       'AMOUN': '',
       'reportType': 'DEFECT',
-      'location': 'PANGKALAN TLDM LUMUT',
+      'lokasi': 'PANGKALAN TLDM LUMUT',
       'mainSystem': '',
       'runningHours': '',
-      'manufacturer': '',
+      'pengeluaran': '',
       'serialNo': '',
       'remarks': ''
     };
@@ -1094,7 +1097,7 @@
     // Create a new job card entry
     const newJobCard = {
       id: Date.now(),
-      BIL: jobCardData.value.length + 1,
+      id: jobCardData.value.length + 1,
       ...newJobCardForm.value
     };
     
@@ -1119,11 +1122,905 @@
   const closeViewJobCardModal = () => {
     isViewJobCardModalOpen.value = false;
   };
+
+  // OA (Operational Availaidity) data
+  const oaData = ref([
+    {
+      id: 1,
+      kerosakanKritikal: "Sistem Radar Utama - Furuno FAR-2117",
+      tarikhOpsNonOps: "2024-03-15",
+      kjkp: "KJPKP Lumut",
+      kat: "KAT 4",
+      vendor: "Thales Malaysia Sdn Bhd",
+      cd: "2024-04-15",
+      hat: "2024-04-20",
+      sat: "2024-04-25",
+      rec1: "2024-05-01",
+      catKapal: "3",
+      tindakan: "1"
+    },
+    {
+      id: 2,
+      kerosakanKritikal: "Enjin Utama No. 2 - MTU 12V 2000 M90",
+      tarikhOpsNonOps: "2024-03-20",
+      kjkp: "KJPKP Kuching",
+      kat: "KAT 5",
+      vendor: "MTU Asia Pacific Pte Ltd",
+      cd: "2024-04-20",
+      hat: "2024-04-25",
+      sat: "2024-04-30",
+      rec1: "2024-05-05",
+      catKapal: "4",
+      tindakan: "2"
+    },
+    {
+      id: 3,
+      kerosakanKritikal: "Sistem Komunikasi VHF - Sailor 6222",
+      tarikhOpsNonOps: "2024-03-25",
+      kjkp: "KJPKP Lumut",
+      kat: "KAT 4",
+      vendor: "Cobham SATCOM Malaysia",
+      cd: "2024-04-25",
+      hat: "2024-04-30",
+      sat: "2024-05-05",
+      rec1: "2024-05-10",
+      catKapal: "2",
+      tindakan: "3"
+    },
+    {
+      id: 4,
+      kerosakanKritikal: "Sistem Kawalan Enjin - MTU Engine Control",
+      tarikhOpsNonOps: "2024-04-01",
+      kjkp: "KJPKP Sandakan",
+      kat: "KAT 5",
+      vendor: "MTU Asia Pacific Pte Ltd",
+      cd: "2024-05-01",
+      hat: "2024-05-06",
+      sat: "2024-05-11",
+      rec1: "2024-05-16",
+      catKapal: "5",
+      tindakan: "4"
+    },
+    {
+      id: 5,
+      kerosakanKritikal: "Sistem Navigasi GPS - Furuno GP-170",
+      tarikhOpsNonOps: "2024-04-05",
+      kjkp: "KJPKP Lumut",
+      kat: "KAT 4",
+      vendor: "Thales Malaysia Sdn Bhd",
+      cd: "2024-05-05",
+      hat: "2024-05-10",
+      sat: "2024-05-15",
+      rec1: "2024-05-20",
+      catKapal: "1",
+      tindakan: "5"
+    },
+    {
+      id: 6,
+      kerosakanKritikal: "Sistem Penyejukan Enjin - Chiller Unit",
+      tarikhOpsNonOps: "2024-04-10",
+      kjkp: "KJPKP Kota Kinabalu",
+      kat: "KAT 4",
+      vendor: "Carrier Malaysia Sdn Bhd",
+      cd: "2024-05-10",
+      hat: "2024-05-15",
+      sat: "2024-05-20",
+      rec1: "2024-05-25",
+      catKapal: "3",
+      tindakan: "6"
+    },
+    {
+      id: 7,
+      kerosakanKritikal: "Sistem Elektrik Utama - Generator No. 1",
+      tarikhOpsNonOps: "2024-04-15",
+      kjkp: "KJPKP Miri",
+      kat: "KAT 5",
+      vendor: "Caterpillar Malaysia Sdn Bhd",
+      cd: "2024-05-15",
+      hat: "2024-05-20",
+      sat: "2024-05-25",
+      rec1: "2024-05-30",
+      catKapal: "4",
+      tindakan: "7"
+    },
+    {
+      id: 8,
+      kerosakanKritikal: "Sistem Kebakaran - Fire Detection System",
+      tarikhOpsNonOps: "2024-04-20",
+      kjkp: "KJPKP Lumut",
+      kat: "KAT 4",
+      vendor: "Consilium Malaysia Sdn Bhd",
+      cd: "2024-05-20",
+      hat: "2024-05-25",
+      sat: "2024-05-30",
+      rec1: "2024-06-04",
+      catKapal: "2",
+      tindakan: "8"
+    },
+    {
+      id: 9,
+      kerosakanKritikal: "Sistem Hidraulik - Steering Gear",
+      tarikhOpsNonOps: "2024-04-25",
+      kjkp: "KJPKP Kuching",
+      kat: "KAT 5",
+      vendor: "Rolls-Royce Marine Malaysia",
+      cd: "2024-05-25",
+      hat: "2024-05-30",
+      sat: "2024-06-04",
+      rec1: "2024-06-09",
+      catKapal: "5",
+      tindakan: "9"
+    },
+    {
+      id: 10,
+      kerosakanKritikal: "Sistem Air Conditioning - Main AC Unit",
+      tarikhOpsNonOps: "2024-04-30",
+      kjkp: "KJPKP Sandakan",
+      kat: "KAT 4",
+      vendor: "Daikin Malaysia Sdn Bhd",
+      cd: "2024-05-30",
+      hat: "2024-06-04",
+      sat: "2024-06-09",
+      rec1: "2024-06-14",
+      catKapal: "3",
+      tindakan: "10"
+    }
+  ]);
+
+  // Sort OA data in descending order by tarikhOpsNonOps
+  const sortedOaData = computed(() => {
+    return [...oaData.value].sort((a, b) => {
+      return new Date(b.tarikhOpsNonOps) - new Date(a.tarikhOpsNonOps);
+    });
+  });
+
+  // OA Modal state
+  const isOaModalOpen = ref(false);
+  const isViewingOa = ref(false);
+  const isEditingOa = ref(false);
+  const oaForm = ref({
+    id: null,
+    kerosakanKritikal: "",
+    tarikhOpsNonOps: "",
+    kjkp: "",
+    kat: "",
+    vendor: "",
+    cd: "",
+    hat: "",
+    sat: "",
+    rec1: "",
+    catKapal: "",
+    tindakan: ""
+  });
+
+  // Open modal for adding OA
+  const openAddOaModal = () => {
+    isViewingOa.value = false;
+    isEditingOa.value = false;
+    const today = new Date().toISOString().split('T')[0];
+    
+    oaForm.value = {
+      id: null,
+      kerosakanKritikal: "",
+      tarikhOpsNonOps: today,
+      kjkp: "",
+      kat: "",
+      vendor: "",
+      cd: "",
+      hat: "",
+      sat: "",
+      rec1: "",
+      catKapal: ""
+    };
+    isOaModalOpen.value = true;
+  };
+
+  // Open modal for viewing OA
+  const openViewOaModal = (item) => {
+    isViewingOa.value = true;
+    isEditingOa.value = false;
+    oaForm.value = { ...item };
+    isOaModalOpen.value = true;
+  };
+
+  // Open modal for editing OA
+  const openEditOaModal = (item) => {
+    isViewingOa.value = false;
+    isEditingOa.value = true;
+    oaForm.value = { ...item };
+    isOaModalOpen.value = true;
+  };
+
+  // Close OA modal
+  const closeOaModal = () => {
+    isOaModalOpen.value = false;
+  };
+
+  // Submit OA form
+  const submitOaForm = () => {
+    if (isEditingOa.value) {
+      // Update existing item
+      const index = oaData.value.findIndex((i) => i.id === oaForm.value.id);
+      if (index !== -1) {
+        oaData.value[index] = { ...oaForm.value };
+      }
+    } else {
+      // Add new item
+      oaData.value.push({
+        ...oaForm.value,
+        id: Date.now() // Temporary id
+      });
+    }
+    closeOaModal();
+  };
+
+  // Delete OA item
+  const deleteOaItem = (id) => {
+    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
+      const index = oaData.value.findIndex((i) => i.id === id);
+      if (index !== -1) {
+        oaData.value.splice(index, 1);
+      }
+    }
+  };
+
+  // Handle OA FormKit form submission
+  const handleOaSubmit = (values) => {
+    oaForm.value = {
+      ...oaForm.value,
+      ...values
+    };
+    submitOaForm();
+  };
+
+  // Predefined options for OA form
+  const kjkpOptions = [
+    "KJPKP Lumut",
+    "KJPKP Kuching", 
+    "KJPKP Sandakan",
+    "KJPKP Kota Kinabalu",
+    "KJPKP Miri",
+    "KJPKP Labuan",
+    "KJPKP Tawau",
+    "KJPKP Semporna"
+  ];
+
+  const vendorOptions = [
+    "Thales Malaysia Sdn Bhd",
+    "MTU Asia Pacific Pte Ltd",
+    "Cobham SATCOM Malaysia",
+    "Carrier Malaysia Sdn Bhd",
+    "Caterpillar Malaysia Sdn Bhd",
+    "Consilium Malaysia Sdn Bhd",
+    "Rolls-Royce Marine Malaysia",
+    "Daikin Malaysia Sdn Bhd",
+    "Furuno Malaysia Sdn Bhd",
+    "Siemens Malaysia Sdn Bhd",
+    "ABB Malaysia Sdn Bhd",
+    "Schneider Electric Malaysia Sdn Bhd"
+  ];
+
+  // Floating Equipment data
+  const floatingEquipmentData = ref([
+    {
+      id: 1,
+      nama: 'Rakit Penyelamat Kembung (Inflatable Liferaft)',
+      serialNo: 'ILR-2023-001',
+      lokasi: 'Port Side',
+      status: 'Baik',
+      tarikhTerakhirPemeriksaan: '2024-01-15',
+    },
+    {
+      id: 2,
+      nama: 'Bot Kerja (Workboat)',
+      serialNo: 'WB-2022-005',
+      lokasi: 'Stern',
+      status: 'Baik',
+      tarikhTerakhirPemeriksaan: '2024-02-20',
+    },
+    {
+      id: 3,
+      nama: 'Pelampung Penyelamat (Lifebuoy)',
+      serialNo: 'LB-2023-015',
+      lokasi: 'Starboard Side',
+      status: 'Baik',
+      tarikhTerakhirPemeriksaan: '2024-03-10',
+    },
+  ]);
+
+  // Floating Equipment Modal state
+  const isFloatingEquipmentModalOpen = ref(false);
+  const isViewingFloatingEquipment = ref(false);
+  const isEditingFloatingEquipment = ref(false);
+  const floatingEquipmentForm = ref({
+    id: null,
+    nama: '',
+    serialNo: '',
+    lokasi: '',
+    status: 'Baik',
+    tarikhTerakhirPemeriksaan: '',
+  });
+
+  // Open modal for adding floating equipment
+  const openAddFloatingEquipmentModal = () => {
+    isViewingFloatingEquipment.value = false;
+    isEditingFloatingEquipment.value = false;
+    const today = new Date().toISOString().split('T')[0];
+    
+    floatingEquipmentForm.value = {
+      id: null,
+      nama: '',
+      serialNo: `FE-${new Date().getFullYear()}-${String(floatingEquipmentData.value.length + 1).padStart(3, '0')}`,
+      lokasi: '',
+      status: 'Baik',
+      tarikhTerakhirPemeriksaan: today,
+    };
+    isFloatingEquipmentModalOpen.value = true;
+  };
+
+  // Open modal for viewing floating equipment
+  const viewFloatingEquipmentItem = (item) => {
+    isViewingFloatingEquipment.value = true;
+    isEditingFloatingEquipment.value = false;
+    floatingEquipmentForm.value = { ...item };
+    isFloatingEquipmentModalOpen.value = true;
+  };
+
+  // Open modal for editing floating equipment
+  const editFloatingEquipmentItem = (item) => {
+    isViewingFloatingEquipment.value = false;
+    isEditingFloatingEquipment.value = true;
+    floatingEquipmentForm.value = { ...item };
+    isFloatingEquipmentModalOpen.value = true;
+  };
+
+  // Close floating equipment modal
+  const closeFloatingEquipmentModal = () => {
+    isFloatingEquipmentModalOpen.value = false;
+  };
+
+  // Submit floating equipment form
+  const submitFloatingEquipmentForm = () => {
+    if (isEditingFloatingEquipment.value) {
+      // Update existing item
+      const index = floatingEquipmentData.value.findIndex((i) => i.id === floatingEquipmentForm.value.id);
+      if (index !== -1) {
+        floatingEquipmentData.value[index] = { ...floatingEquipmentForm.value };
+      }
+    } else {
+      // Add new item
+      floatingEquipmentData.value.push({
+        ...floatingEquipmentForm.value,
+        id: Date.now() // Temporary id
+      });
+    }
+    closeFloatingEquipmentModal();
+  };
+
+  // Delete floating equipment item
+  const deleteFloatingEquipmentItem = (id) => {
+    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
+      const index = floatingEquipmentData.value.findIndex((i) => i.id === id);
+      if (index !== -1) {
+        floatingEquipmentData.value.splice(index, 1);
+      }
+    }
+  };
+
+  // Handle floating equipment FormKit form submission
+  const handleFloatingEquipmentSubmit = (values) => {
+    floatingEquipmentForm.value = {
+      ...floatingEquipmentForm.value,
+      ...values
+    };
+    submitFloatingEquipmentForm();
+  };
+
+  // Handle asset selection from OSL
+  const handleAssetSelection = (selectednamaAset) => {
+    const selectedAsset = allOslAssets.value.find(asset => asset.nama === selectednamaAset);
+    if (selectedAsset) {
+      floatingEquipmentForm.value.kuantiti = selectedAsset.qty;
+      floatingEquipmentForm.value.remarks = selectedAsset.remark;
+    }
+  };
+
+  // HSE (Health, Safety & Environment) data
+  const hseData = ref([
+    {
+      id: 1,
+      tarikhKejadian: '2024-03-15',
+      jenisKejadian: 'Kerosakan Aset',
+      namaAset: 'Sistem Radar Utama',
+      penerangan: 'Kerosakan pada sistem radar akibat gelombang tinggi',
+      statusKerosakan: 'Sederhana',
+      kosPembaikan: 8500.00,
+      tempohPembaikan: '5 hari',
+      jabatan: 'Krew Navigasi',
+      langkahPembaikan : 'Pemasangan pelindung tambahan',
+      status: 'Selesai'
+    },
+    {
+      id: 2,
+      tarikhKejadian: '2024-02-28',
+      jenisKejadian: 'Kemalangan Krew',
+      namaAset: 'Sistem Kawalan Enjin',
+      penerangan: 'Kecederaan ringan semasa penyelenggaraan enjin',
+      statusKerosakan: 'Ringan',
+      kosPembaikan: 1200.00,
+      tempohPembaikan: '2 hari',
+      jabatan: 'Jurutera',
+      langkahPembaikan : 'Latihan keselamatan tambahan',
+      status: 'Selesai'
+    }
+  ]);
+
+  // HSE Modal state
+  const isHseModalOpen = ref(false);
+  const isViewingHse = ref(false);
+  const isEditingHse = ref(false);
+  const hseForm = ref({
+    id: null,
+    tarikhKejadian: '',
+    jenisKejadian: '',
+    namaAset: '',
+    penerangan: '',
+    statusKerosakan: '',
+    kosPembaikan: 0,
+    tempohPembaikan: '',
+    jabatan: '',
+    langkahPembaikan : '',
+    status: 'Dalam Proses'
+  });
+
+  // Open modal for adding HSE incident
+  const openAddHseModal = () => {
+    isViewingHse.value = false;
+    isEditingHse.value = false;
+    const today = new Date().toISOString().split('T')[0];
+    
+    hseForm.value = {
+      id: null,
+      tarikhKejadian: today,
+      jenisKejadian: '',
+      namaAset: '',
+      penerangan: '',
+      statusKerosakan: '',
+      kosPembaikan: 0,
+      tempohPembaikan: '',
+      jabatan: '',
+      langkahPembaikan : '',
+      status: 'Dalam Proses'
+    };
+    isHseModalOpen.value = true;
+  };
+
+  // Open modal for viewing HSE incident
+  const viewHseItem = (item) => {
+    isViewingHse.value = true;
+    isEditingHse.value = false;
+    hseForm.value = { ...item };
+    isHseModalOpen.value = true;
+  };
+
+  // Open modal for editing HSE incident
+  const editHseItem = (item) => {
+    isViewingHse.value = false;
+    isEditingHse.value = true;
+    hseForm.value = { ...item };
+    isHseModalOpen.value = true;
+  };
+
+  // Close HSE modal
+  const closeHseModal = () => {
+    isHseModalOpen.value = false;
+  };
+
+  // Submit HSE form
+  const submitHseForm = () => {
+    if (isEditingHse.value) {
+      // Update existing item
+      const index = hseData.value.findIndex((i) => i.id === hseForm.value.id);
+      if (index !== -1) {
+        hseData.value[index] = { ...hseForm.value };
+      }
+    } else {
+      // Add new item
+      hseData.value.push({
+        ...hseForm.value,
+        id: Date.now() // Temporary id
+      });
+    }
+    closeHseModal();
+  };
+
+  // Delete HSE item
+  const deleteHseItem = (id) => {
+    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
+      const index = hseData.value.findIndex((i) => i.id === id);
+      if (index !== -1) {
+        hseData.value.splice(index, 1);
+      }
+    }
+  };
+
+  // Handle HSE FormKit form submission
+  const handleHseSubmit = (values) => {
+    hseForm.value = {
+      ...hseForm.value,
+      ...values
+    };
+    submitHseForm();
+  };
+
+  // HSE Statistics
+  const hseStatistics = computed(() => {
+    const totalIncidents = hseData.value.length;
+    const kos = hseData.value.reduce((sum, item) => sum + item.kosPembaikan, 0);
+    const completedIncidents = hseData.value.filter(item => item.status === 'Selesai').length;
+    const pendingIncidents = hseData.value.filter(item => item.status === 'Dalam Proses').length;
+    
+    const incidentsByType = {};
+    hseData.value.forEach(item => {
+      incidentsByType[item.jenisKejadian] = (incidentsByType[item.jenisKejadian] || 0) + 1;
+    });
+    
+    const incidentsBystatusKerosakan = {};
+    hseData.value.forEach(item => {
+      incidentsBystatusKerosakan[item.statusKerosakan] = (incidentsBystatusKerosakan[item.statusKerosakan] || 0) + 1;
+    });
+    
+    return {
+      totalIncidents,
+      kos,
+      completedIncidents,
+      pendingIncidents,
+      incidentsByType,
+      incidentsBystatusKerosakan
+    };
+  });
+
+  // Shipyard Reports Data
+  const shipyardReportsData = ref([
+    {
+      id: 1,
+      minggu: "Minggu 1",
+      tarikhLapor: "2024-03-01",
+      noSebutHarga: "SH-2024-001",
+      namaAset: "KM SIANGIN",
+      namaLimbungan: "Limbungan Kapal Lumut Sdn Bhd",
+      kos: 45000.00,
+      skor: 4.5,
+      namaPenyelia: "En. Ahmad bin Ismail",
+      noTelefonPenyelia: "012-3456789"
+    },
+    {
+      id: 2,
+      minggu: "Minggu 2",
+      tarikhLapor: "2024-03-08",
+      noSebutHarga: "SH-2024-002",
+      namaAset: "KM SIANGIN",
+      namaLimbungan: "Limbungan Kapal Lumut Sdn Bhd",
+      kos: 28000.00,
+      skor: 5.0,
+      namaPenyelia: "En. Ahmad bin Ismail",
+      noTelefonPenyelia: "012-3456789"
+    },
+    {
+      id: 3,
+      minggu: "Minggu 3",
+      tarikhLapor: "2024-03-15",
+      noSebutHarga: "SH-2024-003",
+      namaAset: "KM SIANGIN",
+      namaLimbungan: "Limbungan Kapal Lumut Sdn Bhd",
+      kos: 35000.00,
+      skor: 4.0,
+      namaPenyelia: "En. Ahmad bin Ismail",
+      noTelefonPenyelia: "012-3456789"
+    }
+  ]);
+
+  // Sort shipyard reports data in descending order by tarikhLapor
+  const sortedShipyardReportsData = computed(() => {
+    return [...shipyardReportsData.value].sort((a, b) => {
+      return new Date(b.tarikhLapor) - new Date(a.tarikhLapor);
+    });
+  });
+
+  // Shipyard Reports Modal state
+  const isShipyardReportModalOpen = ref(false);
+  const isViewingShipyardReport = ref(false);
+  const isEditingShipyardReport = ref(false);
+  const shipyardReportForm = ref({
+    id: null,
+    minggu: "",
+    tarikhLapor: "",
+    noSebutHarga: "",
+    namaAset: "",
+    namaLimbungan: "",
+    kos: 0,
+    skor: 0,
+    namaPenyelia: "",
+    noTelefonPenyelia: ""
+  });
+
+  // Open modal for adding shipyard report
+  const openAddShipyardReportModal = () => {
+    isViewingShipyardReport.value = false;
+    isEditingShipyardReport.value = false;
+    const today = new Date();
+    const minggu = `Minggu ${Math.ceil(today.getDate() / 7)}`;
+    const newnoSebutHarga = `SH-${today.getFullYear()}-${String(shipyardReportsData.value.length + 1).padStart(3, '0')}`;
+    
+    shipyardReportForm.value = {
+      id: null,
+      minggu: minggu,
+      tarikhLapor: today.toISOString().split('T')[0],
+      noSebutHarga: newnoSebutHarga,
+      namaAset: "KM SIANGIN",
+      namaLimbungan: "Limbungan Kapal Lumut Sdn Bhd",
+      kos: 0,
+      skor: 0,
+      namaPenyelia: "",
+      noTelefonPenyelia: ""
+    };
+    isShipyardReportModalOpen.value = true;
+  };
+
+  // Open modal for viewing shipyard report
+  const openViewShipyardReportModal = (item) => {
+    isViewingShipyardReport.value = true;
+    isEditingShipyardReport.value = false;
+    shipyardReportForm.value = { ...item };
+    isShipyardReportModalOpen.value = true;
+  };
+
+  // Open modal for editing shipyard report
+  const openEditShipyardReportModal = (item) => {
+    isViewingShipyardReport.value = false;
+    isEditingShipyardReport.value = true;
+    shipyardReportForm.value = { ...item };
+    isShipyardReportModalOpen.value = true;
+  };
+
+  // Close shipyard report modal
+  const closeShipyardReportModal = () => {
+    isShipyardReportModalOpen.value = false;
+  };
+
+  // Submit shipyard report form
+  const submitShipyardReportForm = () => {
+    if (isEditingShipyardReport.value) {
+      // Update existing item
+      const index = shipyardReportsData.value.findIndex((i) => i.id === shipyardReportForm.value.id);
+      if (index !== -1) {
+        shipyardReportsData.value[index] = { ...shipyardReportForm.value };
+      }
+    } else {
+      // Add new item
+      shipyardReportsData.value.push({
+        ...shipyardReportForm.value,
+        id: Date.now() // Temporary id
+      });
+    }
+    closeShipyardReportModal();
+  };
+
+  // Delete shipyard report item
+  const deleteShipyardReportItem = (id) => {
+    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
+      const index = shipyardReportsData.value.findIndex((i) => i.id === id);
+      if (index !== -1) {
+        shipyardReportsData.value.splice(index, 1);
+      }
+    }
+  };
+
+  // Handle shipyard report FormKit form submission
+  const handleShipyardReportSubmit = (values) => {
+    shipyardReportForm.value = {
+      ...shipyardReportForm.value,
+      ...values
+    };
+    submitShipyardReportForm();
+  };
+
+  // Add activity to shipyard report
+  const addActivityToReport = () => {
+    const newActivity = {
+      id: Date.now(),
+      activitynama: "",
+      description: "",
+      startDate: "",
+      endDate: "",
+      status: "Dalam Proses",
+      qualityRating: 0,
+      images: [],
+      catatan: ""
+    };
+  };
+
+  
+
+  // Shipyard reports statistics
+  const shipyardReportsStatistics = computed(() => {
+    const totalReports = shipyardReportsData.value.length;
+    const kos = shipyardReportsData.value.reduce((sum, item) => sum + item.kos, 0);
+    const averageQualityRating = shipyardReportsData.value.length > 0 
+      ? shipyardReportsData.value.reduce((sum, item) => sum + item.skor, 0) / shipyardReportsData.value.length 
+      : 0;
+    
+    return {
+      totalReports,
+      kos,
+      averageQualityRating,
+    };
+  });
+
+  // Cannaidize Asset data
+  const cannaidizeAssetData = ref([
+    {
+      id: 1,
+      nama: 'Enjin Utama MTU 12V 2000 M90',
+      serialNo: 'CA-2024-001',
+      lokasi: 'Engine Room',
+      status: 'Tersedia',
+      tarikhTerakhirPemeriksaan: '2024-01-15',
+     kaadaan: 'Baik',
+      pemilikAsal: 'KM SATRIA',
+      tarikhPindahMilik: '2024-01-10',
+      catatan: 'Enjin utama yang telah dibaiki dan sedia untuk digunakan'
+    },
+    {
+      id: 2,
+      nama: 'Sistem Radar Furuno FAR-2117',
+      serialNo: 'CA-2024-002',
+      lokasi: 'Bridge',
+      status: 'Dalam Penggunaan',
+      tarikhTerakhirPemeriksaan: '2024-02-20',
+     kaadaan: 'Baik',
+      pemilikAsal: 'KM MARLIN',
+      tarikhPindahMilik: '2024-02-15',
+      catatan: 'Sistem radar yang telah diperbaiki dan sedang digunakan'
+    },
+    {
+      id: 3,
+      nama: 'Generator Set Caterpillar 3406',
+      serialNo: 'CA-2024-003',
+      lokasi: 'Generator Room',
+      status: 'Tersedia',
+      tarikhTerakhirPemeriksaan: '2024-03-10',
+     kaadaan: 'Sederhana',
+      pemilikAsal: 'KM NAGA',
+      tarikhPindahMilik: '2024-03-05',
+      catatan: 'Generator set yang memerlukan penyelenggaraan ringan'
+    },
+    {
+      id: 4,
+      nama: 'Sistem Komunikasi VHF Sailor 6222',
+      serialNo: 'CA-2024-004',
+      lokasi: 'Radio Room',
+      status: 'Tersedia',
+      tarikhTerakhirPemeriksaan: '2024-02-28',
+     kaadaan: 'Baik',
+      pemilikAsal: 'KM SATRIA',
+      tarikhPindahMilik: '2024-02-25',
+      catatan: 'Sistem komunikasi yang berfungsi dengan baik'
+    },
+    {
+      id: 5,
+      nama: 'Panel Elektrik Utama',
+      serialNo: 'CA-2024-005',
+      lokasi: 'Electrical Room',
+      status: 'Dalam Penggunaan',
+      tarikhTerakhirPemeriksaan: '2024-03-15',
+     kaadaan: 'Baik',
+      pemilikAsal: 'KM MARLIN',
+      tarikhPindahMilik: '2024-03-12',
+      catatan: 'Panel elektrik yang telah diperbaiki dan sedang digunakan'
+    }
+  ]);
+
+  // Cannaidize Asset Modal state
+  const isCannaidizeAssetModalOpen = ref(false);
+  const isViewingCannaidizeAsset = ref(false);
+  const isEditingCannaidizeAsset = ref(false);
+  const cannaidizeAssetForm = ref({
+    id: null,
+    nama: '',
+    serialNo: '',
+    lokasi: '',
+    status: 'Tersedia',
+    tarikhTerakhirPemeriksaan: '',
+   kaadaan: 'Baik',
+    pemilikAsal: '',
+    tarikhPindahMilik: '',
+    catatan: ''
+  });
+
+  // Open modal for adding cannaidize asset
+  const openAddCannaidizeAssetModal = () => {
+    isViewingCannaidizeAsset.value = false;
+    isEditingCannaidizeAsset.value = false;
+    const today = new Date().toISOString().split('T')[0];
+    
+    cannaidizeAssetForm.value = {
+      id: null,
+      nama: '',
+      serialNo: `CA-${new Date().getFullYear()}-${String(cannaidizeAssetData.value.length + 1).padStart(3, '0')}`,
+      lokasi: '',
+      status: 'Tersedia',
+      tarikhTerakhirPemeriksaan: today,
+     kaadaan: 'Baik',
+      pemilikAsal: '',
+      tarikhPindahMilik: today,
+      catatan: ''
+    };
+    isCannaidizeAssetModalOpen.value = true;
+  };
+
+  // Open modal for viewing cannaidize asset
+  const viewCannaidizeAssetItem = (item) => {
+    isViewingCannaidizeAsset.value = true;
+    isEditingCannaidizeAsset.value = false;
+    cannaidizeAssetForm.value = { ...item };
+    isCannaidizeAssetModalOpen.value = true;
+  };
+
+  // Open modal for editing cannaidize asset
+  const editCannaidizeAssetItem = (item) => {
+    isViewingCannaidizeAsset.value = false;
+    isEditingCannaidizeAsset.value = true;
+    cannaidizeAssetForm.value = { ...item };
+    isCannaidizeAssetModalOpen.value = true;
+  };
+
+  // Close cannaidize asset modal
+  const closeCannaidizeAssetModal = () => {
+    isCannaidizeAssetModalOpen.value = false;
+  };
+
+  // Submit cannaidize asset form
+  const submitCannaidizeAssetForm = () => {
+    if (isEditingCannaidizeAsset.value) {
+      // Update existing item
+      const index = cannaidizeAssetData.value.findIndex((i) => i.id === cannaidizeAssetForm.value.id);
+      if (index !== -1) {
+        cannaidizeAssetData.value[index] = { ...cannaidizeAssetForm.value };
+      }
+    } else {
+      // Add new item
+      cannaidizeAssetData.value.push({
+        ...cannaidizeAssetForm.value,
+        id: Date.now() // Temporary id
+      });
+    }
+    closeCannaidizeAssetModal();
+  };
+
+  // Delete cannaidize asset item
+  const deleteCannaidizeAssetItem = (id) => {
+    if (confirm('Adakah anda pasti untuk memadamkan rekod ini?')) {
+      const index = cannaidizeAssetData.value.findIndex((i) => i.id === id);
+      if (index !== -1) {
+        cannaidizeAssetData.value.splice(index, 1);
+      }
+    }
+  };
+
+  // Handle cannaidize asset FormKit form submission
+  const handleCannaidizeAssetSubmit = (values) => {
+    cannaidizeAssetForm.value = {
+      ...cannaidizeAssetForm.value,
+      ...values
+    };
+    submitCannaidizeAssetForm();
+  };
 </script>
 
 <template>
   <div class="p-6 space-y-6">
-     <!-- Ship Identity Banner -->
+     <!-- Ship identity Banner -->
      <div class="bg-gradient-to-r from-blue-700 to-blue-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex flex-col md:flex-row">
                 <div class="md:w-1/3 p-6 flex items-center justify-center">
@@ -1131,7 +2028,7 @@
                 </div>
                 <div class="md:w-2/3 p-6 text-white">
                   <div class="flex items-center space-x-3">
-                    <h1 class="text-3xl font-bold">{{ vesselProfile.generalInfo.name }}</h1>
+                    <h1 class="text-3xl font-bold">{{ vesselProfile.generalInfo.nama }}</h1>
                     <span class="bg-blue-600 px-3 py-1 rounded-full text-sm font-semibold">{{ vesselProfile.generalInfo.pennantNumber }}</span>
                   </div>
                   <p class="text-xl mt-2">{{ vesselProfile.generalInfo.class }} - {{ vesselProfile.generalInfo.type }}</p>
@@ -1177,206 +2074,617 @@
             activeTab === tab.key ? 'border-b-2 border-blue-500 text-blue-500' : 'text-gray-600'
           ]"
         >
-          {{ tab.name }}
+          {{ tab.nama }}
         </button>
       </div>
 
       <div class="p-4 bg-gray-50 rounded">
         <div v-if="activeTab === 'profile'">
-          <!-- Vessel Profile Content -->
-          <div class="space-y-6">      
-
-            <!-- General Information -->
-            <rs-card class="overflow-hidden border-0 shadow-lg">
-              <template #header>
-                <div class="bg-gray-50 px-4 py-3 border-b">
-                  <div class="flex items-center">
-                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
-                    <h2 class="text-lg font-semibold text-gray-800">Maklumat Am Kapal</h2>
-                  </div>
-                </div>
-              </template>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-2">
-                <div>
-                  <div class="mb-4 bg-white p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <h3 class="text-md font-medium text-blue-700">Nama Kapal</h3>
-                    <p class="text-gray-700">{{ vesselProfile.generalInfo.name }}</p>
-                  </div>
-                  <div class="mb-4 bg-white p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <h3 class="text-md font-medium text-blue-700">Nombor Pennant</h3>
-                    <p class="text-gray-700">{{ vesselProfile.generalInfo.pennantNumber }}</p>
-                  </div>
-                  <div class="mb-4 bg-white p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <h3 class="text-md font-medium text-blue-700">Kelas</h3>
-                    <p class="text-gray-700">{{ vesselProfile.generalInfo.class }}</p>
-                  </div>
-                </div>
-                <div>
-                  <div class="mb-4 bg-white p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <h3 class="text-md font-medium text-blue-700">Jenis</h3>
-                    <p class="text-gray-700">{{ vesselProfile.generalInfo.type }}</p>
-                  </div>
-                  <div class="mb-4 bg-white p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                    <h3 class="text-md font-medium text-blue-700">Pembuat</h3>
-                    <p class="text-gray-700">{{ vesselProfile.generalInfo.builder }}</p>
-                  </div>
-                </div>
+          <rs-card>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Senarai Krew Kapal</h2>
+                <rs-button variant="primary" @click="openAddCrewModal">Tambah Krew</rs-button>
               </div>
-            </rs-card>
+            </template>
+            
+            <div class="p-2">
+            <!-- Crew Table -->
+              <rs-table
+                :data="filteredCrewData"
+                :columns="[
+                  { key: 'noTentera', label: 'No. Tentera' },
+                  { key: 'nama', label: 'nama' },
+                  { key: 'position', label: 'Jawatan' },
+                  { key: 'department', label: 'Jabatan' },
+                  { key: 'tindakan', label: 'Tindakan' }
+                ]"
+                :options="{
+                  variant: 'default',
+                  striped: true,
+                  borderless: true,
+                }"
+                :options-advanced="{
+                  sortable: true,
+                  responsive: true,
+                  filterable: true,
+                  defaultSort: { column: 'nama', direction: 'asc' }
+                }"
+                advanced
+                :field="fieldKrew"
+              >
+                <template v-slot:tindakan="row">
+                  <div class="flex gap-2">
+                    <rs-button variant="primary" size="sm" @click="viewCrewItem(row.value)">Lihat</rs-button>
+                    <!-- <rs-button variant="warning" size="sm" @click="editCrewItem(row.value)">Kemaskini</rs-button>
+                    <rs-button variant="danger" size="sm" @click="deleteCrewItem(row.value.id)">Padam</rs-button>
+                    <rs-button variant="info" size="sm" @click="printCrewItem(row.value)">
+                      <i class="fas fa-print mr-1"></i>Cetak
+                    </rs-button> -->
+                  </div>
+                </template>
+              </rs-table>
+            </div>
+          </rs-card>
 
-            <!-- Specifications -->
-            <rs-card class="overflow-hidden border-0 shadow-lg">
-              <template #header>
-                <div class="bg-gray-50 px-4 py-3 border-b">
-                  <div class="flex items-center">
-                    <i class="fas fa-ruler text-blue-600 mr-2"></i>
-                    <h2 class="text-lg font-semibold text-gray-800">Spesifikasi Teknikal</h2>
+          <!-- Crew Modal -->
+          <rs-modal v-model="isCrewModalOpen" size="lg">
+            <template #header>
+              <h3 class="text-lg font-semibold">
+                {{ isViewingCrew ? 'Maklumat Krew' : isEditingCrew ? 'Kemaskini Krew' : 'Tambah Krew' }}
+              </h3>
+            </template>
+
+            <template #body>
+              <!-- View Mode -->
+              <div v-if="isViewingCrew" class="space-y-6">
+                <!-- Crew Profile Section -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                  <h3 class="text-xl font-semibold text-blue-700 mb-4">Profil Krew</h3>
+                  
+                  <div class="flex items-center mb-6">
+                    <div class="bg-gray-200 rounded-full w-24 h-24 flex items-center justify-center mr-6">
+                      <span class="text-3xl font-bold text-gray-500">{{ crewForm.nama.charAt(0) }}</span>
+                    </div>
+                    
+                    <div>
+                      <h4 class="text-lg font-semibold">{{ crewForm.nama }}</h4>
+                      <p class="text-gray-600">{{ crewForm.position }}</p>
+                      <div class="mt-2">
+                        <rs-badge
+                          :variant="crewForm.status === 'Aktif' ? 'success' : 'warning'"
+                        >
+                          {{ crewForm.status }}
+                        </rs-badge>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </template>
-              <div class="p-4">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div class="bg-blue-50 p-4 rounded-lg text-center">
-                    <p class="text-sm text-gray-600">Sesaran</p>
-                    <p class="text-lg font-semibold text-blue-800">{{ vesselProfile.specifications.displacement }}</p>
-                  </div>
-                  <div class="bg-blue-50 p-4 rounded-lg text-center">
-                    <p class="text-sm text-gray-600">Panjang</p>
-                    <p class="text-lg font-semibold text-blue-800">{{ vesselProfile.specifications.length }}</p>
-                  </div>
-                  <div class="bg-blue-50 p-4 rounded-lg text-center">
-                    <p class="text-sm text-gray-600">Lebar</p>
-                    <p class="text-lg font-semibold text-blue-800">{{ vesselProfile.specifications.beam }}</p>
-                  </div>
-                  <div class="bg-blue-50 p-4 rounded-lg text-center">
-                    <p class="text-sm text-gray-600">Draf</p>
-                    <p class="text-lg font-semibold text-blue-800">{{ vesselProfile.specifications.draft }}</p>
+                  
+                  <div class="grid grid-cols-2 gap-6">
+                    <div>
+                      <div class="mb-4">
+                        <h5 class="text-sm font-medium text-gray-500">No. Tentera</h5>
+                        <p>{{ crewForm.noTentera }}</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                        <h5 class="text-sm font-medium text-gray-500">Tarikh Mula</h5>
+                        <p>{{ crewForm.joinDate }}</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                        <h5 class="text-sm font-medium text-gray-500">No. Telefon</h5>
+                        <p>{{ crewForm.contactNo }}</p>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <div class="mb-4">
+                        <h5 class="text-sm font-medium text-gray-500">Jawatan</h5>
+                        <p>{{ crewForm.position }}</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                        <h5 class="text-sm font-medium text-gray-500">Tarikh Tamat</h5>
+                        <p>{{ crewForm.endDate }}</p>
+                      </div>
+                      
+                      <div class="mb-4">
+                        <h5 class="text-sm font-medium text-gray-500">E-mel</h5>
+                        <p>{{ crewForm.email }}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
-                <div class="mt-6 space-y-4">
-                  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-md font-medium text-blue-700">Sistem Pendorong</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.specifications.propulsion }}</p>
+                <!-- Service Record Section -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                  <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-blue-700">Rekod Perkhidmatan</h3>
                   </div>
-                  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-md font-medium text-blue-700">Kelajuan</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.specifications.speed }}</p>
+                  
+                  <div v-if="crewForm.serviceRecord && crewForm.serviceRecord.length > 0">
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100">
+                          <tr>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Jawatan</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Kapal</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tarikh Mula</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tarikh Tamat</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr v-for="record in crewForm.serviceRecord" :key="record.id" class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm">{{ record.position }}</td>
+                            <td class="py-3 px-4 text-sm">{{ record.vessel }}</td>
+                            <td class="py-3 px-4 text-sm">{{ record.startDate }}</td>
+                            <td class="py-3 px-4 text-sm">{{ record.endDate }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-md font-medium text-blue-700">Julat</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.specifications.range }}</p>
+                  
+                  <div v-else class="p-4 text-center text-gray-500">
+                    Tiada rekod perkhidmatan dijumpai.
                   </div>
-                  <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-md font-medium text-blue-700">Kapasiti Krew</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.specifications.complement }}</p>
+                </div>
+                
+                <!-- Education Section -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                  <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-blue-700">Rekod Pendidikan</h3>
+                  </div>
+                  
+                  <div v-if="crewForm.education && crewForm.education.length > 0">
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100">
+                          <tr>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Kelayakan</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Institusi</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tahun</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr v-for="edu in crewForm.education" :key="edu.id" class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm">{{ edu.qualification }}</td>
+                            <td class="py-3 px-4 text-sm">{{ edu.institution }}</td>
+                            <td class="py-3 px-4 text-sm">{{ edu.year }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div v-else class="p-4 text-center text-gray-500">
+                    Tiada rekod pendidikan dijumpai.
+                  </div>
+                </div>
+                
+                <!-- Training List Section -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                  <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-blue-700">Senarai Latihan</h3>
+                    <!-- <rs-button variant="primary" size="sm">Tambah Latihan</rs-button> -->
+                  </div>
+                  
+                  <div v-if="crewForm.training && crewForm.training.length > 0">
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100">
+                          <tr>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">nama Latihan</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tarikh</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tempoh</th>
+                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Lokasi</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr v-for="training in crewForm.training" :key="training.id" class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm">{{ training.nama }}</td>
+                            <td class="py-3 px-4 text-sm">{{ training.date }}</td>
+                            <td class="py-3 px-4 text-sm">{{ training.duration }}</td>
+                            <td class="py-3 px-4 text-sm">{{ training.lokasi }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                  <div v-else class="p-4 text-center text-gray-500">
+                    Tiada rekod latihan dijumpai.
                   </div>
                 </div>
               </div>
-            </rs-card>
+              
+              <!-- Edit/Add Mode -->
+              <FormKit v-else type="form" :value="crewForm" @submit="handleCrewSubmit">
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- No. Tentera -->
+                  <FormKit
+                    type="text"
+                    nama="noTentera"
+                    label="No. Tentera"
+                    placeholder="Contoh: T12345"
+                    validation="required"
+                  />
 
-            <!-- Two Column Layout for Armament and Electronics -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Armament -->
-              <rs-card class="overflow-hidden border-0 shadow-lg h-full">
-                <template #header>
-                  <div class="bg-gray-50 px-4 py-3 border-b">
-                    <div class="flex items-center">
-                      <i class="fas fa-crosshairs text-red-600 mr-2"></i>
-                      <h2 class="text-lg font-semibold text-gray-800">Persenjataan</h2>
-                    </div>
-                  </div>
-                </template>
-                <div class="p-4 space-y-4">
-                  <div class="bg-red-50 p-3 rounded-lg">
-                    <h3 class="text-md font-medium text-red-700">Senjata Utama</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.armament.mainGun }}</p>
-                  </div>
-                  <div class="bg-white p-3 rounded-lg border border-gray-200">
-                    <h3 class="text-md font-medium text-red-700">Senjata Sekunder</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.armament.secondaryGuns }}</p>
-                  </div>
-                  <div class="bg-white p-3 rounded-lg border border-gray-200">
-                    <h3 class="text-md font-medium text-red-700">Sistem Peluru Berpandu</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.armament.missiles }}</p>
-                  </div>
-                  <div class="bg-white p-3 rounded-lg border border-gray-200">
-                    <h3 class="text-md font-medium text-red-700">Sistem Torpedo</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.armament.torpedoes }}</p>
-                  </div>
+                  <!-- Status -->
+                  <FormKit
+                    type="select"
+                    nama="status"
+                    label="Status"
+                    :options="['Aktif', 'Cuti', 'Sakit', 'Latihan']"
+                    validation="required"
+                  />
                 </div>
-              </rs-card>
 
-              <!-- Electronics -->
-              <rs-card class="overflow-hidden border-0 shadow-lg h-full">
-                <template #header>
-                  <div class="bg-gray-50 px-4 py-3 border-b">
-                    <div class="flex items-center">
-                      <i class="fas fa-satellite-dish text-purple-600 mr-2"></i>
-                      <h2 class="text-lg font-semibold text-gray-800">Sistem Elektronik</h2>
-                    </div>
-                  </div>
-                </template>
-                <div class="p-4 space-y-4">
-                  <div class="bg-purple-50 p-3 rounded-lg">
-                    <h3 class="text-md font-medium text-purple-700">Sistem Radar</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.electronics.radar }}</p>
-                  </div>
-                  <div class="bg-white p-3 rounded-lg border border-gray-200">
-                    <h3 class="text-md font-medium text-purple-700">Sistem Sonar</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.electronics.sonar }}</p>
-                  </div>
-                  <div class="bg-white p-3 rounded-lg border border-gray-200">
-                    <h3 class="text-md font-medium text-purple-700">Sistem Pengurusan Tempur</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.electronics.combatSystem }}</p>
-                  </div>
-                  <div class="bg-white p-3 rounded-lg border border-gray-200">
-                    <h3 class="text-md font-medium text-purple-700">Sistem Komunikasi</h3>
-                    <p class="text-gray-700 mt-1">{{ vesselProfile.electronics.communication }}</p>
-                  </div>
+                <!-- nama -->
+                <FormKit
+                  type="text"
+                  nama="nama"
+                  label="nama"
+                  placeholder="Contoh: Kapt. Ahmad bin Ismail"
+                  validation="required"
+                />
+
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- Jawatan -->
+                  <FormKit
+                    type="text"
+                    nama="position"
+                    label="Jawatan"
+                    placeholder="Contoh: Kapten Kapal"
+                    validation="required"
+                  />
+
+                  <!-- Jabatan -->
+                  <FormKit
+                    type="select"
+                    nama="department"
+                    label="Jabatan"
+                    :options="['Pemerintah', 'Eksekutif', 'Navigasi', 'Kejuruteraan', 'Komunikasi', 'Elektronik', 'Lain-lain']"
+                    validation="required"
+                  />
                 </div>
-              </rs-card>
-            </div>
 
-            <!-- Maintenance Information -->
-            <rs-card class="overflow-hidden border-0 shadow-lg">
-              <template #header>
-                <div class="bg-gray-50 px-4 py-3 border-b">
-                  <div class="flex items-center">
-                    <i class="fas fa-tools text-green-600 mr-2"></i>
-                    <h2 class="text-lg font-semibold text-gray-800">Maklumat Penyelenggaraan</h2>
-                  </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- Tarikh Mula -->
+                  <FormKit
+                    type="date"
+                    nama="joinDate"
+                    label="Tarikh Mula"
+                    validation="required"
+                  />
+
+                  <!-- Tarikh Tamat -->
+                  <FormKit
+                    type="date"
+                    nama="endDate"
+                    label="Tarikh Tamat"
+                    validation="required"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- No. Telefon -->
+                  <FormKit
+                    type="tel"
+                    nama="contactNo"
+                    label="No. Telefon"
+                    placeholder="Contoh: 012-3456789"
+                    validation="required"
+                  />
+
+                  <!-- E-mel -->
+                  <FormKit
+                    type="email"
+                    nama="email"
+                    label="E-mel"
+                    placeholder="Contoh: nama@tldm.mil.my"
+                    validation="required|email"
+                  />
+                </div>
+              </FormKit>
+            </template>
+
+            <template #footer>
+              <div class="flex justify-end gap-2">
+                <rs-button 
+                  v-if="isViewingCrew" 
+                  variant="warning" 
+                  @click="editCrewItem(crewForm)"
+                >
+                  Kemaskini
+                </rs-button>
+              </div>
+            </template>
+          </rs-modal>
+          
+        </div>
+
+        <div v-else-if="activeTab === 'oa'">
+          <rs-card>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Operational Availaidity (OA)</h2>
+                <rs-button variant="primary" @click="openAddOaModal">Tambah OA</rs-button>
+              </div>
+            </template>
+
+            <rs-table
+              :data="sortedOaData"
+              :columns="[
+                { key: 'kerosakanKritikal', label: 'KEROSAKAN KRITIKAL (KAT 4&5)' },
+                { key: 'tarikhOpsNonOps', label: 'TARIKH OPS/NON-OPS' },
+                { key: 'kjkp', label: 'KJKP' },
+                { key: 'kat', label: 'KAT' },
+                { key: 'vendor', label: 'VENDOR' },
+                { key: 'cd', label: 'CD' },
+                { key: 'hat', label: 'HAT' },
+                { key: 'sat', label: 'SAT' },
+                { key: 'rec1', label: 'REC1' },
+                { key: 'catKapal', label: 'CAT KAPAL (1-5)' },
+                { key: 'tindakan', label: 'TINDAKAN' }
+              ]"
+              :options="{
+                variant: 'default',
+                striped: true,
+                borderless: true,
+              }"
+              :options-advanced="{
+                sortable: true,
+                responsive: true,
+                filterable: true,
+                defaultSort: { column: 'tarikhOpsNonOps', direction: 'desc' }
+              }"
+              advanced
+            >
+              <template v-slot:kat="row">
+                <rs-badge
+                  :variant="row.value.kat === 'KAT 4' ? 'warning' : 'danger'"
+                >
+                  {{ row.value.kat }}
+                </rs-badge>
+              </template>
+              
+              <template v-slot:catKapal="row">
+                <rs-badge
+                  :variant="
+                    row.value.catKapal === '1' ? 'success' :
+                    row.value.catKapal === '2' ? 'info' :
+                    row.value.catKapal === '3' ? 'warning' :
+                    row.value.catKapal === '4' ? 'danger' : 'dark'
+                  "
+                >
+                  {{ row.value.catKapal }}
+                </rs-badge>
+              </template>
+              
+              <template v-slot:tindakan="row">
+                <div class="flex gap-2">
+                  <rs-button variant="primary" size="sm" @click="openViewOaModal(row.value)">Lihat</rs-button>
+                  <rs-button variant="warning" size="sm" @click="openEditOaModal(row.value)">Kemaskini</rs-button>
+                  <rs-button variant="danger" size="sm" @click="deleteOaItem(row.value.id)">Padam</rs-button>
                 </div>
               </template>
-              <div class="p-4">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div class="bg-green-50 p-4 rounded-lg text-center">
-                    <p class="text-sm text-gray-600">Penyelenggaraan Terakhir</p>
-                    <p class="text-lg font-semibold text-green-800">{{ vesselProfile.maintenance.lastMaintenance }}</p>
+            </rs-table>
+          </rs-card>
+
+          <!-- OA Modal -->
+          <rs-modal v-model="isOaModalOpen" size="lg">
+            <template #header>
+              <h3 class="text-lg font-semibold">
+                {{ isViewingOa ? 'Maklumat OA' : isEditingOa ? 'Kemaskini OA' : 'Tambah OA' }}
+              </h3>
+            </template>
+
+            <template #body>
+              <!-- View Mode -->
+              <div v-if="isViewingOa" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">Kerosakan Kritikal:</h4>
+                    <p>{{ oaForm.kerosakanKritikal }}</p>
                   </div>
-                  <div class="bg-green-50 p-4 rounded-lg text-center">
-                    <p class="text-sm text-gray-600">Penyelenggaraan Seterusnya</p>
-                    <p class="text-lg font-semibold text-green-800">{{ vesselProfile.maintenance.nextScheduled }}</p>
-                  </div>
-                  <div class="bg-green-50 p-4 rounded-lg text-center">
-                    <p class="text-sm text-gray-600">Pensijilan</p>
-                    <p class="text-lg font-semibold text-green-800">Lloyd's Register</p>
+                  
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">Tarikh OPS/NON-OPS:</h4>
+                    <p>{{ oaForm.tarikhOpsNonOps }}</p>
                   </div>
                 </div>
-                <div class="mt-4 bg-white p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-md font-medium text-green-700">Maklumat Pensijilan Lengkap</h3>
-                  <p class="text-gray-700 mt-1">{{ vesselProfile.maintenance.certifications }}</p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">KJKP:</h4>
+                    <p>{{ oaForm.kjkp }}</p>
+                  </div>
+                  
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">KAT:</h4>
+                    <rs-badge
+                      :variant="oaForm.kat === 'KAT 4' ? 'warning' : 'danger'"
+                    >
+                      {{ oaForm.kat }}
+                    </rs-badge>
+                  </div>
+                </div>
+                
+                <div class="mb-2">
+                  <h4 class="font-medium text-gray-700">Vendor:</h4>
+                  <p>{{ oaForm.vendor }}</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">CD:</h4>
+                    <p>{{ oaForm.cd }}</p>
+                  </div>
+                  
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">HAT:</h4>
+                    <p>{{ oaForm.hat }}</p>
+                  </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">SAT:</h4>
+                    <p>{{ oaForm.sat }}</p>
+                  </div>
+                  
+                  <div class="mb-2">
+                    <h4 class="font-medium text-gray-700">REC1:</h4>
+                    <p>{{ oaForm.rec1 }}</p>
+                  </div>
+                </div>
+                
+                <div class="mb-2">
+                  <h4 class="font-medium text-gray-700">CAT Kapal (1-5):</h4>
+                  <rs-badge
+                    :variant="
+                      oaForm.catKapal === '1' ? 'success' :
+                      oaForm.catKapal === '2' ? 'info' :
+                      oaForm.catKapal === '3' ? 'warning' :
+                      oaForm.catKapal === '4' ? 'danger' : 'dark'
+                    "
+                  >
+                    {{ oaForm.catKapal }}
+                  </rs-badge>
                 </div>
               </div>
-            </rs-card>
-          </div>
+              
+              <!-- Edit/Add Mode -->
+              <FormKit v-else type="form" :value="oaForm" @submit="handleOaSubmit">
+                <!-- Kerosakan Kritikal -->
+                <FormKit
+                  type="text"
+                  nama="kerosakanKritikal"
+                  label="Kerosakan Kritikal (KAT 4&5)"
+                  placeholder="Contoh: Sistem Radar Utama - Furuno FAR-2117"
+                  validation="required"
+                  help="Masukkan nama sistem dan model peralatan yang rosak"
+                />
+
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- Tarikh OPS/NON-OPS -->
+                  <FormKit
+                    type="date"
+                    nama="tarikhOpsNonOps"
+                    label="Tarikh OPS/NON-OPS"
+                    validation="required"
+                    help="Tarikh kapal menjadi tidak beroperasi"
+                  />
+
+                  <!-- KJKP -->
+                  <FormKit
+                    type="select"
+                    nama="kjkp"
+                    label="KJKP"
+                    :options="kjkpOptions"
+                    validation="required"
+                    help="Kawalan Jurutera Kapal"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- KAT -->
+                  <FormKit
+                    type="select"
+                    nama="kat"
+                    label="KAT"
+                    :options="['KAT 4', 'KAT 5']"
+                    validation="required"
+                    help="Kategori kerosakan (4 = Kritikal, 5 = Sangat Kritikal)"
+                  />
+
+                  <!-- Vendor -->
+                  <FormKit
+                    type="select"
+                    nama="vendor"
+                    label="Vendor"
+                    :options="vendorOptions"
+                    validation="required"
+                    help="Syarikat pembekal peralatan"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- CD -->
+                  <FormKit
+                    type="date"
+                    nama="cd"
+                    label="CD"
+                    validation="required"
+                    help="Contract Date - Tarikh kontrak"
+                  />
+
+                  <!-- HAT -->
+                  <FormKit
+                    type="date"
+                    nama="hat"
+                    label="HAT"
+                    validation="required"
+                    help="Handover Acceptance Test - Tarikh ujian penerimaan"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- SAT -->
+                  <FormKit
+                    type="date"
+                    nama="sat"
+                    label="SAT"
+                    validation="required"
+                    help="Sea Acceptance Test - Tarikh ujian penerimaan di laut"
+                  />
+
+                  <!-- REC1 -->
+                  <FormKit
+                    type="date"
+                    nama="rec1"
+                    label="REC1"
+                    validation="required"
+                    help="Recommendation 1 - Tarikh cadangan pertama"
+                  />
+                </div>
+
+                <!-- CAT Kapal -->
+                <FormKit
+                  type="select"
+                  nama="catKapal"
+                  label="CAT Kapal (1-5)"
+                  :options="['1', '2', '3', '4', '5']"
+                  validation="required"
+                  help="1 = Sangat Baik, 2 = Baik, 3 = Sederhana, 4 = Kurang Baik, 5 = Sangat Kurang Baik"
+                />
+              </FormKit>
+            </template>
+
+            <template #footer>
+              <div class="flex justify-end gap-2">
+                <rs-button variant="secondary" @click="closeOaModal">
+                  {{ isViewingOa ? 'Tutup' : 'Batal' }}
+                </rs-button>
+                <rs-button 
+                  v-if="!isViewingOa" 
+                  variant="primary" 
+                  @click="submitOaForm"
+                >
+                  {{ isEditingOa ? 'Kemaskini' : 'Tambah' }}
+                </rs-button>
+              </div>
+            </template>
+          </rs-modal>
         </div>
 
         <div v-else-if="activeTab === 'rova'">
           <rs-card>
             <template #header>
               <div class="flex justify-between items-center">
-                <h2 class="text-lg font-semibold">Return of Vessel Availability (ROVA)</h2>
+                <h2 class="text-lg font-semibold">Return of Vessel Availaidity (ROVA)</h2>
                 <rs-button variant="primary" @click="openAddRovaModal">Tambah ROVA</rs-button>
               </div>
             </template>
@@ -1490,7 +2798,7 @@
                   <!-- Bulan -->
                   <FormKit
                     type="text"
-                    name="bulan"
+                    nama="bulan"
                     label="Bulan"
                     placeholder="Contoh: Januari 2024"
                     validation="required"
@@ -1499,7 +2807,7 @@
                   <!-- Status Kapal -->
                   <FormKit
                     type="select"
-                    name="statusKapal"
+                    nama="statusKapal"
                     label="Status Kapal"
                     :options="['Operational', 'Maintenance', 'Repair', 'Standby']"
                     validation="required"
@@ -1510,7 +2818,7 @@
                   <!-- Tarikh Mula -->
                   <FormKit
                     type="date"
-                    name="tarikhMula"
+                    nama="tarikhMula"
                     label="Tarikh Mula"
                     validation="required"
                   />
@@ -1518,7 +2826,7 @@
                   <!-- Tarikh Tamat -->
                   <FormKit
                     type="date"
-                    name="tarikhTamat"
+                    nama="tarikhTamat"
                     label="Tarikh Tamat"
                     validation="required"
                   />
@@ -1527,7 +2835,7 @@
                 <!-- Peratus -->
                 <FormKit
                   type="range"
-                  name="peratus"
+                  nama="peratus"
                   label="Peratus Ketersediaan (%)"
                   validation="required|number|min:0|max:100"
                   min="0"
@@ -1539,7 +2847,7 @@
                 <!-- Catatan -->
                 <FormKit
                   type="textarea"
-                  name="catatan"
+                  nama="catatan"
                   label="Catatan"
                   placeholder="Masukkan catatan atau maklumat tambahan"
                   :rows="3"
@@ -1679,7 +2987,7 @@
                 <!-- Tarikh Kemaskini -->
                 <FormKit
                   type="date"
-                  name="tarikhKemaskini"
+                  nama="tarikhKemaskini"
                   label="Tarikh Kemaskini"
                   :value="new Date().toISOString().split('T')[0]"
                   validation="required"
@@ -1688,7 +2996,7 @@
                 <!-- Penerangan -->
                 <FormKit
                   type="textarea"
-                  name="penerangan"
+                  nama="penerangan"
                   label="Penerangan"
                   placeholder="Masukkan penerangan rupacara aset"
                   validation="required"
@@ -1700,7 +3008,7 @@
                   <!-- Port View -->
                   <FormKit
                     type="file"
-                    name="portView"
+                    nama="portView"
                     label="Port View (Gambar)"
                     accept="image/*"
                     validation="required"
@@ -1709,7 +3017,7 @@
                   <!-- Starboard View -->
                   <FormKit
                     type="file"
-                    name="starboardView"
+                    nama="starboardView"
                     label="Starboard View (Gambar)"
                     accept="image/*"
                     validation="required"
@@ -1718,7 +3026,7 @@
                   <!-- Forward View -->
                   <FormKit
                     type="file"
-                    name="forwardView"
+                    nama="forwardView"
                     label="Forward View (Gambar)"
                     accept="image/*"
                     validation="required"
@@ -1727,7 +3035,7 @@
                   <!-- After View -->
                   <FormKit
                     type="file"
-                    name="afterView"
+                    nama="afterView"
                     label="After View (Gambar)"
                     accept="image/*"
                     validation="required"
@@ -1736,7 +3044,7 @@
                   <!-- Engine Room -->
                   <FormKit
                     type="file"
-                    name="engineRoom"
+                    nama="engineRoom"
                     label="Engine Room (Gambar)"
                     accept="image/*"
                     validation="required"
@@ -1745,7 +3053,7 @@
                   <!-- Closed Bridge -->
                   <FormKit
                     type="file"
-                    name="closedBridge"
+                    nama="closedBridge"
                     label="Closed Bridge (Gambar)"
                     accept="image/*"
                     validation="required"
@@ -1780,10 +3088,10 @@
               <rs-table
                 :data="filteredEquipmentData"
                 :columns="[
-                  { key: 'equipmentNo', label: 'No. Aset' },
-                  { key: 'name', label: 'Nama Aset' },
-                  { key: 'category', label: 'Kategori' },
-                  { key: 'manufacturer', label: 'Pengeluar' },
+                  { key: 'noAset', label: 'No. Aset' },
+                  { key: 'nama', label: 'nama Aset' },
+                  { key: 'kategori', label: 'Kategori' },
+                  { key: 'pengeluaran', label: 'Pengeluar' },
                   { key: 'status', label: 'Status' },
                   { key: 'tindakan', label: 'Tindakan' }
                 ]"
@@ -1796,7 +3104,7 @@
                   sortable: true,
                   responsive: true,
                   filterable: true,
-                  defaultSort: { column: 'equipmentNo', direction: 'asc' }
+                  defaultSort: { column: 'noAset', direction: 'asc' }
                 }"
                 advanced
               >
@@ -1833,7 +3141,7 @@
                 <div class="grid grid-cols-2 gap-4">
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">No. Aset:</h4>
-                    <p>{{ equipmentForm.equipmentNo }}</p>
+                    <p>{{ equipmentForm.noAset }}</p>
                   </div>
                   
                   <div class="mb-2">
@@ -1850,19 +3158,19 @@
                 </div>
                 
                 <div class="mb-2">
-                  <h4 class="font-medium text-gray-700">Nama Aset:</h4>
-                  <p>{{ equipmentForm.name }}</p>
+                  <h4 class="font-medium text-gray-700">nama Aset:</h4>
+                  <p>{{ equipmentForm.nama }}</p>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">Kategori:</h4>
-                    <p>{{ equipmentForm.category }}</p>
+                    <p>{{ equipmentForm.kategori }}</p>
                   </div>
                   
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">Pengeluar:</h4>
-                    <p>{{ equipmentForm.manufacturer }}</p>
+                    <p>{{ equipmentForm.pengeluaran }}</p>
                   </div>
                 </div>
                 
@@ -1874,13 +3182,13 @@
                   
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">No. Siri:</h4>
-                    <p>{{ equipmentForm.serialNumber }}</p>
+                    <p>{{ equipmentForm.noSiri }}</p>
                   </div>
                 </div>
                 
                 <div class="mb-2">
                   <h4 class="font-medium text-gray-700">Tarikh Pemasangan:</h4>
-                  <p>{{ equipmentForm.installationDate }}</p>
+                  <p>{{ equipmentForm.tarikhPemasangan }}</p>
                 </div>
               </div>
               
@@ -1890,7 +3198,7 @@
                   <!-- No. Aset -->
                   <FormKit
                     type="text"
-                    name="equipmentNo"
+                    nama="noAset"
                     label="No. Aset"
                     :disabled="isEditingEquipment"
                     validation="required"
@@ -1899,18 +3207,18 @@
                   <!-- Status -->
                   <FormKit
                     type="select"
-                    name="status"
+                    nama="status"
                     label="Status"
                     :options="['Beroperasi', 'Penyelenggaraan', 'Tidak Beroperasi']"
                     validation="required"
                   />
                 </div>
 
-                <!-- Nama Aset -->
+                <!-- nama Aset -->
                 <FormKit
                   type="text"
-                  name="name"
-                  label="Nama Aset"
+                  nama="nama"
+                  label="nama Aset"
                   placeholder="Contoh: Sistem Radar"
                   validation="required"
                 />
@@ -1919,7 +3227,7 @@
                   <!-- Kategori -->
                   <FormKit
                     type="select"
-                    name="category"
+                    nama="kategori"
                     label="Kategori"
                     :options="['Elektronik', 'Pendorongan', 'Persenjataan', 'Komunikasi', 'Lain-lain']"
                     validation="required"
@@ -1928,7 +3236,7 @@
                   <!-- Pengeluar -->
                   <FormKit
                     type="text"
-                    name="manufacturer"
+                    nama="pengeluaran"
                     label="Pengeluar"
                     placeholder="Contoh: Thales"
                     validation="required"
@@ -1939,7 +3247,7 @@
                   <!-- Model -->
                   <FormKit
                     type="text"
-                    name="model"
+                    nama="model"
                     label="Model"
                     placeholder="Contoh: SMART-S Mk2"
                     validation="required"
@@ -1948,7 +3256,7 @@
                   <!-- No. Siri -->
                   <FormKit
                     type="text"
-                    name="serialNumber"
+                    nama="noSiri"
                     label="No. Siri"
                     placeholder="Contoh: TH-1234-5678"
                     validation="required"
@@ -1958,7 +3266,7 @@
                 <!-- Tarikh Pemasangan -->
                 <FormKit
                   type="date"
-                  name="installationDate"
+                  nama="tarikhPemasangan"
                   label="Tarikh Pemasangan"
                   validation="required"
                 />
@@ -1998,16 +3306,15 @@
               </div>
             </template>
             
-            <div class="p-4">
-                            
+            <div class="p-4">                            
               <!-- Stock Table -->
               <rs-table
                 :data="filteredStockData"
                 :columns="[
-                  { key: 'stockNo', label: 'No. Stok' },
-                  { key: 'name', label: 'Nama Item' },
-                  { key: 'category', label: 'Kategori' },
-                  { key: 'quantity', label: 'Kuantiti' },
+                  { key: 'noAset', label: 'No. Stok' },
+                  { key: 'nama', label: 'nama Item' },
+                  { key: 'kategori', label: 'Kategori' },
+                  { key: 'kuantiti', label: 'Kuantiti' },
                   { key: 'status', label: 'Status' },
                   { key: 'tindakan', label: 'Tindakan' }
                 ]"
@@ -2020,12 +3327,12 @@
                   sortable: true,
                   responsive: true,
                   filterable: true,
-                  defaultSort: { column: 'stockNo', direction: 'asc' }
+                  defaultSort: { column: 'noAset', direction: 'asc' }
                 }"
                 advanced
               >
-                <template v-slot:quantity="row">
-                  {{ row.value.quantity }} {{ row.value.unit }}
+                <template v-slot:kuantiti="row">
+                  {{ row.value.kuantiti }} {{ row.value.unit }}
                 </template>
                 
                 <template v-slot:status="row">
@@ -2061,7 +3368,7 @@
                 <div class="grid grid-cols-2 gap-4">
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">No. Stok:</h4>
-                    <p>{{ stockForm.stockNo }}</p>
+                    <p>{{ stockForm.noAset }}</p>
                   </div>
                   
                   <div class="mb-2">
@@ -2075,37 +3382,37 @@
                 </div>
                 
                 <div class="mb-2">
-                  <h4 class="font-medium text-gray-700">Nama Item:</h4>
-                  <p>{{ stockForm.name }}</p>
+                  <h4 class="font-medium text-gray-700">nama Item:</h4>
+                  <p>{{ stockForm.nama }}</p>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">Kategori:</h4>
-                    <p>{{ stockForm.category }}</p>
+                    <p>{{ stockForm.kategori }}</p>
                   </div>
                   
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">Lokasi:</h4>
-                    <p>{{ stockForm.location }}</p>
+                    <p>{{ stockForm.lokasi }}</p>
                   </div>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">Kuantiti:</h4>
-                    <p>{{ stockForm.quantity }} {{ stockForm.unit }}</p>
+                    <p>{{ stockForm.kuantiti }} {{ stockForm.unit }}</p>
                   </div>
                   
                   <div class="mb-2">
                     <h4 class="font-medium text-gray-700">Stok Minimum:</h4>
-                    <p>{{ stockForm.minimumStock }} {{ stockForm.unit }}</p>
+                    <p>{{ stockForm.jumlah }} {{ stockForm.unit }}</p>
                   </div>
                 </div>
                 
                 <div class="mb-2">
                   <h4 class="font-medium text-gray-700">Tarikh Kemaskini:</h4>
-                  <p>{{ stockForm.lastUpdated }}</p>
+                  <p>{{ stockForm.tarikhTerakhirKemaskini }}</p>
                 </div>
               </div>
               
@@ -2115,7 +3422,7 @@
                   <!-- No. Stok -->
                   <FormKit
                     type="text"
-                    name="stockNo"
+                    nama="noAset"
                     label="No. Stok"
                     :disabled="isEditingStock"
                     validation="required"
@@ -2124,17 +3431,17 @@
                   <!-- Tarikh Kemaskini -->
                   <FormKit
                     type="date"
-                    name="lastUpdated"
+                    nama="tarikhTerakhirKemaskini"
                     label="Tarikh Kemaskini"
                     validation="required"
                   />
                 </div>
 
-                <!-- Nama Item -->
+                <!-- nama Item -->
                 <FormKit
                   type="text"
-                  name="name"
-                  label="Nama Item"
+                  nama="nama"
+                  label="nama Item"
                   placeholder="Contoh: Minyak Enjin"
                   validation="required"
                 />
@@ -2143,7 +3450,7 @@
                   <!-- Kategori -->
                   <FormKit
                     type="select"
-                    name="category"
+                    nama="kategori"
                     label="Kategori"
                     :options="['Alat Ganti', 'Elektrik', 'Elektronik', 'Peralatan Deck', 'Lain-lain']"
                     validation="required"
@@ -2152,7 +3459,7 @@
                   <!-- Lokasi -->
                   <FormKit
                     type="text"
-                    name="location"
+                    nama="lokasi"
                     label="Lokasi"
                     placeholder="Contoh: Stor A"
                     validation="required"
@@ -2163,7 +3470,7 @@
                   <!-- Kuantiti -->
                   <FormKit
                     type="number"
-                    name="quantity"
+                    nama="kuantiti"
                     label="Kuantiti"
                     validation="required|number|min:0"
                     min="0"
@@ -2173,7 +3480,7 @@
                   <!-- Unit -->
                   <FormKit
                     type="text"
-                    name="unit"
+                    nama="unit"
                     label="Unit"
                     placeholder="Contoh: Liter"
                     validation="required"
@@ -2182,7 +3489,7 @@
                   <!-- Stok Minimum -->
                   <FormKit
                     type="number"
-                    name="minimumStock"
+                    nama="jumlah"
                     label="Stok Minimum"
                     validation="required|number|min:0"
                     min="0"
@@ -2310,7 +3617,7 @@
                 
                 <div class="mb-2">
                   <h4 class="font-medium text-gray-700">Lokasi:</h4>
-                  <p>{{ maintenanceForm.location }}</p>
+                  <p>{{ maintenanceForm.lokasi }}</p>
                 </div>
                 
                 <div class="mb-2">
@@ -2324,7 +3631,7 @@
                 <!-- Jenis -->
                 <FormKit
                   type="select"
-                  name="type"
+                  nama="type"
                   label="Jenis Penyelenggaraan"
                   :options="['AD', 'Refit', 'AMP']"
                   validation="required"
@@ -2333,7 +3640,7 @@
                 <!-- Tahun -->
                 <FormKit
                   type="number"
-                  name="year"
+                  nama="year"
                   label="Tahun"
                   validation="required|number|min:2020|max:2050"
                   min="2020"
@@ -2344,7 +3651,7 @@
                 <!-- Lokasi -->
                 <FormKit
                   type="text"
-                  name="location"
+                  nama="lokasi"
                   label="Lokasi"
                   placeholder="Contoh: Lumut, Perak"
                   validation="required"
@@ -2353,7 +3660,7 @@
                 <!-- Penerangan -->
                 <FormKit
                   type="textarea"
-                  name="description"
+                  nama="description"
                   label="Penerangan"
                   placeholder="Masukkan penerangan penyelenggaraan"
                   :rows="3"
@@ -2379,328 +3686,7 @@
         </div>
 
         <div v-else-if="activeTab === 'krew'">
-          <rs-card>
-            <template #header>
-              <div class="flex justify-between items-center">
-                <h2 class="text-lg font-semibold">Senarai Krew Kapal</h2>
-                <rs-button variant="primary" @click="openAddCrewModal">Tambah Krew</rs-button>
-              </div>
-            </template>
-            
-            <div class="p-2">
-            <!-- Crew Table -->
-              <rs-table
-                :data="filteredCrewData"
-                :columns="[
-                  { key: 'noTentera', label: 'No. Tentera' },
-                  { key: 'name', label: 'Nama' },
-                  { key: 'position', label: 'Jawatan' },
-                  { key: 'department', label: 'Jabatan' },
-                  { key: 'tindakan', label: 'Tindakan' }
-                ]"
-                :options="{
-                  variant: 'default',
-                  striped: true,
-                  borderless: true,
-                }"
-                :options-advanced="{
-                  sortable: true,
-                  responsive: true,
-                  filterable: true,
-                  defaultSort: { column: 'name', direction: 'asc' }
-                }"
-                advanced
-                :field="fieldKrew"
-              >
-                <template v-slot:tindakan="row">
-                  <div class="flex gap-2">
-                    <rs-button variant="primary" size="sm" @click="viewCrewItem(row.value)">Lihat</rs-button>
-                    <!-- <rs-button variant="warning" size="sm" @click="editCrewItem(row.value)">Kemaskini</rs-button>
-                    <rs-button variant="danger" size="sm" @click="deleteCrewItem(row.value.id)">Padam</rs-button>
-                    <rs-button variant="info" size="sm" @click="printCrewItem(row.value)">
-                      <i class="fas fa-print mr-1"></i>Cetak
-                    </rs-button> -->
-                  </div>
-                </template>
-              </rs-table>
-            </div>
-          </rs-card>
-
-          <!-- Crew Modal -->
-          <rs-modal v-model="isCrewModalOpen" size="lg">
-            <template #header>
-              <h3 class="text-lg font-semibold">
-                {{ isViewingCrew ? 'Maklumat Krew' : isEditingCrew ? 'Kemaskini Krew' : 'Tambah Krew' }}
-              </h3>
-            </template>
-
-            <template #body>
-              <!-- View Mode -->
-              <div v-if="isViewingCrew" class="space-y-6">
-                <!-- Crew Profile Section -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                  <h3 class="text-xl font-semibold text-blue-700 mb-4">Profil Krew</h3>
-                  
-                  <div class="flex items-center mb-6">
-                    <div class="bg-gray-200 rounded-full w-24 h-24 flex items-center justify-center mr-6">
-                      <span class="text-3xl font-bold text-gray-500">{{ crewForm.name.charAt(0) }}</span>
-                    </div>
-                    
-                    <div>
-                      <h4 class="text-lg font-semibold">{{ crewForm.name }}</h4>
-                      <p class="text-gray-600">{{ crewForm.position }}</p>
-                      <div class="mt-2">
-                        <rs-badge
-                          :variant="crewForm.status === 'Aktif' ? 'success' : 'warning'"
-                        >
-                          {{ crewForm.status }}
-                        </rs-badge>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="grid grid-cols-2 gap-6">
-                    <div>
-                      <div class="mb-4">
-                        <h5 class="text-sm font-medium text-gray-500">No. Tentera</h5>
-                        <p>{{ crewForm.noTentera }}</p>
-                      </div>
-                      
-                      <div class="mb-4">
-                        <h5 class="text-sm font-medium text-gray-500">Tarikh Mula</h5>
-                        <p>{{ crewForm.joinDate }}</p>
-                      </div>
-                      
-                      <div class="mb-4">
-                        <h5 class="text-sm font-medium text-gray-500">No. Telefon</h5>
-                        <p>{{ crewForm.contactNo }}</p>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div class="mb-4">
-                        <h5 class="text-sm font-medium text-gray-500">Jawatan</h5>
-                        <p>{{ crewForm.position }}</p>
-                      </div>
-                      
-                      <div class="mb-4">
-                        <h5 class="text-sm font-medium text-gray-500">Tarikh Tamat</h5>
-                        <p>{{ crewForm.endDate }}</p>
-                      </div>
-                      
-                      <div class="mb-4">
-                        <h5 class="text-sm font-medium text-gray-500">E-mel</h5>
-                        <p>{{ crewForm.email }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Service Record Section -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                  <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold text-blue-700">Rekod Perkhidmatan</h3>
-                  </div>
-                  
-                  <div v-if="crewForm.serviceRecord && crewForm.serviceRecord.length > 0">
-                    <div class="overflow-x-auto">
-                      <table class="min-w-full bg-white">
-                        <thead class="bg-gray-100">
-                          <tr>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Jawatan</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Kapal</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tarikh Mula</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tarikh Tamat</th>
-                          </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                          <tr v-for="record in crewForm.serviceRecord" :key="record.id" class="hover:bg-gray-50">
-                            <td class="py-3 px-4 text-sm">{{ record.position }}</td>
-                            <td class="py-3 px-4 text-sm">{{ record.vessel }}</td>
-                            <td class="py-3 px-4 text-sm">{{ record.startDate }}</td>
-                            <td class="py-3 px-4 text-sm">{{ record.endDate }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                  <div v-else class="p-4 text-center text-gray-500">
-                    Tiada rekod perkhidmatan dijumpai.
-                  </div>
-                </div>
-                
-                <!-- Education Section -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                  <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold text-blue-700">Rekod Pendidikan</h3>
-                  </div>
-                  
-                  <div v-if="crewForm.education && crewForm.education.length > 0">
-                    <div class="overflow-x-auto">
-                      <table class="min-w-full bg-white">
-                        <thead class="bg-gray-100">
-                          <tr>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Kelayakan</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Institusi</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tahun</th>
-                          </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                          <tr v-for="edu in crewForm.education" :key="edu.id" class="hover:bg-gray-50">
-                            <td class="py-3 px-4 text-sm">{{ edu.qualification }}</td>
-                            <td class="py-3 px-4 text-sm">{{ edu.institution }}</td>
-                            <td class="py-3 px-4 text-sm">{{ edu.year }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                  <div v-else class="p-4 text-center text-gray-500">
-                    Tiada rekod pendidikan dijumpai.
-                  </div>
-                </div>
-                
-                <!-- Training List Section -->
-                <div class="bg-white rounded-lg shadow-md p-6">
-                  <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold text-blue-700">Senarai Latihan</h3>
-                    <!-- <rs-button variant="primary" size="sm">Tambah Latihan</rs-button> -->
-                  </div>
-                  
-                  <div v-if="crewForm.training && crewForm.training.length > 0">
-                    <div class="overflow-x-auto">
-                      <table class="min-w-full bg-white">
-                        <thead class="bg-gray-100">
-                          <tr>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Nama Latihan</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tarikh</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Tempoh</th>
-                            <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Lokasi</th>
-                          </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                          <tr v-for="training in crewForm.training" :key="training.id" class="hover:bg-gray-50">
-                            <td class="py-3 px-4 text-sm">{{ training.name }}</td>
-                            <td class="py-3 px-4 text-sm">{{ training.date }}</td>
-                            <td class="py-3 px-4 text-sm">{{ training.duration }}</td>
-                            <td class="py-3 px-4 text-sm">{{ training.location }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                  <div v-else class="p-4 text-center text-gray-500">
-                    Tiada rekod latihan dijumpai.
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Edit/Add Mode -->
-              <FormKit v-else type="form" :value="crewForm" @submit="handleCrewSubmit">
-                <div class="grid grid-cols-2 gap-4">
-                  <!-- No. Tentera -->
-                  <FormKit
-                    type="text"
-                    name="noTentera"
-                    label="No. Tentera"
-                    placeholder="Contoh: T12345"
-                    validation="required"
-                  />
-
-                  <!-- Status -->
-                  <FormKit
-                    type="select"
-                    name="status"
-                    label="Status"
-                    :options="['Aktif', 'Cuti', 'Sakit', 'Latihan']"
-                    validation="required"
-                  />
-                </div>
-
-                <!-- Nama -->
-                <FormKit
-                  type="text"
-                  name="name"
-                  label="Nama"
-                  placeholder="Contoh: Kapt. Ahmad bin Ismail"
-                  validation="required"
-                />
-
-                <div class="grid grid-cols-2 gap-4">
-                  <!-- Jawatan -->
-                  <FormKit
-                    type="text"
-                    name="position"
-                    label="Jawatan"
-                    placeholder="Contoh: Kapten Kapal"
-                    validation="required"
-                  />
-
-                  <!-- Jabatan -->
-                  <FormKit
-                    type="select"
-                    name="department"
-                    label="Jabatan"
-                    :options="['Pemerintah', 'Eksekutif', 'Navigasi', 'Kejuruteraan', 'Komunikasi', 'Elektronik', 'Lain-lain']"
-                    validation="required"
-                  />
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                  <!-- Tarikh Mula -->
-                  <FormKit
-                    type="date"
-                    name="joinDate"
-                    label="Tarikh Mula"
-                    validation="required"
-                  />
-
-                  <!-- Tarikh Tamat -->
-                  <FormKit
-                    type="date"
-                    name="endDate"
-                    label="Tarikh Tamat"
-                    validation="required"
-                  />
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                  <!-- No. Telefon -->
-                  <FormKit
-                    type="tel"
-                    name="contactNo"
-                    label="No. Telefon"
-                    placeholder="Contoh: 012-3456789"
-                    validation="required"
-                  />
-
-                  <!-- E-mel -->
-                  <FormKit
-                    type="email"
-                    name="email"
-                    label="E-mel"
-                    placeholder="Contoh: nama@tldm.mil.my"
-                    validation="required|email"
-                  />
-                </div>
-              </FormKit>
-            </template>
-
-            <template #footer>
-              <div class="flex justify-end gap-2">
-                <rs-button 
-                  v-if="isViewingCrew" 
-                  variant="warning" 
-                  @click="editCrewItem(crewForm)"
-                >
-                  Kemaskini
-                </rs-button>
-              </div>
-            </template>
-          </rs-modal>
+          
         </div>
         
         <div v-else-if="activeTab === 'jobcard'">
@@ -2774,7 +3760,7 @@
                 <rs-table
                   :data="jobCardData"
                   :columns="[
-                    { key: 'BIL', label: 'BIL' },
+                    { key: 'id', label: 'id' },
                     { key: 'JENIS ASET', label: 'JENIS ASET' },
                     { key: 'Pengguna Terakhir', label: 'PENGGUNA TERAKHIR' },
                     { key: 'TARIKH ROSAK', label: 'TARIKH ROSAK' },
@@ -2791,7 +3777,7 @@
                     sortable: true,
                     responsive: true,
                     filterable: true,
-                    defaultSort: { column: 'BIL', direction: 'asc' }
+                    defaultSort: { column: 'id', direction: 'asc' }
                   }"
                   advanced
                 >
@@ -2806,6 +3792,1053 @@
               </div>
             </rs-card>
           </div>
+        </div>
+
+        <div v-else-if="activeTab === 'floating_equipment'">
+          <rs-card>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Floating Equipment</h2>
+                <rs-button variant="primary" @click="openAddFloatingEquipmentModal">Tambah Peralatan</rs-button>
+              </div>
+            </template>
+            
+            <rs-table
+              :data="floatingEquipmentData"
+              :columns="[
+                { key: 'nama', label: 'nama Peralatan' },
+                { key: 'serialNo', label: 'No Siri' },
+                { key: 'lokasi', label: 'Lokasi' },
+                { key: 'status', label: 'Status' },
+                { key: 'tarikhTerakhirPemeriksaan', label: 'Tarikh Pemeriksaan Terakhir' },
+                { key: 'tindakan', label: 'Tindakan' }
+              ]"
+              :options="{
+                variant: 'default',
+                striped: true,
+                borderless: true,
+              }"
+              advanced
+            >
+              <template v-slot:status="row">
+                <rs-badge
+                  :variant="row.value.status === 'Baik' ? 'success' : 'danger'"
+                >
+                  {{ row.value.status }}
+                </rs-badge>
+              </template>
+              
+              <template v-slot:tindakan="row">
+                <div class="flex gap-2">
+                  <rs-button variant="primary" size="sm" @click="viewFloatingEquipmentItem(row.value)">Lihat</rs-button>
+                  <rs-button variant="warning" size="sm" @click="editFloatingEquipmentItem(row.value)">Kemaskini</rs-button>
+                  <rs-button variant="danger" size="sm" @click="deleteFloatingEquipmentItem(row.value.id)">Padam</rs-button>
+                </div>
+              </template>
+            </rs-table>
+          </rs-card>
+
+          <!-- Floating Equipment Modal -->
+          <rs-modal v-model="isFloatingEquipmentModalOpen" size="lg">
+            <template #header>
+              <h3 class="text-lg font-semibold">
+                {{ isViewingFloatingEquipment ? 'Maklumat Peralatan' : isEditingFloatingEquipment ? 'Kemaskini Peralatan' : 'Tambah Peralatan' }}
+              </h3>
+            </template>
+
+            <template #body>
+              <!-- View Mode -->
+              <div v-if="isViewingFloatingEquipment" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-medium text-gray-700">nama Peralatan:</h4>
+                        <p>{{ floatingEquipmentForm.nama }}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-700">No Siri:</h4>
+                        <p>{{ floatingEquipmentForm.serialNo }}</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-medium text-gray-700">Lokasi:</h4>
+                        <p>{{ floatingEquipmentForm.lokasi }}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-700">Status:</h4>
+                        <rs-badge :variant="floatingEquipmentForm.status === 'Baik' ? 'success' : 'danger'">
+                        {{ floatingEquipmentForm.status }}
+                        </rs-badge>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-700">Tarikh Pemeriksaan Terakhir:</h4>
+                    <p>{{ floatingEquipmentForm.tarikhTerakhirPemeriksaan }}</p>
+                </div>
+              </div>
+              
+              <!-- Edit/Add Mode -->
+              <FormKit v-else type="form" :value="floatingEquipmentForm" @submit="handleFloatingEquipmentSubmit">
+                <FormKit
+                  type="text"
+                  nama="nama"
+                  label="nama Peralatan"
+                  placeholder="Contoh: Rakit Penyelamat"
+                  validation="required"
+                />
+                <div class="grid grid-cols-2 gap-4">
+                    <FormKit
+                    type="text"
+                    nama="serialNo"
+                    label="No. Siri"
+                    placeholder="Contoh: ILR-2023-001"
+                    validation="required"
+                    :disabled="isEditingFloatingEquipment"
+                    />
+                    <FormKit
+                    type="text"
+                    nama="lokasi"
+                    label="Lokasi"
+                    placeholder="Contoh: Port Side"
+                    validation="required"
+                    />
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <FormKit
+                    type="select"
+                    nama="status"
+                    label="Status"
+                    :options="['Baik', 'Rosak', 'Penyelenggaraan']"
+                    validation="required"
+                    />
+                    <FormKit
+                    type="date"
+                    nama="tarikhTerakhirPemeriksaan"
+                    label="Tarikh Pemeriksaan Terakhir"
+                    validation="required"
+                    />
+                </div>
+              </FormKit>
+            </template>
+
+            <template #footer>
+              <div class="flex justify-end gap-2">
+                <rs-button variant="secondary" @click="closeFloatingEquipmentModal">
+                  {{ isViewingFloatingEquipment ? 'Tutup' : 'Batal' }}
+                </rs-button>
+                <rs-button 
+                  v-if="isViewingFloatingEquipment" 
+                  variant="warning" 
+                  @click="editFloatingEquipmentItem(floatingEquipmentForm)"
+                >
+                  Kemaskini
+                </rs-button>
+                <rs-button 
+                  v-if="!isViewingFloatingEquipment" 
+                  variant="primary" 
+                  @click="submitFloatingEquipmentForm"
+                >
+                  {{ isEditingFloatingEquipment ? 'Simpan' : 'Tambah' }}
+                </rs-button>
+              </div>
+            </template>
+          </rs-modal>
+        </div>
+
+        <div v-else-if="activeTab === 'hse'">
+          <rs-card>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Statistik Kemalangan Aset (HSE)</h2>
+                <rs-button variant="primary" @click="openAddHseModal">Tambah Insiden</rs-button>
+              </div>
+            </template>
+            
+            <!-- HSE Statistics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <rs-card class="bg-blue-50">
+                <div class="text-center">
+                  <h3 class="text-2xl font-bold text-blue-600">{{ hseData.length }}</h3>
+                  <p class="text-sm text-gray-600">Jumlah Insiden</p>
+                </div>
+              </rs-card>
+              <rs-card class="bg-green-50">
+                <div class="text-center">
+                  <h3 class="text-2xl font-bold text-green-600">RM {{ hseData.reduce((sum, item) => sum + item.kosPembaikan, 0).toLocaleString() }}</h3>
+                  <p class="text-sm text-gray-600">Jumlah Kos Pembaikan</p>
+                </div>
+              </rs-card>
+              <rs-card class="bg-yellow-50">
+                <div class="text-center">
+                  <h3 class="text-2xl font-bold text-yellow-600">{{ hseData.filter(item => item.status === 'Dalam Proses').length }}</h3>
+                  <p class="text-sm text-gray-600">Insiden Dalam Proses</p>
+                </div>
+              </rs-card>
+              <rs-card class="bg-purple-50">
+                <div class="text-center">
+                  <h3 class="text-2xl font-bold text-purple-600">{{ hseData.filter(item => item.status === 'Selesai').length }}</h3>
+                  <p class="text-sm text-gray-600">Insiden Selesai</p>
+                </div>
+              </rs-card>
+            </div>
+            
+            <rs-table
+              :data="hseData"
+              :columns="[
+                { key: 'tarikhKejadian', label: 'Tarikh Insiden' },
+                { key: 'jenisKejadian', label: 'Jenis Insiden' },
+                { key: 'namaAset', label: 'nama Aset' },
+                { key: 'statusKerosakan', label: 'Tahap Kerosakan' },
+                { key: 'kosPembaikan', label: 'Kos Pembaikan (RM)' },
+                { key: 'status', label: 'Status' },
+                { key: 'tindakan', label: 'Tindakan' }
+              ]"
+              :options="{
+                variant: 'default',
+                striped: true,
+                borderless: true,
+              }"
+              advanced
+            >
+              <template v-slot:kosPembaikan="row">
+                <span class="font-medium">RM {{ row.value.kosPembaikan.toLocaleString() }}</span>
+              </template>
+              
+              <template v-slot:status="row">
+                <rs-badge
+                  :variant="row.value.status === 'Selesai' ? 'success' : 'warning'"
+                >
+                  {{ row.value.status }}
+                </rs-badge>
+              </template>
+              
+              <template v-slot:tindakan="row">
+                <div class="flex gap-2">
+                  <rs-button variant="primary" size="sm" @click="viewHseItem(row.value)">Lihat</rs-button>
+                  <rs-button variant="warning" size="sm" @click="editHseItem(row.value)">Kemaskini</rs-button>
+                  <rs-button variant="danger" size="sm" @click="deleteHseItem(row.value.id)">Padam</rs-button>
+                </div>
+              </template>
+            </rs-table>
+          </rs-card>
+
+          <!-- HSE Modal -->
+          <rs-modal v-model="isHseModalOpen" size="lg">
+            <template #header>
+              <h3 class="text-lg font-semibold">
+                {{ isViewingHse ? 'Maklumat Insiden' : isEditingHse ? 'Kemaskini Insiden' : 'Tambah Insiden' }}
+              </h3>
+            </template>
+
+            <template #body>
+              <!-- View Mode -->
+              <div v-if="isViewingHse" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 class="font-medium text-gray-700">Tarikh Insiden:</h4>
+                    <p>{{ hseForm.tarikhKejadian }}</p>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-700">Jenis Insiden:</h4>
+                    <p>{{ hseForm.jenisKejadian }}</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-700">nama Aset:</h4>
+                  <p>{{ hseForm.namaAset }}</p>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-700">Penerangan Insiden:</h4>
+                  <p>{{ hseForm.penerangan }}</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 class="font-medium text-gray-700">Tahap Kerosakan:</h4>
+                    <p>{{ hseForm.statusKerosakan }}</p>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-700">Kos Pembaikan:</h4>
+                    <p>RM {{ hseForm.kosPembaikan.toLocaleString() }}</p>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 class="font-medium text-gray-700">Tempoh Pembaikan:</h4>
+                    <p>{{ hseForm.tempohPembaikan }}</p>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-700">Pihak Bertanggungjawab:</h4>
+                    <p>{{ hseForm.jabatan }}</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-700">Tindakan Pencegahan:</h4>
+                  <p>{{ hseForm.langkahPembaikan  }}</p>
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-700">Status:</h4>
+                  <rs-badge :variant="hseForm.status === 'Selesai' ? 'success' : 'warning'">
+                    {{ hseForm.status }}
+                  </rs-badge>
+                </div>
+              </div>
+              
+              <!-- Edit/Add Mode -->
+              <FormKit v-else type="form" :value="hseForm" @submit="handleHseSubmit">
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="date"
+                    nama="tarikhKejadian"
+                    label="Tarikh Insiden"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="select"
+                    nama="jenisKejadian"
+                    label="Jenis Insiden"
+                    :options="['Kerosakan Aset', 'Kemalangan Krew', 'Insiden Keselamatan', 'Pencemaran Alam Sekitar', 'Lain-lain']"
+                    validation="required"
+                  />
+                </div>
+                
+                <FormKit
+                  type="text"
+                  nama="namaAset"
+                  label="nama Aset"
+                  placeholder="Contoh: Sistem Radar Utama"
+                  validation="required"
+                />
+                
+                <FormKit
+                  type="textarea"
+                  nama="penerangan"
+                  label="Penerangan Insiden"
+                  placeholder="Terangkan secara terperinci tentang insiden yang berlaku"
+                  validation="required"
+                />
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="select"
+                    nama="statusKerosakan"
+                    label="Tahap Kerosakan"
+                    :options="['Ringan', 'Sederhana', 'Teruk', 'Kritikal']"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="number"
+                    nama="kosPembaikan"
+                    label="Kos Pembaikan (RM)"
+                    validation="required|min:0"
+                    step="0.01"
+                  />
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="text"
+                    nama="tempohPembaikan"
+                    label="Tempoh Pembaikan"
+                    placeholder="Contoh: 5 hari"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="text"
+                    nama="jabatan"
+                    label="Pihak Bertanggungjawab"
+                    placeholder="Contoh: Krew Navigasi"
+                    validation="required"
+                  />
+                </div>
+                
+                <FormKit
+                  type="textarea"
+                  nama="langkahPembaikan "
+                  label="Tindakan Pencegahan"
+                  placeholder="Terangkan tindakan pencegahan yang akan diamid"
+                  validation="required"
+                />
+                
+                <FormKit
+                  type="select"
+                  nama="status"
+                  label="Status"
+                  :options="['Dalam Proses', 'Selesai']"
+                  validation="required"
+                />
+              </FormKit>
+            </template>
+
+            <template #footer>
+              <div class="flex justify-end gap-2">
+                <rs-button variant="secondary" @click="closeHseModal">
+                  {{ isViewingHse ? 'Tutup' : 'Batal' }}
+                </rs-button>
+                <rs-button 
+                  v-if="isViewingHse" 
+                  variant="warning" 
+                  @click="editHseItem(hseForm)"
+                >
+                  Kemaskini
+                </rs-button>
+                <rs-button 
+                  v-if="!isViewingHse" 
+                  variant="primary" 
+                  @click="submitHseForm"
+                >
+                  {{ isEditingHse ? 'Simpan' : 'Tambah' }}
+                </rs-button>
+              </div>
+            </template>
+          </rs-modal>
+        </div>
+        
+        <div v-else-if="activeTab === 'rupacara'">
+          <rs-card>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Senarai Rupacara Aset</h2>
+                <rs-button variant="primary" @click="openAddRupacaraModal">Tambah Rupacara</rs-button>
+              </div>
+            </template>
+
+            <rs-table
+              :data="sortedRupacaraData"
+              :columns="[
+                { key: 'tarikhKemaskini', label: 'Tarikh Terakhir Kemaskini' },
+                { key: 'penerangan', label: 'Penerangan' },
+                { key: 'tindakan', label: 'Tindakan' }
+              ]"
+              :options="{
+                variant: 'default',
+                striped: true,
+                borderless: true,
+              }"
+              :field="field"
+              :options-advanced="{
+                sortable: true,
+                responsive: true,
+                filterable: false,
+                defaultSort: { column: 'tarikhKemaskini', direction: 'desc' }
+              }"
+              advanced
+            >
+              <template v-slot:tarikhKemaskini="row">
+              {{ row.value.tarikhKemaskini}}
+              </template>
+              <template v-slot:penerangan="row">
+                {{ row.value.penerangan }}
+              </template>
+              <template v-slot:tindakan="row">
+                <div class="flex gap-2">
+                  <rs-button variant="primary" size="sm" @click="openViewRupacaraModal(row.value)">Lihat</rs-button>
+                </div>
+              </template>
+            </rs-table>
+          </rs-card>
+
+          <!-- Rupacara Modal -->
+          <rs-modal v-model="isRupacaraModalOpen" size="lg">
+            <template #header>
+              <h3 class="text-lg font-semibold">
+                {{ isViewingRupacara ? 'Maklumat Rupacara' : 'Tambah Rupacara' }}
+              </h3>
+            </template>
+
+            <template #body>
+              <!-- View Mode -->
+              <div v-if="isViewingRupacara" class="space-y-6">
+                <div class="mb-4">
+                  <h4 class="font-medium text-gray-700">Tarikh Kemaskini:</h4>
+                  <p>{{ rupacaraForm.tarikhKemaskini }}</p>
+                </div>
+                
+                <div class="mb-4">
+                  <h4 class="font-medium text-gray-700">Penerangan:</h4>
+                  <p>{{ rupacaraForm.penerangan }}</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div v-if="rupacaraForm.portView" class="mb-4 flex flex-col items-center">
+                    <h4 class="font-medium text-gray-700">Port View:</h4>
+                    <div class="mt-2 flex justify-center w-full">
+                      <img src="@/assets/img/vessels/port_view.png" alt="Port View" class="max-h-40 rounded" />
+                    </div>
+                  </div>
+                  
+                  <div v-if="rupacaraForm.starboardView" class="mb-4 flex flex-col items-center">
+                    <h4 class="font-medium text-gray-700">Starboard View:</h4>
+                    <div class="mt-2 flex justify-center w-full">
+                      <img src="@/assets/img/vessels/starboardView.png" alt="Starboard View" class="max-h-40 rounded" />
+                    </div>
+                  </div>
+                  
+                  <div v-if="rupacaraForm.forwardView" class="mb-4 flex flex-col items-center">
+                    <h4 class="font-medium text-gray-700">Forward View:</h4>
+                    <div class="mt-2 flex justify-center w-full">
+                      <img src="@/assets/img/vessels/forwardView.png" alt="Forward View" class="max-h-40 rounded" />
+                    </div>
+                  </div>
+                  
+                  <div v-if="rupacaraForm.afterView" class="mb-4 flex flex-col items-center">
+                    <h4 class="font-medium text-gray-700">After View:</h4>
+                    <div class="mt-2 flex justify-center w-full">
+                      <img src="@/assets/img/vessels/afterView.png" alt="After View" class="max-h-40 rounded" />
+                    </div>
+                  </div>
+                  
+                  <div v-if="rupacaraForm.engineRoom" class="mb-4 flex flex-col items-center">
+                    <h4 class="font-medium text-gray-700">Engine Room:</h4>
+                    <div class="mt-2 flex justify-center w-full">
+                      <img src="@/assets/img/vessels/engineRoom.png" alt="Engine Room" class="max-h-40 rounded" />
+                    </div>
+                  </div>
+                  
+                  <div v-if="rupacaraForm.closedBridge" class="mb-4 flex flex-col items-center">
+                    <h4 class="font-medium text-gray-700">Closed Bridge:</h4>
+                    <div class="mt-2 flex justify-center w-full">
+                      <img src="@/assets/img/vessels/closedBridge.png" alt="Closed Bridge" class="max-h-40 rounded" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Add Mode -->
+              <FormKit v-else type="form" :value="rupacaraForm" @submit="handleRupacaraSubmit">
+                <!-- Tarikh Kemaskini -->
+                <FormKit
+                  type="date"
+                  nama="tarikhKemaskini"
+                  label="Tarikh Kemaskini"
+                  :value="new Date().toISOString().split('T')[0]"
+                  validation="required"
+                />
+
+                <!-- Penerangan -->
+                <FormKit
+                  type="textarea"
+                  nama="penerangan"
+                  label="Penerangan"
+                  placeholder="Masukkan penerangan rupacara aset"
+                  validation="required"
+                  :rows="3"
+                />
+
+                <!-- Image Grid Container -->
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- Port View -->
+                  <FormKit
+                    type="file"
+                    nama="portView"
+                    label="Port View (Gambar)"
+                    accept="image/*"
+                    validation="required"
+                  />
+
+                  <!-- Starboard View -->
+                  <FormKit
+                    type="file"
+                    nama="starboardView"
+                    label="Starboard View (Gambar)"
+                    accept="image/*"
+                    validation="required"
+                  />
+
+                  <!-- Forward View -->
+                  <FormKit
+                    type="file"
+                    nama="forwardView"
+                    label="Forward View (Gambar)"
+                    accept="image/*"
+                    validation="required"
+                  />
+
+                  <!-- After View -->
+                  <FormKit
+                    type="file"
+                    nama="afterView"
+                    label="After View (Gambar)"
+                    accept="image/*"
+                    validation="required"
+                  />
+
+                  <!-- Engine Room -->
+                  <FormKit
+                    type="file"
+                    nama="engineRoom"
+                    label="Engine Room (Gambar)"
+                    accept="image/*"
+                    validation="required"
+                  />
+
+                  <!-- Closed Bridge -->
+                  <FormKit
+                    type="file"
+                    nama="closedBridge"
+                    label="Closed Bridge (Gambar)"
+                    accept="image/*"
+                    validation="required"
+                  />
+                </div>
+              </FormKit>
+            </template>
+
+            <template #footer>
+              <div class="flex justify-end gap-2">
+                <rs-button v-if="isViewingRupacara" variant="secondary" @click="closeRupacaraModal">Tutup</rs-button>
+                <template v-else>
+                  <rs-button variant="secondary" @click="closeRupacaraModal">Batal</rs-button>
+                  <rs-button variant="primary" @click="submitRupacaraForm">Tambah</rs-button>
+                </template>
+              </div>
+            </template>
+          </rs-modal>
+        </div>
+        
+        <div v-else-if="activeTab === 'shipyard_reports'">
+          <rs-card>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Laporan di Limbungan</h2>
+                <rs-button variant="primary" @click="openAddShipyardReportModal">Tambah Laporan</rs-button>
+              </div>
+            </template>
+            
+            <!-- Shipyard Reports Statistics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <rs-card class="bg-blue-50">
+                <div class="text-center">
+                  <h3 class="text-2xl font-bold text-blue-600">{{ shipyardReportsStatistics.totalReports }}</h3>
+                  <p class="text-sm text-gray-600">Jumlah Laporan</p>
+                </div>
+              </rs-card>
+              <rs-card class="bg-green-50">
+                <div class="text-center">
+                  <h3 class="text-2xl font-bold text-green-600">RM {{ shipyardReportsStatistics.kos.toLocaleString() }}</h3>
+                  <p class="text-sm text-gray-600">Jumlah Kos</p>
+                </div>
+              </rs-card>
+              <rs-card class="bg-yellow-50">
+                <div class="text-center">
+                  <h3 class="text-2xl font-bold text-yellow-600">{{ shipyardReportsStatistics.averageQualityRating.toFixed(1) }}</h3>
+                  <p class="text-sm text-gray-600">Purata Penilaian</p>
+                </div>
+              </rs-card>
+            </div>
+            
+            <rs-table
+              :data="sortedShipyardReportsData"
+              :columns="[
+                { key: 'minggu', label: 'Minggu' },
+                { key: 'tarikhLapor', label: 'Tarikh Laporan' },
+                { key: 'noSebutHarga', label: 'No. Sebut Harga' },
+                { key: 'namaLimbungan', label: 'nama Limbungan' },
+                { key: 'kos', label: 'Jumlah Kos (RM)' },
+                { key: 'skor', label: 'Penilaian Kualiti' },
+                { key: 'tindakan', label: 'Tindakan' }
+              ]"
+              :options="{
+                variant: 'default',
+                striped: true,
+                borderless: true,
+              }"
+              :options-advanced="{
+                sortable: true,
+                responsive: true,
+                filterable: true,
+                defaultSort: { column: 'tarikhLapor', direction: 'desc' }
+              }"
+              advanced
+            >
+              <template v-slot:kos="row">
+                <span class="font-medium">RM {{ row.value.kos.toLocaleString() }}</span>
+              </template>
+              
+              <template v-slot:skor="row">
+                <div class="flex items-center">
+                  <div class="flex text-yellow-400">
+                    <i v-for="star in 5" :key="star" 
+                       :class="star <= row.value.skor ? 'fas fa-star' : 'far fa-star'"
+                       class="text-sm"></i>
+                  </div>
+                  <span class="ml-2 text-sm text-gray-600">({{ row.value.skor.toFixed(1) }})</span>
+                </div>
+              </template>
+              
+              <template v-slot:tindakan="row">
+                <div class="flex gap-2">
+                  <rs-button variant="primary" size="sm" @click="openViewShipyardReportModal(row.value)">Lihat</rs-button>
+                  <rs-button variant="warning" size="sm" @click="openEditShipyardReportModal(row.value)">Kemaskini</rs-button>
+                  <rs-button variant="danger" size="sm" @click="deleteShipyardReportItem(row.value.id)">Padam</rs-button>
+                </div>
+              </template>
+            </rs-table>
+          </rs-card>
+
+          <!-- Shipyard Report Modal -->
+          <rs-modal v-model="isShipyardReportModalOpen" size="xl">
+            <template #header>
+              <h3 class="text-lg font-semibold">
+                {{ isViewingShipyardReport ? 'Maklumat Laporan Limbungan' : isEditingShipyardReport ? 'Kemaskini Laporan Limbungan' : 'Tambah Laporan Limbungan' }}
+              </h3>
+            </template>
+
+            <template #body>
+              <!-- View Mode -->
+              <div v-if="isViewingShipyardReport" class="space-y-6">
+                <!-- Report Header -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <h4 class="font-medium text-gray-700">Minggu:</h4>
+                      <p class="text-lg font-semibold">{{ shipyardReportForm.minggu }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Tarikh Laporan:</h4>
+                      <p>{{ shipyardReportForm.tarikhLapor }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">No. Sebut Harga:</h4>
+                      <p class="font-mono">{{ shipyardReportForm.noSebutHarga }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">nama Limbungan:</h4>
+                      <p>{{ shipyardReportForm.namaLimbungan }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quality Rating -->
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                  <h4 class="font-medium text-gray-700 mb-2">Penilaian Kualiti Keseluruhan:</h4>
+                  <div class="flex items-center">
+                    <div class="flex text-yellow-400">
+                      <i v-for="star in 5" :key="star" 
+                         :class="star <= shipyardReportForm.skor ? 'fas fa-star' : 'far fa-star'"
+                         class="text-xl"></i>
+                    </div>
+                    <span class="ml-3 text-lg font-semibold">({{ shipyardReportForm.skor.toFixed(1) }}/5.0)</span>
+                  </div>
+                </div>
+
+               
+
+                <!-- Summary -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <h4 class="font-medium text-gray-700">Jumlah Kos:</h4>
+                      <p class="text-xl font-bold text-green-600">RM {{ shipyardReportForm.kos.toLocaleString() }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Penyelia:</h4>
+                      <p>{{ shipyardReportForm.namaPenyelia }}</p>
+                      <p class="text-sm text-gray-600">{{ shipyardReportForm.noTelefonPenyelia }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Edit/Add Mode -->
+              <div v-else type="form" :value="shipyardReportForm" @submit="handleShipyardReportSubmit">
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="text"
+                    nama="minggu"
+                    label="Minggu"
+                    placeholder="Contoh: Minggu 1"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="date"
+                    nama="tarikhLapor"
+                    label="Tarikh Laporan"
+                    validation="required"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="text"
+                    nama="noSebutHarga"
+                    label="No. Sebut Harga"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="text"
+                    nama="namaLimbungan"
+                    label="nama Limbungan"
+                    validation="required"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="number"
+                    nama="kos"
+                    label="Jumlah Kos (RM)"
+                    validation="required|min:0"
+                    step="0.01"
+                  />
+                  <FormKit
+                    type="range"
+                    nama="skor"
+                    label="Penilaian Kualiti Keseluruhan"
+                    validation="required|number|min:0|max:5"
+                    min="0"
+                    max="5"
+                    step="0.5"
+                    help="Sila pilih penilaian kualiti dari 0 hingga 5"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="text"
+                    nama="namaPenyelia"
+                    label="nama Penyelia"
+                    placeholder="Contoh: En. Ahmad bin Ismail"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="tel"
+                    nama="noTelefonPenyelia"
+                    label="No. Telefon Penyelia"
+                    placeholder="Contoh: 012-3456789"
+                    validation="required"
+                  />
+                </div>
+
+                
+              </div>
+            </template>
+
+            <template #footer>
+              <div class="flex justify-end gap-2">
+                <rs-button variant="secondary" @click="closeShipyardReportModal">
+                  {{ isViewingShipyardReport ? 'Tutup' : 'Batal' }}
+                </rs-button>
+                <rs-button 
+                  v-if="!isViewingShipyardReport" 
+                  variant="primary" 
+                  @click="submitShipyardReportForm"
+                >
+                  {{ isEditingShipyardReport ? 'Simpan' : 'Tambah' }}
+                </rs-button>
+              </div>
+            </template>
+          </rs-modal>
+        </div>
+        
+        <div v-else-if="activeTab === 'cannaidize'">
+          <rs-card>
+            <template #header>
+              <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Cannibilize Asset</h2>
+                <rs-button variant="primary" @click="openAddCannaidizeAssetModal">Tambah Asset</rs-button>
+              </div>
+            </template>
+            
+            <rs-table
+              :data="cannaidizeAssetData"
+              :columns="[
+                { key: 'nama', label: 'nama Asset' },
+                { key: 'serialNo', label: 'No. Siri' },
+                { key: 'lokasi', label: 'Lokasi' },
+                { key: 'status', label: 'Status' },
+                { key: 'condition', label: 'Keadaan' },
+                { key: 'sourceVessel', label: 'Kapal Sumber' },
+                { key: 'tindakan', label: 'Tindakan' }
+              ]"
+              :options="{
+                variant: 'default',
+                striped: true,
+                borderless: true,
+              }"
+              :options-advanced="{
+                sortable: true,
+                responsive: true,
+                filterable: true,
+                defaultSort: { column: 'nama', direction: 'asc' }
+              }"
+              advanced
+            >
+              <template v-slot:status="row">
+                <rs-badge
+                  :variant="row.value.status === 'Tersedia' ? 'success' : 'warning'"
+                >
+                  {{ row.value.status }}
+                </rs-badge>
+              </template>
+              
+              <template v-slot:condition="row">
+                <rs-badge
+                  :variant="row.value.condition === 'Baik' ? 'success' : row.value.condition === 'Sederhana' ? 'warning' : 'danger'"
+                >
+                  {{ row.value.condition }}
+                </rs-badge>
+              </template>
+              
+              <template v-slot:tindakan="row">
+                <div class="flex gap-2">
+                  <rs-button variant="primary" size="sm" @click="viewCannaidizeAssetItem(row.value)">Lihat</rs-button>
+                  <rs-button variant="warning" size="sm" @click="editCannaidizeAssetItem(row.value)">Kemaskini</rs-button>
+                  <rs-button variant="danger" size="sm" @click="deleteCannaidizeAssetItem(row.value.id)">Padam</rs-button>
+                </div>
+              </template>
+            </rs-table>
+          </rs-card>
+
+          <!-- Cannaidize Asset Modal -->
+          <rs-modal v-model="isCannaidizeAssetModalOpen" size="lg">
+            <template #header>
+              <h3 class="text-lg font-semibold">
+                {{ isViewingCannaidizeAsset ? 'Maklumat Asset' : isEditingCannaidizeAsset ? 'Kemaskini Asset' : 'Tambah Asset' }}
+              </h3>
+            </template>
+
+            <template #body>
+              <!-- View Mode -->
+              <div v-if="isViewingCannaidizeAsset" class="space-y-6">
+                <!-- Asset Details -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <h4 class="font-medium text-gray-700">nama Asset:</h4>
+                      <p class="text-lg font-semibold">{{ cannaidizeAssetForm.nama }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">No. Siri:</h4>
+                      <p class="font-mono">{{ cannaidizeAssetForm.serialNo }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Lokasi:</h4>
+                      <p>{{ cannaidizeAssetForm.lokasi }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Status:</h4>
+                      <rs-badge
+                        :variant="cannaidizeAssetForm.status === 'Tersedia' ? 'success' : 'warning'"
+                      >
+                        {{ cannaidizeAssetForm.status }}
+                      </rs-badge>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Keadaan:</h4>
+                      <rs-badge
+                        :variant="cannaidizeAssetForm.condition === 'Baik' ? 'success' : cannaidizeAssetForm.condition === 'Sederhana' ? 'warning' : 'danger'"
+                      >
+                        {{ cannaidizeAssetForm.condition }}
+                      </rs-badge>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Kapal Sumber:</h4>
+                      <p>{{ cannaidizeAssetForm.sourceVessel }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Tarikh Pemeriksaan Terakhir:</h4>
+                      <p>{{ cannaidizeAssetForm.tarikhTerakhirPemeriksaan }}</p>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-700">Tarikh Cannaidize:</h4>
+                      <p>{{ cannaidizeAssetForm.cannaidizeDate }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remarks -->
+                <div class="bg-white p-4 rounded-lg border">
+                  <h4 class="font-medium text-gray-700 mb-2">Catatan:</h4>
+                  <p>{{ cannaidizeAssetForm.remarks }}</p>
+                </div>
+              </div>
+              
+              <!-- Edit/Add Mode -->
+              <FormKit v-else type="form" :value="cannaidizeAssetForm" @submit="handleCannaidizeAssetSubmit">
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="text"
+                    nama="nama"
+                    label="nama Asset"
+                    placeholder="Contoh: Enjin Utama MTU 12V 2000 M90"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="text"
+                    nama="serialNo"
+                    label="No. Siri"
+                    validation="required"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="text"
+                    nama="lokasi"
+                    label="Lokasi"
+                    placeholder="Contoh: Engine Room"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="select"
+                    nama="status"
+                    label="Status"
+                    :options="['Tersedia', 'Dalam Penggunaan']"
+                    validation="required"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="select"
+                    nama="condition"
+                    label="Keadaan"
+                    :options="['Baik', 'Sederhana', 'Rosak']"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="text"
+                    nama="sourceVessel"
+                    label="Kapal Sumber"
+                    placeholder="Contoh: KM SATRIA"
+                    validation="required"
+                  />
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <FormKit
+                    type="date"
+                    nama="tarikhTerakhirPemeriksaan"
+                    label="Tarikh Pemeriksaan Terakhir"
+                    validation="required"
+                  />
+                  <FormKit
+                    type="date"
+                    nama="cannaidizeDate"
+                    label="Tarikh Cannaidize"
+                    validation="required"
+                  />
+                </div>
+
+                <FormKit
+                  type="textarea"
+                  nama="remarks"
+                  label="Catatan"
+                  placeholder="Catatan mengenai asset ini..."
+                  :rows="3"
+                />
+              </FormKit>
+            </template>
+
+            <template #footer>
+              <div class="flex justify-end space-x-2">
+                <rs-button variant="secondary" @click="closeCannaidizeAssetModal">Batal</rs-button>
+                <rs-button v-if="!isViewingCannaidizeAsset" variant="primary" @click="submitCannaidizeAssetForm">
+                  {{ isEditingCannaidizeAsset ? 'Kemaskini' : 'Tambah' }}
+                </rs-button>
+              </div>
+            </template>
+          </rs-modal>
         </div>
       </div>
     </div>
@@ -2825,13 +4858,13 @@
               <div class="flex items-center space-x-4">
                 <FormKit
                   type="radio"
-                  name="reportType"
+                  nama="reportType"
                   value="DEFECT"
                   label="KEROSAKAN"
                 />
                 <FormKit
                   type="radio"
-                  name="reportType"
+                  nama="reportType"
                   value="OSL"
                   label="OSL"
                 />
@@ -2845,7 +4878,7 @@
               <div class="grid grid-cols-2 gap-4 mb-4">
                 <FormKit
                   type="text"
-                  name="JENIS ASET"
+                  nama="JENIS ASET"
                   label="Jenis Aset"
                   placeholder="Contoh: Sistem Radar"
                   validation="required"
@@ -2853,7 +4886,7 @@
                 
                 <FormKit
                   type="text"
-                  name="mainSystem"
+                  nama="mainSystem"
                   label="Sistem Utama / Peralatan"
                   placeholder="Contoh: RADAR SISTEM"
                   validation="required"
@@ -2863,14 +4896,14 @@
               <div class="grid grid-cols-2 gap-4">
                 <FormKit
                   type="date"
-                  name="TARIKH ROSAK"
+                  nama="TARIKH ROSAK"
                   label="Tarikh Rosak"
                   validation="required"
                 />
                 
                 <FormKit
                   type="text"
-                  name="PEMOHON"
+                  nama="PEMOHON"
                   label="Pemohon"
                   placeholder="Contoh: Kapt. Razak"
                   validation="required"
@@ -2885,7 +4918,7 @@
               <div class="grid grid-cols-2 gap-4 mb-4">
                 <FormKit
                   type="text"
-                  name="location"
+                  nama="lokasi"
                   label="Lokasi"
                   placeholder="Contoh: PANGKALAN TLDM LUMUT"
                   validation="required"
@@ -2893,7 +4926,7 @@
                 
                 <FormKit
                   type="number"
-                  name="runningHours"
+                  nama="runningHours"
                   label="Jam Operasi"
                   placeholder="Contoh: 1250"
                 />
@@ -2902,14 +4935,14 @@
               <div class="grid grid-cols-2 gap-4">
                 <FormKit
                   type="text"
-                  name="manufacturer"
+                  nama="pengeluaran"
                   label="Pengeluar / Model"
                   placeholder="Contoh: Thales"
                 />
                 
                 <FormKit
                   type="text"
-                  name="serialNo"
+                  nama="serialNo"
                   label="No. Siri"
                   placeholder="Contoh: TH-R5670-892"
                 />
@@ -2922,7 +4955,7 @@
               
               <FormKit
                 type="text"
-                name="AMOUN"
+                nama="AMOUN"
                 label="Anggaran Kos"
                 placeholder="Contoh: RM 15,000"
                 validation="required"
@@ -2930,7 +4963,7 @@
               
               <FormKit
                 type="textarea"
-                name="remarks"
+                nama="remarks"
                 label="Keterangan Kerosakan"
                 placeholder="Sila masukkan keterangan terperinci mengenai kerosakan"
                 validation="required"
@@ -2944,7 +4977,7 @@
               
               <FormKit
                 type="file"
-                name="attachment"
+                nama="attachment"
                 label="Lampirkan Dokumen"
                 accept=".pdf,.doc,.docx,.jpg,.png"
                 help="Sila lampirkan dokumen sokongan (PDF, Word, atau imej)"
@@ -2973,7 +5006,7 @@
           <!-- Document Header -->
           <div class="text-center mb-4">
             <h2 class="text-xl font-bold">BORANG LAPORAN KEROSAKAN</h2>
-            <p class="text-sm">JC-2024-{{ selectedJobCard.BIL.toString().padStart(3, '0') }}</p>
+            <p class="text-sm">JC-2024-{{ selectedJobCard.id.toString().padStart(3, '0') }}</p>
           </div>
           
           <!-- Report Type Section -->
@@ -3012,13 +5045,13 @@
               </tr>
               <tr class="border-b border-gray-800">
                 <td class="p-2 border-r border-gray-800 font-medium">Pangkalan Maritim</td>
-                <td class="p-2">: {{ selectedJobCard.location || 'PANGKALAN TLDM LUMUT' }}</td>
+                <td class="p-2">: {{ selectedJobCard.lokasi || 'PANGKALAN TLDM LUMUT' }}</td>
                 <td class="p-2 border-l border-gray-800 font-medium">Pengeluar / Model</td>
-                <td class="p-2">{{ selectedJobCard.manufacturer || 'N/A' }}</td>
+                <td class="p-2">{{ selectedJobCard.pengeluaran || 'N/A' }}</td>
               </tr>
               <tr class="border-b border-gray-800">
                 <td class="p-2 border-r border-gray-800 font-medium">Lokasi</td>
-                <td class="p-2">: {{ selectedJobCard.location || 'PANGKALAN TLDM LUMUT' }}</td>
+                <td class="p-2">: {{ selectedJobCard.lokasi || 'PANGKALAN TLDM LUMUT' }}</td>
                 <td class="p-2 border-l border-gray-800 font-medium">No. Siri</td>
                 <td class="p-2">{{ selectedJobCard.serialNo || 'N/A' }}</td>
               </tr>
@@ -3073,8 +5106,8 @@
                 <td class="p-2">Tandatangan: <span class="italic">[Signed]</span></td>
               </tr>
               <tr class="border-b border-gray-800">
-                <td class="p-2 border-r border-gray-800">Nama: {{ selectedJobCard['PEMOHON'] }}</td>
-                <td class="p-2">Nama: _________________</td>
+                <td class="p-2 border-r border-gray-800">nama: {{ selectedJobCard['PEMOHON'] }}</td>
+                <td class="p-2">nama: _________________</td>
               </tr>
               <tr class="border-b border-gray-800">
                 <td class="p-2 border-r border-gray-800">Jawatan: PEGAWAI TEKNIKAL</td>

@@ -4,7 +4,7 @@
         
         <div class="bg-white rounded-lg shadow p-6">
             <div class="flex items-center gap-4 mb-6">
-                <h2 class="text-xl font-semibold">Senarai Perlanjutan Kontrak</h2>
+                <h2 class="text-xl font-semibold">Senarai Kontrak</h2>
                 <span class="text-gray-500">[ Tahun Mula: 2025, Tahun Hingga: 2025 ]</span>
             </div>
 

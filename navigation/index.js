@@ -9,53 +9,53 @@ export default [
       },
     ],
   },
-  // {
-  //   header: "PENGURUSAN MAKLUMAT DAN PEMBAIKAN VESEL",
-  //   child: [
-  //     // {
-  //     //   title: "Pendaftaran Vesel",
-  //     //   path: "/new/pendaftaran-vesel",
-  //     //   icon: "uil:ship",
-  //     //   child: [],
-  //     // },
-  //     {
-  //       title: "Pembaikan Vesel",
-  //       icon: "pajamas:issue-type-maintenance",
-  //       child: [         
-  //         {
-  //           title: "Kad Kerja",
-  //           path: "/new/pembaikan-vesel/kad-kerja",
-  //         },
-  //         {
-  //           title: "URDEF/GURDEF",
-  //           path: "/new/pembaikan-vesel/urdef-gurdef",
-  //         },
-  //         {
-  //           title: "Cannibalize",
-  //           path: "/new/pembaikan-vesel/cannibalize",
-  //         },
-  //         {
-  //           title: "PMS",
-  //           path: "/new/pembaikan-vesel/pms",
-  //         },
-  //         {
-  //           title: "Rupacara Aset",
-  //           path: "/new/pembaikan-vesel/rupacara-aset",
-  //         },
-  //         {
-  //           title: "ROVA",
-  //           path: "/new/pembaikan-vesel/rova",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       title: "Profil Vesel",
-  //       icon: "ri:ship-line",
-  //       path: "/new/profil-vesel",
+  {
+    header: "PENGURUSAN MAKLUMAT DAN PEMBAIKAN VESEL",
+    child: [
+      // {
+      //   title: "Pendaftaran Vesel",
+      //   path: "/new/pendaftaran-vesel",
+      //   icon: "uil:ship",
+      //   child: [],
+      // },
+      {
+        title: "Pembaikan Vesel",
+        icon: "pajamas:issue-type-maintenance",
+        child: [         
+          {
+            title: "Kad Kerja",
+            path: "/new/pembaikan-vesel/kad-kerja",
+          },
+          {
+            title: "GURDEF",
+            path: "/new/pembaikan-vesel/urdef-gurdef",
+          },
+          {
+            title: "Cannibalize",
+            path: "/new/pembaikan-vesel/cannibalize",
+          },
+          {
+            title: "PMS",
+            path: "/new/pembaikan-vesel/pms",
+          },
+          {
+            title: "Rupacara Aset",
+            path: "/new/pembaikan-vesel/rupacara-aset",
+          },
+          {
+            title: "ROVA",
+            path: "/new/pembaikan-vesel/rova",
+          },
+        ],
+      },
+      {
+        title: "Profil Vesel",
+        icon: "ri:ship-line",
+        path: "/new/profil-vesel",
         
-  //     },
-  //   ],
-  // },
+      },
+    ],
+  },
   {
     header: "PENGURUSAN MAKLUMAT KRU TEKNIKAL",
     child: [

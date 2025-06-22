@@ -1,10 +1,6 @@
 <template>
     <div class="p-6">
-        <!-- Page Header -->
-        <div class="mb-6">
-            <h1 class="text-2xl font-bold">Senarai Kapal / Bot</h1>
-            <p class="text-gray-600">Dikemaskini sehingga 27/05/2025</p>
-        </div>
+       
 
         <!-- Analytics Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -64,11 +60,17 @@
 
         </div>
 
+         <!-- Page Header -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold">Senarai Kapal / Bot</h1>
+            <p class="text-gray-600">Dikemaskini sehingga 27/05/2025</p>
+        </div>
+
         <!-- Table Section -->
         <div class="bg-white rounded-lg shadow p-6">
             <rs-table
                 :data="tableData"
-                :field="['bil', 'lokasi', 'kapal/Bot', 'jenisAset', 'categoriAset', 'tindakan']"
+                :field="['bil', 'maritimNegeri/ZonMaritim', 'kapal/Bot', 'jenisAset', 'kategoriAset', 'tindakan']"
                 :options="{
                     variant: 'default',
                     striped: true,
@@ -110,7 +112,7 @@ import { ref, computed, watch } from 'vue'
 const tableData = ref([
     {
         bil: 1,
-        lokasi: 'IBU PEJABAT MARITIM NEGERI KEDAH / PERLIS',
+        lokasi: 'MARITIM NEGERI KEDAH / PERLIS',
         namaVesel: 'KM SIANGIN',
         jenisVesel: 'Kapal',
         categoriAset: 'Non OPS',
@@ -118,7 +120,7 @@ const tableData = ref([
     },
     {
         bil: 2,
-        lokasi: 'IBU PEJABAT MARITIM NEGERI KEDAH / PERLIS',
+        lokasi: 'MARITIM NEGERI KEDAH / PERLIS',
         namaVesel: 'KM TENGGOL',
         jenisVesel: 'Kapal',
         categoriAset: 'Non OPS',
@@ -126,7 +128,7 @@ const tableData = ref([
     },
     {
         bil: 3,
-        lokasi: 'IBU PEJABAT MARITIM NEGERI KEDAH / PERLIS',
+        lokasi: 'MARITIM NEGERI KEDAH / PERLIS',
         namaVesel: 'PERKASA 28',
         jenisVesel: 'Bot',
         categoriAset: 'OPS',
@@ -134,7 +136,7 @@ const tableData = ref([
     },
     {
         bil: 4,
-        lokasi: 'IBU PEJABAT MARITIM NEGERI KEDAH / PERLIS',
+        lokasi: 'MARITIM NEGERI KEDAH / PERLIS',
         namaVesel: 'PETIR 81',
         jenisVesel: 'Bot',
         categoriAset: 'Non OPS',

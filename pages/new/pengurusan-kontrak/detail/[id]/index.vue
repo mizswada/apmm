@@ -9,7 +9,7 @@
         <div class="mb-8">
             <RsCard>
                 <template #header>
-                    <h3 class="text-lg font-semibold">Jumlah Perbelanjaan dan Prestasi Mengikut Tahun (Perlanjutan Kontrak)</h3>
+                    <h3 class="text-lg font-semibold">Jumlah Perbelanjaan dan Prestasi Mengikut Tahun</h3>
                 </template>
                 <ClientOnly>
                     <VueApexCharts
@@ -28,7 +28,7 @@
             <RsCard>
                 <template #header>
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-semibold">Jadual Jumlah Perbelanjaan dan Prestasi Mengikut Tahun (Perlanjutan Kontrak)</h3>
+                        <h3 class="text-lg font-semibold">Jadual Jumlah Perbelanjaan dan Prestasi Mengikut Tahun</h3>
                         <!-- <button class="text-blue-600 hover:text-blue-800">
                             <i class="fas fa-download mr-2"></i>
                             Muat Turun
@@ -90,23 +90,14 @@ const series = ref([
     {
         name: 'Penggal 1',
         type: 'line',
-        data: [0, 252681.08, 314340.11, 82666.93, 158049.70, 0, 978325.44, 321346.08]
+        data: [0, 252681.08, 314340.11, 82666.93, 158049.70, 0]
     },
     {
         name: 'Penggal 2',
         type: 'line',
-        data: [180.00, 187544.45, 55026.08, 254545.23, 322279.15, 3185581.68, 2968169.76, 2964521.04]
+        data: [180.00, 187544.45, 55026.08, 254545.23, 322279.15, 3185581.68]
     },
-    {
-        name: 'Unjuran Penggal 1',
-        type: 'line',
-        data: [null, null, null, null, null, 0, 978325.44, 321346.08]
-    },
-    {
-        name: 'Unjuran Penggal 2',
-        type: 'line',
-        data: [null, null, null, null, null, 3185581.68, 2968169.76, 2964521.04]
-    }
+    
 ]);
 
 const performanceMarkers = ref([
@@ -148,7 +139,7 @@ const chartOptions = computed(() => ({
         }
     },
     xaxis: {
-        categories: [2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027],
+        categories: [2020, 2021, 2022, 2023, 2024],
         title: {
             text: 'Tahun',
             offsetY: 10
@@ -250,9 +241,6 @@ const tableData = ref([
     { year: 2022, penggal1: 314340.11, penggal2: 55026.08 },
     { year: 2023, penggal1: 82666.93, penggal2: 254545.23 },
     { year: 2024, penggal1: 158049.70, penggal2: 322279.15 },
-    { year: 2025, penggal1: 0.00, penggal2: 3185581.68 },
-    { year: 2026, penggal1: 978325.44, penggal2: 2968169.76 },
-    { year: 2027, penggal1: 321346.08, penggal2: 2964521.04 }
 ]);
 
 const formatNumber = (value) => {
