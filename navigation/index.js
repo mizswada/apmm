@@ -57,10 +57,10 @@ export default [
     ],
   },
   {
-    header: "PENGURUSAN MAKLUMAT KRU TEKNIKAL",
+    header: "PENGURUSAN MAKLUMAT KREW TEKNIKAL",
     child: [
       {
-        title: "Maklumat Kru",
+        title: "Maklumat Krew",
         path: "/new/data-kru",
         icon: "healthicons:domestic-worker",       
       },

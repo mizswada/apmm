@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: "APMM - e-Jutra",
+  title: "AIDevX -APMM Prototype",
   description: "Home page",
   htmlAttrs: {
     lang: "en",
