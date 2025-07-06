@@ -3,7 +3,7 @@ export default [
     child: [
       {
         title: "Dashboard",
-        path: "/new/dashboard",
+        path: "/dashboard",
         icon: "ic:outline-dashboard",
         child: [],
       },
@@ -23,29 +23,34 @@ export default [
         icon: "pajamas:issue-type-maintenance",
         child: [         
           {
-            title: "Kad Kerja",
+            title: "Corrective Maintenance",
             path: "/new/pembaikan-vesel/kad-kerja",
           },
           {
-            title: "GURDEF",
-            path: "/new/pembaikan-vesel/urdef-gurdef",
-          },
-          {
-            title: "Cannibalize",
-            path: "/new/pembaikan-vesel/cannibalize",
-          },
-          {
-            title: "PMS",
+            title: "PM/REFIT/AD/AMP/SLEP",
             path: "/new/pembaikan-vesel/pms",
           },
           {
+            title: "Cannibalize",
+            icon: "ri:ship-line",
+            path: "/new/pembaikan-vesel/cannibalize",
+          },
+          {
             title: "Rupacara Aset",
+            icon: "ri:ship-line",
             path: "/new/pembaikan-vesel/rupacara-aset",
           },
           {
-            title: "ROVA",
+            title: "Return of Vessel Availability",
+            icon: "ri:ship-line",
             path: "/new/pembaikan-vesel/rova",
           },
+          // {
+          //   title: "Planning Maintenance Schedule",
+          //   icon: "ri:ship-line",
+          //   path: "/new/pembaikan-vesel/pms",
+          // },
+          
         ],
       },
       {
@@ -87,53 +92,53 @@ export default [
       },
     ],
   },
-  {
-    header: "PENGURUSAN PENGGUNA DAN SISTEM",
-    child: [
-      {
-        title: "Pengurusan Pengguna",
-        icon: "pajamas:issue-type-maintenance",
-        child: [
-          {
-            title: "Peranan",
-            path: "/new/tetapan-peranan",     
-          },
-          {
-            title: "Pengguna",
-            path: "/new/tetapan-pengguna",     
-          },
-        ]     
-      },
-      {
-        title: "Pengurusan Sistem",
-        icon: "pajamas:issue-type-maintenance",
-        child: [
-          {
-            title: "Audit trail",
-            path: "/new/tetapan-audit-trail",     
-          },
-          {
-            title: "SMTP",
-            path: "/new/tetapan-smtp",     
-          },
-          {
-            title: "Pangkalan Data",
-            path: "/new/tetapan-pengakalan-data",     
-          },
-          {
-            title: "Integrasi Sistem Luar",
-            path: "/new/tetapan-integrasi-sistem-luar",     
-          },
-        ]     
-      },
-      {
-        title: "Pengurusan Data",
-        path: "/new/pengurusan-data",
-        icon: "pajamas:issue-type-maintenance",       
-      }, 
+  // {
+  //   header: "PENGURUSAN PENGGUNA DAN SISTEM",
+  //   child: [
+  //     {
+  //       title: "Pengurusan Pengguna",
+  //       icon: "pajamas:issue-type-maintenance",
+  //       child: [
+  //         {
+  //           title: "Peranan",
+  //           path: "/new/tetapan-peranan",     
+  //         },
+  //         {
+  //           title: "Pengguna",
+  //           path: "/new/tetapan-pengguna",     
+  //         },
+  //       ]     
+  //     },
+  //     {
+  //       title: "Pengurusan Sistem",
+  //       icon: "pajamas:issue-type-maintenance",
+  //       child: [
+  //         {
+  //           title: "Audit trail",
+  //           path: "/new/tetapan-audit-trail",     
+  //         },
+  //         {
+  //           title: "SMTP",
+  //           path: "/new/tetapan-smtp",     
+  //         },
+  //         {
+  //           title: "Pangkalan Data",
+  //           path: "/new/tetapan-pengakalan-data",     
+  //         },
+  //         {
+  //           title: "Integrasi Sistem Luar",
+  //           path: "/new/tetapan-integrasi-sistem-luar",     
+  //         },
+  //       ]     
+  //     },
+  //     {
+  //       title: "Pengurusan Data",
+  //       path: "/new/pengurusan-data",
+  //       icon: "pajamas:issue-type-maintenance",       
+  //     }, 
       
-    ],
-  },
+  //   ],
+  // },
 
   // {
   //   header: "",
